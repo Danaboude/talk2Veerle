@@ -1,3 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+
+@theme {
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+
+  --color-sage-darkest: #1e3520;
+  --color-sage-dark: #2d4a31;
+  --color-sage: #4a7550;
+  --color-sage-mid: #6b9a6e;
+  --color-sage-light: #9ec19f;
+  --color-sage-pale: #cce3cc;
+  --color-sage-mist: #eaf3ea;
+  --color-cream: #f7f3ec;
+  --color-cream-dark: #ede8de;
+  --color-warm-white: #fefdfb;
+  --color-text: #1e2c20;
+  --color-text-muted: #5a6e5c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-warm-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}

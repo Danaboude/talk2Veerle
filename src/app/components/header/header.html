@@ -1,0 +1,43 @@
+<header [class.scrolled]="scrolled()" class="header">
+  <div class="header-inner">
+    <!-- Desktop: service descriptors left -->
+    <div class="brand-descriptors">
+      <span>Therapie</span>
+      <span>Coaching in de natuur</span>
+      <span>Training</span>
+      <span class="italic-tag">Anders Benaderd Communiceren</span>
+    </div>
+
+    <!-- Brand logo center -->
+    <button class="logo" (click)="scrollTo('hero')" aria-label="Naar beginpagina">TALK2</button>
+
+    <!-- Desktop nav right -->
+    <nav class="desktop-nav" aria-label="Hoofdnavigatie">
+      @for (item of navItems; track item.id) {
+        <button class="nav-link" (click)="scrollTo(item.id)">{{ item.label }}</button>
+      }
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button
+      class="hamburger"
+      [class.open]="mobileMenuOpen()"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="mobileMenuOpen()"
+      aria-label="Menu openen"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  @if (mobileMenuOpen()) {
+    <nav class="mobile-menu" aria-label="Mobiele navigatie">
+      @for (item of navItems; track item.id) {
+        <button class="mobile-nav-link" (click)="scrollTo(item.id)">{{ item.label }}</button>
+      }
+    </nav>
+  }
+</header>

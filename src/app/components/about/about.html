@@ -1,0 +1,65 @@
+<section id="wie" class="about">
+  <div class="about-container">
+
+    <div appScrollAnimate class="about-header">
+      <h2 class="section-title">WIE BEN IK?</h2>
+    </div>
+
+    <div class="about-grid">
+
+      <!-- Left: photo + bio intro -->
+      <div class="about-left">
+        <div appScrollAnimate animateFrom="left" class="about-photo-wrap">
+          <img src="me%20walk%20back.avif" alt="Talk2 — over mij" class="about-photo" />
+        </div>
+
+        <div appScrollAnimate [animateDelay]="200" class="about-intro">
+          <h3 class="subsection-label">EERDERE ROEPING</h3>
+          <p>
+            Al van jongs af aan voelde ik de kracht van verbinding en de helende werking van de
+            natuur. Na jaren in het bedrijfsleven realiseerde ik me dat echte groei begint met
+            luisteren — naar jezelf, naar anderen en naar de omgeving. Die ontdekking leidde me
+            naar therapie en coaching.
+          </p>
+          <p>
+            Met TALK2 begeleid ik mensen die op zoek zijn naar meer rust, verbinding en richting
+            in hun leven. Niet vanuit een stappenplan, maar vanuit oprechte aandacht en
+            aanwezigheid.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: credentials -->
+      <div class="about-right">
+
+        <div appScrollAnimate [animateDelay]="100" class="about-block">
+          <h3 class="subsection-label">OPLEIDING</h3>
+          <ul class="credential-list">
+            @for (item of opleidingen; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </div>
+
+        <div appScrollAnimate [animateDelay]="200" class="about-block">
+          <h3 class="subsection-label">ERVARING</h3>
+          <p>
+            Meer dan 15 jaar begeleidingservaring met individuen, koppels en teams.
+            Werkzaam in diverse sectoren: gezondheidszorg, onderwijs en het bedrijfsleven.
+            Verbonden aan meerdere praktijken in de regio Hasselt.
+          </p>
+        </div>
+
+        <div appScrollAnimate [animateDelay]="300" class="about-block">
+          <h3 class="subsection-label">SPECIALISATIES</h3>
+          <ul class="specialisatie-list">
+            @for (item of specialisaties; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

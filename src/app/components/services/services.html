@@ -1,0 +1,21 @@
+<section id="aanbod" class="services">
+  <div class="services-container">
+
+    <div appScrollAnimate class="services-header">
+      <h2 class="section-title">AANBOD</h2>
+    </div>
+
+    <div class="services-grid">
+      @for (service of services; track service.number; let i = $index) {
+        <div appScrollAnimate [animateDelay]="i * 120" class="service-card">
+          <div class="service-number">{{ service.number }}</div>
+          <h3 class="service-title">{{ service.title }}</h3>
+          <div class="service-divider"></div>
+          <p class="service-description">{{ service.description }}</p>
+          <span class="service-cta">Meer lezen →</span>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

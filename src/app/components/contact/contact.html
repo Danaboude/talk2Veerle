@@ -1,0 +1,110 @@
+<section id="contact" class="contact">
+  <div class="contact-container">
+
+    <div appScrollAnimate class="contact-header">
+      <h2 class="section-title">CONTACTEER MIJ</h2>
+    </div>
+
+    <div class="contact-grid">
+
+      <!-- Left: info -->
+      <div appScrollAnimate animateFrom="left" class="contact-info">
+        <p class="contact-intro">
+          Heeft u vragen of wilt u een afspraak plannen?
+          Aarzel niet om contact op te nemen — ik reageer zo snel mogelijk.
+        </p>
+
+        <dl class="contact-details">
+          <div class="contact-item">
+            <dt class="contact-label">Adres</dt>
+            <dd class="contact-value">Kerkstraat 12<br />3500 Hasselt</dd>
+          </div>
+          <div class="contact-item">
+            <dt class="contact-label">Praktijk</dt>
+            <dd class="contact-value">Huisartsenpraktijk Hasselt</dd>
+          </div>
+          <div class="contact-item">
+            <dt class="contact-label">BTW-nummer</dt>
+            <dd class="contact-value">BE 0123.456.789</dd>
+          </div>
+          <div class="contact-item">
+            <dt class="contact-label">E-mail</dt>
+            <dd>
+              <a href="mailto:info&#64;talk2.be" class="contact-link">info&#64;talk2.be</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Right: form -->
+      <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="contact-form-wrap">
+
+        @if (submitted) {
+          <div class="form-success">
+            <div class="success-icon">✓</div>
+            <h3>Bericht verstuurd</h3>
+            <p>Bedankt voor uw bericht. Ik neem zo snel mogelijk contact met u op.</p>
+            <button class="btn-reset" (click)="submitted = false">Nieuw bericht</button>
+          </div>
+        } @else {
+          <form (ngSubmit)="submitForm()" novalidate class="form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="naam">Naam *</label>
+                <input
+                  id="naam"
+                  [(ngModel)]="form.naam"
+                  name="naam"
+                  type="text"
+                  required
+                  class="form-input"
+                  placeholder="Uw naam"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">E-mail *</label>
+                <input
+                  id="email"
+                  [(ngModel)]="form.email"
+                  name="email"
+                  type="email"
+                  required
+                  class="form-input"
+                  placeholder="uw&#64;email.be"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="telefoon">Telefoon</label>
+              <input
+                id="telefoon"
+                [(ngModel)]="form.telefoon"
+                name="telefoon"
+                type="tel"
+                class="form-input"
+                placeholder="+32 ..."
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="bericht">Bericht *</label>
+              <textarea
+                id="bericht"
+                [(ngModel)]="form.bericht"
+                name="bericht"
+                required
+                rows="5"
+                class="form-input form-textarea"
+                placeholder="Schrijf hier uw bericht..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Verstuur bericht</button>
+          </form>
+        }
+
+      </div>
+    </div>
+  </div>
+</section>

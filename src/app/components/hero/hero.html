@@ -1,0 +1,30 @@
+<section id="hero" class="hero">
+  <!-- Left: text content -->
+  <div class="hero-content">
+    <div class="hero-inner">
+      <p appScrollAnimate class="hero-tag">
+        Therapie &middot; Coaching in de natuur &middot; Training
+      </p>
+
+      <h1 appScrollAnimate [animateDelay]="150" class="hero-heading">
+        Hoe luister je<br />naar de natuur<br />en jezelf?
+      </h1>
+
+      <p appScrollAnimate [animateDelay]="300" class="hero-subtext">
+        Begeleiding op maat voor mensen die opnieuw willen verbinden&nbsp;—
+        met zichzelf, met anderen en met de natuur om hen heen.
+      </p>
+
+      <div appScrollAnimate [animateDelay]="450" class="hero-actions">
+        <button class="btn-primary" (click)="scrollTo('contact')">Neem contact op</button>
+        <button class="btn-outline" (click)="scrollTo('wie')">Over mij</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: portrait image -->
+  <div class="hero-image-wrap">
+    <img src="me%20standin.png" alt="Talk2 — therapie en coaching" class="hero-img" />
+    <div class="hero-img-overlay"></div>
+  </div>
+</section>
