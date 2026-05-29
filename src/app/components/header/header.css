@@ -7,12 +7,16 @@
   background-color: transparent;
   transition:
     background-color 0.5s ease,
+    backdrop-filter 0.5s ease,
     box-shadow 0.5s ease;
 }
 
+/* Scrolled: frosted glass feel — premium */
 .header.scrolled {
-  background-color: var(--color-warm-white);
-  box-shadow: 0 1px 24px rgba(45, 74, 49, 0.09);
+  background-color: rgba(254, 253, 251, 0.88);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 1px 0 rgba(45, 74, 49, 0.08), 0 8px 32px rgba(45, 74, 49, 0.1);
 }
 
 .header-inner {
@@ -24,7 +28,7 @@
   justify-content: space-between;
 }
 
-/* Left: brand descriptors */
+/* ── Left: brand descriptors ── */
 .brand-descriptors {
   display: flex;
   flex-direction: column;
@@ -45,7 +49,7 @@
   letter-spacing: 0.06em;
 }
 
-/* Center: logo */
+/* ── Center: logo ── */
 .logo {
   font-family: var(--font-heading);
   font-size: 38px;
@@ -56,19 +60,32 @@
   border: none;
   cursor: pointer;
   line-height: 1;
-  transition: color 0.3s ease;
   padding: 0;
+  transition:
+    color 0.2s ease,
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .logo:hover {
   color: var(--color-sage);
+  transform: scale(1.04);
 }
 
-/* Right: nav */
+.logo:active {
+  transform: scale(0.96);
+  transition-duration: 0.1s;
+}
+
+.logo:focus-visible {
+  outline: 2px solid var(--color-sage-mid);
+  outline-offset: 4px;
+}
+
+/* ── Right: nav + booking button ── */
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 32px;
   min-width: 160px;
   justify-content: flex-end;
 }
@@ -85,9 +102,14 @@
   cursor: pointer;
   padding: 4px 0;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
+.nav-link:hover {
+  color: var(--color-sage);
+}
+
+/* Emil: underline slides in from left, ease-out */
 .nav-link::after {
   content: '';
   position: absolute;
@@ -96,14 +118,71 @@
   width: 0;
   height: 1.5px;
   background: var(--color-sage);
-  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-link:hover::after {
   width: 100%;
 }
 
-/* Hamburger button */
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-sage-mid);
+  outline-offset: 4px;
+}
+
+/* ── Booking button ── */
+.nav-book {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 20px;
+  background-color: var(--color-sage-dark);
+  color: white;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  /* Emil: spring overshoot on lift */
+  transition:
+    background-color 0.25s ease,
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Shadow fades in on hover via opacity — no box-shadow animation (avoids repaint) */
+.nav-book::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 12px 32px rgba(45, 74, 49, 0.45);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.nav-book:hover {
+  background-color: var(--color-sage);
+  transform: translateY(-4px);
+}
+
+.nav-book:hover::before {
+  opacity: 1;
+}
+
+.nav-book:active {
+  transform: scale(0.97) translateY(0);
+  transition-duration: 0.1s;
+}
+
+.nav-book:focus-visible {
+  outline: 2px solid var(--color-sage-light);
+  outline-offset: 3px;
+}
+
+/* ── Hamburger ── */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -119,43 +198,45 @@
   width: 24px;
   height: 1.5px;
   background: var(--color-sage-dark);
-  transition: all 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s ease,
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform-origin: center;
+}
+
+/* Middle bar shrinks before the X forms — staged feel */
+.hamburger:hover span:nth-child(2) {
+  width: 16px;
 }
 
 .hamburger.open span:nth-child(1) {
   transform: translateY(6.5px) rotate(45deg);
 }
-
 .hamburger.open span:nth-child(2) {
   opacity: 0;
   transform: scaleX(0);
 }
-
 .hamburger.open span:nth-child(3) {
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* Mobile dropdown */
+/* ── Mobile dropdown ── */
 .mobile-menu {
-  background: var(--color-warm-white);
+  background: rgba(254, 253, 251, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--color-sage-pale);
   padding: 28px 32px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 20px;
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .mobile-nav-link {
@@ -169,14 +250,52 @@
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease, letter-spacing 0.3s ease;
 }
 
 .mobile-nav-link:hover {
   color: var(--color-sage);
+  letter-spacing: 0.26em;
+}
+
+/* Mobile booking */
+.mobile-book {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 24px;
+  background-color: var(--color-sage);
+  color: white;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  margin-top: 4px;
+  transition:
+    background-color 0.25s ease,
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mobile-book:hover {
+  background-color: var(--color-sage-dark);
+  transform: translateY(-2px);
+}
+
+.mobile-book:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
 }
 
 /* ── Responsive ── */
+@media (max-width: 1100px) {
+  .desktop-nav {
+    gap: 20px;
+  }
+}
+
 @media (max-width: 900px) {
   .brand-descriptors,
   .desktop-nav {
@@ -193,5 +312,20 @@
 
   .logo {
     font-size: 32px;
+  }
+}
+
+/* Impeccable: respect motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .logo,
+  .nav-link::after,
+  .nav-book,
+  .nav-book::before,
+  .hamburger span,
+  .mobile-menu,
+  .mobile-book {
+    transition: none;
+    animation: none;
   }
 }

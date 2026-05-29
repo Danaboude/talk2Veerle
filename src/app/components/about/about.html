@@ -10,7 +10,7 @@
       <!-- Left: photo + bio intro -->
       <div class="about-left">
         <div appScrollAnimate animateFrom="left" class="about-photo-wrap">
-          <img src="me%20walk%20back.avif" alt="Talk2 — over mij" class="about-photo" />
+          <img src="me%20walk%20back.avif" alt="Talk2, over mij" class="about-photo" />
         </div>
 
         <div appScrollAnimate [animateDelay]="200" class="about-intro">
@@ -57,6 +57,14 @@
               <li>{{ item }}</li>
             }
           </ul>
+        </div>
+
+        <!-- Conversion: after reading everything, direct path to booking -->
+        <div appScrollAnimate [animateDelay]="400" class="about-cta-wrap">
+          <a class="about-book-btn" [href]="bookingUrl" target="_blank" rel="noopener">
+            Boek een afspraak
+          </a>
+          <p class="about-cta-note">Eerste gesprek vrijblijvend</p>
         </div>
 
       </div>

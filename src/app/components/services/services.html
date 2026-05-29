@@ -5,24 +5,26 @@
       <h2 class="section-title">AANBOD</h2>
     </div>
 
+    <!-- Taste: no 3-equal-column cards — featured first card + 2-col below -->
     <div class="services-grid">
       @for (service of services; track service.number; let i = $index) {
-        <div appScrollAnimate [animateDelay]="i * 120" class="service-card">
-
-          <!-- Image header — bleeds to all card edges -->
+        <div
+          appScrollAnimate
+          [animateDelay]="i * 100"
+          class="service-card"
+          [class.service-card--featured]="i === 0"
+        >
           <div class="service-img-wrap">
             <img [src]="service.image" [alt]="service.imageAlt" class="service-img" />
           </div>
 
-          <!-- Text body -->
           <div class="service-body">
             <div class="service-number">{{ service.number }}</div>
             <h3 class="service-title">{{ service.title }}</h3>
             <div class="service-divider"></div>
             <p class="service-description">{{ service.description }}</p>
-            <span class="service-cta">Meer lezen →</span>
+            <a class="service-cta" [href]="bookingUrl" target="_blank" rel="noopener">Boek een afspraak →</a>
           </div>
-
         </div>
       }
     </div>

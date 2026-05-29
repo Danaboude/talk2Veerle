@@ -1,0 +1,573 @@
+<div class="creator-root">
+  <!-- ====== TOP NAV ====== -->
+  <nav class="creator-nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <img src="/logo.jpg" alt="Talk2" class="nav-logo" />
+        <span class="nav-title">Lead Funnel Builder</span>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-ghost" (click)="goToDashboard()">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+          </svg>
+          Dashboard
+        </button>
+        <button class="btn-primary" (click)="save()" [disabled]="saving()">
+          @if (saving()) {
+          <span class="spinner"></span> Opslaan...
+          } @else {
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+          </svg>
+          {{ savedId() ? 'Wijzigingen Opslaan' : 'Publiceren' }}
+          }
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== SUCCESS BANNER ====== -->
+  @if (savedId()) {
+  <div class="success-banner">
+    <div class="success-inner">
+      <div class="success-icon">✓</div>
+      <div>
+        <p class="success-title">Campagne gepubliceerd!</p>
+        <p class="success-url">{{ sharableUrl }}</p>
+      </div>
+      <button class="btn-copy" (click)="copyLink()">Link kopiëren</button>
+    </div>
+  </div>
+  }
+
+  <div class="creator-body">
+    <!-- ====== LEFT PANEL ====== -->
+    <aside class="creator-sidebar">
+      <div class="sidebar-scroll">
+
+        <!-- Internal Name -->
+        <section class="panel-section">
+          <h3 class="section-title">Algemeen</h3>
+          <div class="form-group">
+            <label class="form-label">Interne Campagne Naam (sidebar)</label>
+            <input class="form-input" type="text" [ngModel]="title()" (ngModelChange)="title.set($event)"
+              placeholder="Bijv. Dashboard Campagne v1" />
+          </div>
+
+          <!-- Brochure Upload -->
+          <div class="form-group mt-4">
+            <label class="form-label">Survey Brochure (PDF)</label>
+            <div class="brochure-upload-area" (click)="brochureInput.click()">
+              @if (brochureUrl()) {
+              <div class="brochure-info">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--color-sage)">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span class="brochure-name">{{ getBrochureDisplayName() }}</span>
+              </div>
+              } @else {
+              <div class="upload-placeholder-sm">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#94a3b8">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+                <span>Upload PDF Brochure</span>
+              </div>
+              }
+            </div>
+            <input #brochureInput type="file" accept="application/pdf" (change)="onBrochureUpload($event)"
+              style="display:none">
+            <p class="section-desc mt-2">Deze brochure wordt via e-mail naar de lead gestuurd. De maximale
+              bestandsgrootte mag niet groter zijn dan 10 MB.</p>
+          </div>
+        </section>
+
+        <!-- Hero Section -->
+        <section class="panel-section">
+          <h3 class="section-title">
+            <span class="section-icon">🖼️</span>
+            Hero Sectie
+          </h3>
+
+
+          <div class="form-group">
+            <label class="form-label">Hoofdtitel</label>
+            <textarea class="form-input textarea-md" [ngModel]="heroHeadline()"
+              (ngModelChange)="heroHeadline.set($event)" rows="3"
+              placeholder="Verkrijg concrete data over tijdsbesteding..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Subtekst</label>
+            <textarea class="form-input textarea-sm" [ngModel]="heroSubtext()" (ngModelChange)="heroSubtext.set($event)"
+              rows="2" placeholder="Ontdek hoe uw bedrijf kan verbeteren..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">CTA knoptekst</label>
+            <input class="form-input" type="text" [ngModel]="ctaText()" (ngModelChange)="ctaText.set($event)"
+              placeholder="Doe test" />
+          </div>
+        </section>
+
+        <!-- 📝 Bonus Teksten (Mockup kolom) -->
+        <section class="panel-section">
+          <h3 class="section-title">
+            <span class="section-icon">📝</span>
+            Bonus Teksten (Linker kolom)
+          </h3>
+          <p class="section-desc">Deze teksten verschijnen naast de mockup afbeelding op de survey pagina.</p>
+
+          <div class="form-group">
+            <label class="form-label">Titel</label>
+            <textarea class="form-input textarea-sm" [ngModel]="bonusTitle()" (ngModelChange)="bonusTitle.set($event)"
+              rows="2" placeholder="Verbeter de samenwerking..."></textarea>
+          </div>
+
+          <div class="bonus-grid">
+            <div class="form-group">
+              <label class="form-label-sm">Bonus #1 Label</label>
+              <input class="form-input" type="text" [ngModel]="bonus1Label()" (ngModelChange)="bonus1Label.set($event)"
+                placeholder="Bonus #1: Inzicht" />
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Bonus #1 Tekst</label>
+              <input class="form-input" type="text" [ngModel]="bonus1Text()" (ngModelChange)="bonus1Text.set($event)"
+                placeholder="Leer hoe je inzicht krijgt..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Bonus #2 Label</label>
+              <input class="form-input" type="text" [ngModel]="bonus2Label()" (ngModelChange)="bonus2Label.set($event)"
+                placeholder="Bonus #2: Tijdstudie" />
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Bonus #2 Tekst</label>
+              <input class="form-input" type="text" [ngModel]="bonus2Text()" (ngModelChange)="bonus2Text.set($event)"
+                placeholder="Klantcase over duur..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Bonus #3 Label</label>
+              <input class="form-input" type="text" [ngModel]="bonus3Label()" (ngModelChange)="bonus3Label.set($event)"
+                placeholder="Bonus #3: Gratis advies" />
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Bonus #3 Tekst</label>
+              <input class="form-input" type="text" [ngModel]="bonus3Text()" (ngModelChange)="bonus3Text.set($event)"
+                placeholder="15 minuten gesprek..." />
+            </div>
+          </div>
+
+
+        </section>
+
+        <!-- Email Automatisering -->
+        <section class="panel-section">
+          <h3 class="section-title">E-mail Automatisering</h3>
+          <p class="section-desc">Stel automatische e-mailreeksen in op basis van het gedrag van de bezoeker. Emails
+            stoppen automatisch zodra er een afspraak is geboekt.</p>
+
+          <div class="automation-info-box">
+            <p>Hoe het werkt: Het aantal dagen telt vanaf het moment dat de bezoeker is vastgelegd of klaar is.
+              Voorbeeld: E-mail 1 op "1 dag" wordt na 24 uur verstuurd. E-mail 2 op "2 dagen" wordt na 48 uur verstuurd
+              (vanaf het beginmoment, niet na de vorige mail).
+
+              Let op: De e-mail voor "Download Brochure" wordt automatisch verzonden en hoeft niet handmatig te worden
+              toegevoegd. Ook de e-mail "Schedule Meeting Reminder" wordt automatisch verstuurd.
+
+            </p>
+          </div>
+
+          <!-- CASE B: Completed but no meeting -->
+          <div class="automation-category">
+            <div class="category-header">
+              <span class="category-icon">✅</span>
+              <div>
+                <strong>Reeks: Survey voltooid, geen afspraak</strong>
+                <p class="category-desc">Bezoeker heeft alle vragen beantwoord maar (nog) geen datum gekozen.</p>
+              </div>
+            </div>
+
+            <div class="sequence-list">
+              @for (step of automationSequenceB(); track step.id; let i = $index) {
+              <div class="sequence-step">
+                <div class="step-num">E-mail {{ i + 1 }}</div>
+                <div class="step-controls">
+                  <div class="ctrl-group">
+                    <label>Template</label>
+                    <select [ngModel]="step.templateId"
+                      (ngModelChange)="updateAutomationStep('B', i, 'templateId', $event)">
+                      @for (t of emailTypes(); track t.id) {
+                      <option [value]="t.id">{{ t.label }}</option>
+                      }
+                    </select>
+                  </div>
+                  <div class="ctrl-group w-30">
+                    <label>Wacht</label>
+                    <select [ngModel]="step.delayDays"
+                      (ngModelChange)="updateAutomationStep('B', i, 'delayDays', +$event)">
+                      <option [value]="-1">1 minuut (test)</option>
+                      <option [value]="1">1 dag</option>
+                      <option [value]="2">2 dagen</option>
+                      <option [value]="3">3 dagen</option>
+                      <option [value]="5">5 dagen</option>
+                      <option [value]="7">7 dagen</option>
+                      <option [value]="14">14 dagen</option>
+                      <option [value]="30">30 dagen</option>
+                    </select>
+                  </div>
+                  <button class="btn-remove-step" (click)="removeAutomationStep('B', i)">×</button>
+                </div>
+              </div>
+              }
+              <button class="btn-add-step" (click)="addAutomationStep('B')">
+                <span>+ Voeg e-mail toe aan reeks</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CASE C: Started but not finished -->
+          <div class="automation-category mt-4">
+            <div class="category-header">
+              <span class="category-icon">⏳</span>
+              <div>
+                <strong>Reeks: Survey niet afgemaakt</strong>
+                <p class="category-desc">Bezoeker heeft contactgegevens ingevuld maar de vragenlijst niet afgerond.</p>
+              </div>
+            </div>
+
+            <div class="sequence-list">
+              @for (step of automationSequenceC(); track step.id; let i = $index) {
+              <div class="sequence-step">
+                <div class="step-num">E-mail {{ i + 1 }}</div>
+                <div class="step-controls">
+                  <div class="ctrl-group">
+                    <label>Template</label>
+                    <select [ngModel]="step.templateId"
+                      (ngModelChange)="updateAutomationStep('C', i, 'templateId', $event)">
+                      @for (t of emailTypes(); track t.id) {
+                      <option [value]="t.id">{{ t.label }}</option>
+                      }
+                    </select>
+                  </div>
+                  <div class="ctrl-group w-30">
+                    <label>Wacht</label>
+                    <select [ngModel]="step.delayDays"
+                      (ngModelChange)="updateAutomationStep('C', i, 'delayDays', +$event)">
+                      <option [value]="-1">1 minuut (test)</option>
+                      <option [value]="1">1 dag</option>
+                      <option [value]="2">2 dagen</option>
+                      <option [value]="3">3 dagen</option>
+                      <option [value]="5">5 dagen</option>
+                      <option [value]="7">7 dagen</option>
+                      <option [value]="14">14 dagen</option>
+                      <option [value]="30">30 dagen</option>
+                    </select>
+                  </div>
+                  <button class="btn-remove-step" (click)="removeAutomationStep('C', i)">×</button>
+                </div>
+              </div>
+              }
+              <button class="btn-add-step" (click)="addAutomationStep('C')">
+                <span>+ Voeg e-mail toe aan reeks</span>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Questions -->
+        <section class="panel-section">
+          <div class="section-header" style="margin-bottom: 12px;">
+            <h3 class="section-title" style="margin: 0; border: none; padding: 0;">
+              <span class="section-icon">❓</span>
+              Kwalificatie (Leads)
+            </h3>
+          </div>
+          <p class="section-desc">Voeg vragen toe om leads te kwalificeren. Klik op een vraag om deze te bewerken.</p>
+
+          @for (question of questions(); track question.id; let qi = $index) {
+          <div class="question-card" [class.question-card--expanded]="expandedQuestion() === question.id">
+            <!-- Question header -->
+            <div class="question-header" (click)="toggleQuestionExpand(question.id)">
+              <div class="question-num">V{{ qi + 1 }}</div>
+              <div class="question-title-display">{{ question.text || 'Nieuwe vraag (klik om te bewerken)' }}</div>
+              <div class="question-header-actions" (click)="$event.stopPropagation()">
+                <button class="btn-icon danger" (click)="removeQuestion(question.id)" title="Vraag verwijderen">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+                <svg class="expand-icon" [class.rotated]="expandedQuestion() === question.id" width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Question body (expanded) -->
+            @if (expandedQuestion() === question.id) {
+            <div class="question-body">
+              <div class="form-group">
+                <label class="form-label">Vraagstelling</label>
+                <input class="form-input" [value]="question.text"
+                  (input)="updateQuestion(question.id, 'text', $any($event.target).value)"
+                  placeholder="Bijv: Hoeveel medewerkers heeft uw bedrijf?" />
+              </div>
+
+              <div class="form-group" style="margin-top: 12px; flex-direction: row; align-items: center; gap: 8px;">
+                <input type="checkbox" [checked]="question.allowOther"
+                  (change)="updateQuestion(question.id, 'allowOther', $any($event.target).checked)"
+                  id="allowOther-{{question.id}}">
+                <label for="allowOther-{{question.id}}" class="form-label"
+                  style="margin-bottom: 0; cursor: pointer;">Eigen antwoord toestaan ("Anders, namelijk...")</label>
+              </div>
+
+              <!-- Answers -->
+              <div class="answers-section">
+                <div class="answers-header" style="margin-bottom: 8px;">
+                  <label class="form-label" style="margin: 0;">Antwoordopties</label>
+                </div>
+
+                @for (answer of question.answers; track answer.id; let ai = $index) {
+                <div class="answer-row">
+                  <div class="answer-bullet">{{ ai + 1 }}</div>
+                  <div class="answer-fields">
+                    <input class="form-input form-input-sm" type="text" [value]="answer.text"
+                      (input)="updateAnswer(question.id, answer.id, 'text', $any($event.target).value)"
+                      placeholder="Antwoord optie..." />
+                  </div>
+                  <button class="btn-icon danger sm" (click)="removeAnswer(question.id, answer.id)"
+                    [disabled]="question.answers.length <= 2" title="Optie verwijderen">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                }
+
+                <button class="btn-add-dashed-sm" (click)="addAnswer(question.id)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                  </svg>
+                  Antwoordoptie toevoegen
+                </button>
+              </div>
+            </div>
+            }
+          </div>
+          }
+
+          @if (questions().length === 0) {
+          <div class="empty-state"
+            style="padding: 24px; text-align: center; color: #64748b; font-size: 13px; border: 1px dashed var(--color-sage-light); border-radius: 4px; margin-bottom: 12px;">
+            Nog geen vragen. Klik op de knop hieronder om je eerste lead-vraag toe te voegen.
+          </div>
+          }
+
+          <!-- Full width add question button -->
+          <button class="btn-add-dashed" (click)="addQuestion()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+            </svg>
+            Nieuwe Kwalificatie Vraag Toevoegen
+          </button>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="panel-section">
+          <div class="section-header" style="margin-bottom: 12px;">
+            <h3 class="section-title" style="margin: 0; border: none; padding: 0;">
+              <span class="section-icon">💬</span>
+              Getuigenissen (Testimonials)
+            </h3>
+          </div>
+          <p class="section-desc">Voeg getuigenissen van tevreden klanten toe om vertrouwen op te bouwen.</p>
+
+          @for (t of testimonials(); track t.id; let ti = $index) {
+          <div class="testimonial-edit-card animated-in">
+            <div class="testimonial-edit-header">
+              <span class="testimonial-edit-num">#{{ ti + 1 }}</span>
+              <button class="btn-icon danger sm" (click)="removeTestimonial(t.id)" [disabled]="testimonials().length <= 1"
+                title="Verwijder getuigenis">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Klant / Auteur</label>
+              <input class="form-input form-input-sm" [value]="t.author"
+                (input)="updateTestimonial(t.id, 'author', $any($event.target).value)" placeholder="Bijv. Jan Janssen" />
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Getuigenis</label>
+              <textarea class="form-input textarea-sm" rows="3" [value]="t.quote"
+                (input)="updateTestimonial(t.id, 'quote', $any($event.target).value)"
+                placeholder="Typ hier de quote van de klant..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label-sm">Sterren (1-5)</label>
+              <div class="star-rating-input">
+                <input type="range" min="1" max="5" [value]="t.stars"
+                  (input)="updateTestimonial(t.id, 'stars', +$any($event.target).value)" />
+                <span class="star-count">{{ t.stars }} ⭐</span>
+              </div>
+            </div>
+          </div>
+          }
+
+          <button class="btn-add-dashed-sm" (click)="addTestimonial()" style="width: 100%; margin-top: 8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+            </svg>
+            Getuigenis toevoegen
+          </button>
+        </section>
+
+        <!-- Video URL -->
+        <section class="panel-section">
+          <h3 class="section-title">
+            <span class="section-icon">🎥</span>
+            Video
+          </h3>
+          <div class="form-group">
+            <label class="form-label">YouTube URL</label>
+            <input class="form-input" type="url" [ngModel]="videoUrl()" (ngModelChange)="videoUrl.set($event)"
+              placeholder="https://www.youtube.com/watch?v=..." />
+          </div>
+          @if (youtubeEmbedUrl) {
+          <div class="video-thumb">
+            <iframe [src]="youtubeEmbedUrl" frameborder="0" allowfullscreen class="video-thumb-iframe"></iframe>
+          </div>
+          }
+        </section>
+      </div>
+    </aside>
+
+    <!-- ====== RIGHT PREVIEW PANEL ====== -->
+    <main class="creator-preview">
+      <div class="preview-label">Live Voorbeeld</div>
+      <div class="preview-frame" >
+        <!-- Hero -->
+        <div class="preview-hero"
+          [style.backgroundImage]="heroImagePreview() ? 'linear-gradient(rgba(19, 32, 32, 0.65), rgba(19, 32, 32, 0.65)), url(' + heroImagePreview() + ')' : 'none'"
+          [style.backgroundColor]="heroImagePreview() ? 'transparent' : 'var(--color-sage)'">
+          <div class="preview-hero-content"
+            style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <img [src]="'/logo.jpg'" class="preview-logo" alt="Logo" />
+            <h1 class="preview-headline">{{ heroHeadline() }}</h1>
+            <p class="preview-subtext">{{ heroSubtext() }}</p>
+            <button class="preview-cta">{{ ctaText() }}</button>
+          </div>
+        </div>
+
+        <!-- Bonus texts + mockup preview -->
+        <div class="preview-bonus-section">
+          <div class="preview-header-row">
+            <h3 class="preview-bonus-title">{{ bonusTitle() }}</h3>
+            <div class="preview-cta-badge">{{ bonusCTALabel() }}</div>
+          </div>
+          <div class="preview-body-row">
+            <ul class="preview-bonus-list">
+              <li><strong>{{ bonus1Label() }}</strong><span>{{ bonus1Text() }}</span></li>
+              <li><strong>{{ bonus2Label() }}</strong><span>{{ bonus2Text() }}</span></li>
+              <li><strong>{{ bonus3Label() }}</strong><span>{{ bonus3Text() }}</span></li>
+            </ul>
+            <div class="preview-bonus-img-col">
+              <img src="/Grote mockup1 - Talk2.png" class="preview-mockup-img" alt="Mockup" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Questions preview -->
+        @if (questions().length > 0) {
+        <div class="preview-survey">
+          <h2 class="preview-survey-title">Survey</h2>
+          @for (q of questions(); track q.id; let qi = $index) {
+          <div class="preview-question">
+            <p class="preview-q-text">{{ qi + 1 }}. {{ q.text || 'Vraag ' + (qi + 1) }}</p>
+            <div class="preview-answers">
+              @for (a of q.answers; track a.id) {
+              <label class="preview-answer-option">
+                <input type="radio" [name]="q.id" disabled />
+                <span>{{ a.text || 'Antwoord optie' }}</span>
+              </label>
+              }
+            </div>
+          </div>
+          }
+        </div>
+        }
+
+        <!-- Testimonials preview -->
+        <div class="preview-testimonials">
+          <h3 class="preview-section-title">Wat zeggen onze klanten</h3>
+          <div class="preview-testimonials-grid">
+            @for (t of testimonials(); track t.id) {
+            <div class="preview-testimonial-card">
+              <p class="preview-testimonial-quote" style="font-size: 11px; line-height: 1.4; font-style: italic; color: #475569; margin-bottom: 8px;">"{{ t.quote || 'Geen tekst ingevuld...' }}"</p>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: #fbbf24; font-size: 10px;">
+                  @for (s of [1,2,3,4,5]; track s) {
+                    <span *ngIf="s <= t.stars">★</span>
+                  }
+                </div>
+                <p class="preview-testimonial-author" style="font-size: 10px; font-weight: 700; color: #1e293b;">{{ t.author || 'Anoniem' }}</p>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Automation preview -->
+        @if (openedNoSubmitEnabled() || startedNoFinishEnabled() || finishedNoMeetingEnabled()) {
+        <div class="preview-automation-section">
+          <h3 class="preview-section-title">⚡ Actieve Automations</h3>
+          <div class="preview-automation-list">
+            @if (openedNoSubmitEnabled()) {
+            <div class="preview-automation-item">🔗 Link geopend → {{ getEmailLabel(openedNoSubmitEmail()) }} <span
+                class="preview-automation-delay">+2 dagen</span></div>
+            }
+            @if (startedNoFinishEnabled()) {
+            <div class="preview-automation-item">📋 Survey gestart → {{ getEmailLabel(startedNoFinishEmail()) }} <span
+                class="preview-automation-delay">+2 dagen</span></div>
+            }
+            @if (finishedNoMeetingEnabled()) {
+            <div class="preview-automation-item">📅 Survey afgemaakt → {{ getEmailLabel(finishedNoMeetingEmail()) }}
+              <span class="preview-automation-delay">+2 dagen</span>
+            </div>
+            }
+          </div>
+        </div>
+        }
+
+        <!-- Video preview -->
+        @if (youtubeEmbedUrl) {
+        <div class="preview-video-section">
+          <h2 class="preview-section-title">Video</h2>
+          <div class="preview-video-wrap">
+            <iframe [src]="youtubeEmbedUrl" frameborder="0" allowfullscreen class="preview-iframe"></iframe>
+          </div>
+        </div>
+        }
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<!-- GLOBAL SNACKBAR -->
+@if (snackbarMessage()) {
+<div
+  class="fixed bottom-6 right-6 bg-slate-800 text-white px-6 py-3 rounded-lg shadow-xl z-50 flex items-center gap-3 animate-slide-up">
+  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-green-400">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  {{ snackbarMessage() }}
+</div>
+}

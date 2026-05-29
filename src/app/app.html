@@ -1,2 +1,15 @@
 <app-header />
 <router-outlet />
+
+<!-- Floating booking pill — appears after hero leaves viewport -->
+@if (showFloatingPill()) {
+  <a
+    class="floating-pill"
+    [href]="bookingUrl"
+    target="_blank"
+    rel="noopener"
+    aria-label="Boek een afspraak"
+  >
+    Boek een afspraak
+  </a>
+}

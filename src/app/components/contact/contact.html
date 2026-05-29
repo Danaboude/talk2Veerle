@@ -11,7 +11,7 @@
       <div appScrollAnimate animateFrom="left" class="contact-info">
         <p class="contact-intro">
           Heeft u vragen of wilt u een afspraak plannen?
-          Aarzel niet om contact op te nemen ik reageer zo snel mogelijk.
+          Aarzel niet om contact op te nemen, ik reageer zo snel mogelijk.
         </p>
 
         <dl class="contact-details">
@@ -24,20 +24,37 @@
             <dd class="contact-value">Huisartsenpraktijk Hasselt</dd>
           </div>
           <div class="contact-item">
-            <dt class="contact-label">BTW-nummer</dt>
-            <dd class="contact-value">BE 0032 473 564 186</dd>
+            <dt class="contact-label">Telefoon</dt>
+            <dd>
+              <a href="tel:+32473564186" class="contact-link">+32 473 564 186</a>
+            </dd>
           </div>
           <div class="contact-item">
             <dt class="contact-label">E-mail</dt>
             <dd>
-              <a href="mailto:veerlefollens@hotmail.com" class="contact-link">veerlefollens@hotmail.com</a>
+              <a href="mailto:veerlefollens@hotmail.com" class="contact-link">veerlefollens&#64;hotmail.com</a>
             </dd>
           </div>
         </dl>
       </div>
 
-      <!-- Right: form -->
+      <!-- Right: direct booking + form -->
       <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="contact-form-wrap">
+
+        <!-- Direct booking option — most clients prefer this -->
+        <div class="booking-direct">
+          <p class="booking-direct-label">Direct inplannen</p>
+          <a class="booking-direct-btn" [href]="bookingUrl" target="_blank" rel="noopener">
+            Boek een afspraak
+          </a>
+          <p class="booking-direct-note">Online agenda — kies zelf uw moment</p>
+        </div>
+
+        <div class="form-separator">
+          <span class="form-separator-line"></span>
+          <span class="form-separator-text">of stuur een bericht</span>
+          <span class="form-separator-line"></span>
+        </div>
 
         @if (submitted) {
           <div class="form-success">

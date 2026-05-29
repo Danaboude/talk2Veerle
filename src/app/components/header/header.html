@@ -16,6 +16,9 @@
       @for (item of navItems; track item.id) {
         <button class="nav-link" (click)="scrollTo(item.id)">{{ item.label }}</button>
       }
+      <a class="nav-book" [href]="bookingUrl" target="_blank" rel="noopener">
+        Boek een afspraak
+      </a>
     </nav>
 
     <!-- Mobile hamburger -->
@@ -38,6 +41,9 @@
       @for (item of navItems; track item.id) {
         <button class="mobile-nav-link" (click)="scrollTo(item.id)">{{ item.label }}</button>
       }
+      <a class="mobile-book" [href]="bookingUrl" target="_blank" rel="noopener">
+        Boek een afspraak →
+      </a>
     </nav>
   }
 </header>

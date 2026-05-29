@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm start *)"
+      "Bash(npm start *)",
+      "WebFetch(domain:emilkowal.ski)",
+      "WebFetch(domain:animations.dev)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.tasteskill.dev)",
+      "Bash(mkdir -p \"/c/Users/abdul kareem/.claude/skills/high-end-visual-design\")",
+      "Bash(cp \"D:/example/porjects/aeriez/newwebsite/ives-wife/.agents/skills/high-end-visual-design/SKILL.md\" \"/c/Users/abdul kareem/.claude/skills/high-end-visual-design/SKILL.md\")",
+      "Bash(mkdir -p \"/c/Users/abdul kareem/.claude/skills/minimalist-ui\")",
+      "Bash(cp \"D:/example/porjects/aeriez/newwebsite/ives-wife/.agents/skills/minimalist-ui/SKILL.md\" \"/c/Users/abdul kareem/.claude/skills/minimalist-ui/SKILL.md\")"
     ]
   }
 }

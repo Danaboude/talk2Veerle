@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [ScrollAnimateDirective],
+  imports: [],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
 export class HeroComponent {
+  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
+
   scrollTo(id: string): void {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   }

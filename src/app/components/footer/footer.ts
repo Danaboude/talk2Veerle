@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './footer.css',
 })
 export class FooterComponent {
+  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
   year = new Date().getFullYear();
 
   scrollToTop(): void {

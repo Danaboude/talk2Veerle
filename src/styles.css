@@ -37,6 +37,9 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Impeccable: proper kerning on all text */
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
 }
 
 img {

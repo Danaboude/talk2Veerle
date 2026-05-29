@@ -9,6 +9,7 @@ import { ScrollAnimateDirective } from '../../directives/scroll-animate.directiv
   styleUrl: './about.css',
 })
 export class AboutComponent {
+  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
   opleidingen = [
     'Universitaire opleiding Klinische Psychologie',
     'Opleiding Systemische Therapie (IOST)',

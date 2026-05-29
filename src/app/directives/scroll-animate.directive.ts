@@ -19,6 +19,9 @@ export class ScrollAnimateDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
+    // Impeccable: skip all animation for users who prefer reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const el = this.el.nativeElement;
     el.style.opacity = '0';
     el.style.transitionDelay = `${this.animateDelay}ms`;
@@ -27,10 +30,10 @@ export class ScrollAnimateDirective implements OnInit, OnDestroy {
     el.style.transitionTimingFunction = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
     const transforms: Record<string, string> = {
-      bottom: 'translateY(42px)',
-      left: 'translateX(-48px)',
-      right: 'translateX(48px)',
-      scale: 'scale(0.93)',
+      bottom: 'translateY(60px)',
+      left: 'translateX(-64px)',
+      right: 'translateX(64px)',
+      scale: 'scale(0.88)',
     };
     el.style.transform = transforms[this.animateFrom];
 
@@ -44,7 +47,7 @@ export class ScrollAnimateDirective implements OnInit, OnDestroy {
           }
         });
       },
-      { threshold: 0.08, rootMargin: '0px 0px -50px 0px' },
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' },
     );
 
     this.observer.observe(el);

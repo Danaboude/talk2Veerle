@@ -17,6 +17,7 @@ interface Service {
   styleUrl: './services.css',
 })
 export class ServicesComponent {
+  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
   services: Service[] = [
     {
       number: '01',
@@ -30,7 +31,7 @@ export class ServicesComponent {
       number: '02',
       title: 'Coaching in de Natuur',
       image: 'shoess.avif',
-      imageAlt: 'Stappen in de natuur — coaching onderweg',
+      imageAlt: 'Stappen in de natuur, coaching onderweg',
       description:
         'De natuur als spiegel en gids. Al wandelend of zittend in het groen ontdekt u nieuwe perspectieven op uw situatie. Natuur helpt u terug te keren naar innerlijke rust en kracht.',
     },

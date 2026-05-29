@@ -1,4 +1,38 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home';
+import { adminGuard } from './guards/admin.guard';
 
-export const routes: Routes = [{ path: '', component: HomeComponent }];
+export const routes: Routes = [
+    {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () => import('./pages/home/home').then(m => m.HomeComponent),
+    },
+    {
+        path: 'login',
+        loadComponent: () => import('./login/login.component').then(m => m.LoginComponent),
+    },
+    {
+        path: 'create',
+        canActivate: [adminGuard],
+        loadComponent: () => import('./creator/creator.component').then(m => m.CreatorComponent),
+    },
+    {
+        path: 'create/:id',
+        canActivate: [adminGuard],
+        loadComponent: () => import('./creator/creator.component').then(m => m.CreatorComponent),
+    },
+    {
+        path: 'survey/:id', // Public path
+        loadComponent: () => import('./survey/survey.component').then(m => m.SurveyComponent),
+    },
+    {
+        path: 'dashboard',
+        canActivate: [adminGuard],
+        loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
+    },
+    {
+        path: ':id', // Catch-all for survey IDs (e.g. survey.p41.be/some-id)
+        loadComponent: () => import('./survey/survey.component').then(m => m.SurveyComponent),
+    },
+    { path: '**', redirectTo: 'login' },
+];

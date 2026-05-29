@@ -17,6 +17,7 @@ interface ContactForm {
   styleUrl: './contact.css',
 })
 export class ContactComponent {
+  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
   form: ContactForm = { naam: '', email: '', telefoon: '', bericht: '' };
   submitted = false;
 

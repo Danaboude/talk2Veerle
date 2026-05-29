@@ -8,4 +8,6 @@ import { ScrollAnimateDirective } from '../../directives/scroll-animate.directiv
   templateUrl: './nature-quote.html',
   styleUrl: './nature-quote.css',
 })
-export class NatureQuoteComponent {}
+export class NatureQuoteComponent {
+  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
+}
