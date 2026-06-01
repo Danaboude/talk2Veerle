@@ -1,35 +1,92 @@
 .banner {
-  background-color: var(--color-sage);
-  padding: 72px 40px;
+  background: linear-gradient(
+    130deg,
+    var(--color-sage-darkest) 0%,
+    var(--color-sage-dark) 45%,
+    var(--color-sage) 100%
+  );
+  padding: 96px 40px;
   text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Grain texture — same SVG noise technique as hero */
+.banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  pointer-events: none;
+  opacity: 0.55;
 }
 
 .banner-inner {
-  max-width: 900px;
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 0;
 }
 
 .banner-line {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
   font-weight: 300;
   font-style: italic;
   color: white;
-  line-height: 1.28;
-  /* Emil: tighter tracking feels more premium at display size */
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.banner-line--alt {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
   letter-spacing: -0.01em;
 }
 
-.banner-line--bold {
-  font-weight: 500;
+/* Ornamental divider */
+.banner-ornament {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.banner-ornament-line {
+  display: block;
+  width: 52px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.banner-ornament-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.38);
+  flex-shrink: 0;
 }
 
 @media (max-width: 640px) {
   .banner {
-    padding: 56px 24px;
+    padding: 72px 24px;
   }
+
+  .banner-ornament {
+    margin: 22px 0;
+  }
+
+  .banner-ornament-line {
+    width: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* scroll-animate directive already guards this; no extra rules needed */
 }

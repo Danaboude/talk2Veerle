@@ -23,7 +23,7 @@
             <h3 class="service-title">{{ service.title }}</h3>
             <div class="service-divider"></div>
             <p class="service-description">{{ service.description }}</p>
-            <a class="service-cta" [href]="bookingUrl" target="_blank" rel="noopener">Boek een afspraak →</a>
+            <button class="service-cta" (click)="scrollToContact()">Meer info →</button>
           </div>
         </div>
       }

@@ -17,7 +17,9 @@ interface Service {
   styleUrl: './services.css',
 })
 export class ServicesComponent {
-  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
+  scrollToContact(): void {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  }
   services: Service[] = [
     {
       number: '01',
