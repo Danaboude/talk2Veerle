@@ -1,0 +1,108 @@
+<section id="methode" class="bzw">
+  <div class="bzw-inner">
+
+    <!-- Sectietitel + intro -->
+    <div appScrollAnimate class="bzw-header">
+      <h2 class="bzw-title">BOS &middot; ZEE &middot; WEI</h2>
+    </div>
+
+    <!-- Overzichtsbeeld (logo2.png, 1024x768) -->
+    <div appScrollAnimate [animateDelay]="100" class="bzw-diagram-wrap">
+      <img
+        src="logo2.png"
+        alt="Overzicht van de BOS, ZEE en WEI bewegingen"
+        class="bzw-diagram"
+      />
+    </div>
+
+    <!-- Inleiding -->
+    <div appScrollAnimate [animateDelay]="160" class="bzw-intro">
+      <p>
+        Ik werk op het kruispunt van lichaam, communicatie en betekenis.
+        Verandering ontstaat niet alleen door inzicht, maar ook door aandacht
+        voor wat er gebeurt in je lichaam, in je gevoelens en in contact met anderen.
+        Die drie lijnen komen samen in mijn manier van werken, samengevat
+        in drie bewegingen die elkaar versterken.
+      </p>
+    </div>
+
+    <!-- Drie blokken -->
+    <div class="bzw-blocks">
+
+      <!-- BOS: tekst links, video rechts -->
+      <div appScrollAnimate animateFrom="left" class="bzw-block bzw-block--bos">
+        <div class="bzw-block-text">
+          <p class="bzw-block-label">01</p>
+          <h3 class="bzw-block-title">BOS</h3>
+          <p class="bzw-block-subtitle">Bewust Omgaan met Stress</p>
+          <p class="bzw-block-body">
+            We starten bij het lichaam. Spanning en onrust krijgen
+            opnieuw beweging en regulatie. Je leert herkennen wat
+            er in je zenuwstelsel gebeurt en hoe je daar zachter
+            mee kan omgaan.
+          </p>
+        </div>
+        <div class="bzw-block-video-wrap">
+          <video
+            class="bzw-video"
+            appVideoScroll
+            src="reels.mp4"
+            loop
+            playsinline
+            aria-label="Video over BOS: Bewust Omgaan met Stress"
+          ></video>
+        </div>
+      </div>
+
+      <!-- ZEE: video links, tekst rechts -->
+      <div appScrollAnimate animateFrom="right" [animateDelay]="80" class="bzw-block bzw-block--zee">
+        <div class="bzw-block-video-wrap">
+          <video
+            class="bzw-video"
+            appVideoScroll
+            src="reels.mp4"
+            loop
+            playsinline
+            aria-label="Video over ZEE: Zelfrefererend Echt luisteren en Echt spreken"
+          ></video>
+        </div>
+        <div class="bzw-block-text">
+          <p class="bzw-block-label">02</p>
+          <h3 class="bzw-block-title">ZEE</h3>
+          <p class="bzw-block-subtitle">Zelfrefererend Echt luisteren en Echt spreken</p>
+          <p class="bzw-block-body">
+            Van daaruit ontstaat ruimte om te voelen wat er in je omgaat,
+            te onderscheiden wat van jou is en wat van de ander.
+            En te zien wat er tussen jullie gebeurt wanneer dat
+            wel of niet uitgesproken wordt.
+          </p>
+        </div>
+      </div>
+
+      <!-- WEI: tekst gecentreerd boven, video gecentreerd onder -->
+      <div appScrollAnimate class="bzw-block bzw-block--wei">
+        <div class="bzw-block-text bzw-block-text--center">
+          <p class="bzw-block-label">03</p>
+          <h3 class="bzw-block-title">WEI</h3>
+          <p class="bzw-block-subtitle">Weten, Ervaren en Integreren</p>
+          <p class="bzw-block-body">
+            Wat zich aandient wordt geïntegreerd, zodat verandering
+            ook blijft doorwerken in het dagelijks leven.
+            Nieuwe inzichten worden levende ervaringen.
+          </p>
+        </div>
+        <div class="bzw-wei-video-wrap">
+          <video
+            class="bzw-video bzw-video--center"
+            appVideoScroll
+            src="reels.mp4"
+            loop
+            playsinline
+            aria-label="Video over WEI: Weten, Ervaren en Integreren"
+          ></video>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

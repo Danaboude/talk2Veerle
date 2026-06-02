@@ -1,0 +1,310 @@
+INSTRUCTION (EN): 
+Use generous vertical spacing between sections. 
+The website should feel calm, open and not crowded. 
+Avoid dense layouts. 
+Create a sense of rhythm and breathing space.
+
+VISUAL MATERIAL: 
+Only use photos that are provided by me. Do not use stock images or external image libraries. All images will be shared via a Google Photos link: https://photos.google.com/share/AF1QipMOx9kJv-yqfpPXetsv3nrQ3XVVQ_mPRF54CD2ioIU5-mCXevTbXN_cxMDBHxkLag?hl=es-419&key=Vm13MVI0dFZVMEFzR1RqdXFxdTdyd28tcE5mdzZB
+
+You can select appropriate images from that collection, in line with the tone and structure of the website. 
+Videos will be provided via links. Use the correct video in each section as indicated in the document: https://photos.google.com/album/AF1QipNnKlfArwoCWcpgLwQsFVCbexgfnelp4g6V9JA0
+
+Logos and visual elements will also be provided via link: https://onedrive.live.com/?id=%2Fpersonal%2F1ef2b2c8529cbf04%2FDocuments%2FTalk2%2FEigen%20stroom%2FMarketing%5FTalk2%2Fwebsite%20talk2%20for%20AK&sortField=LinkFilename&isAscending=true&viewid=ddf878bd%2D6ce7%2D428c%2D9886%2D082810c40bab&view=0
+
+Use them consistently across the website where appropriate. 
+All visual material should support a natural, calm and authentic atmosphere. Avoid generic or overly polished imagery.
+
+ 
+HOMEPAGE 
+🔹 HERO
+SECTION: HERO
+Begeleiding in beweging
+Van bescherming naar verbinding, in contact met jezelf en de ander
+Voel je dat stress, spanning of terugkerende patronen je tegenhouden?
+Ik begeleid mensen om opnieuw beweging te ervaren in hun lichaam, in hun communicatie en in hun leven, zodat je opnieuw kan voelen wat klopt en van daaruit kan handelen.
+🎥 herosction.mp4 the banner size
+INSTRUCTION (EN):
+Place this at the very top of the homepage.
+Keep text large and clear.
+Add one short video directly under the subtitle.
+Include two buttons:
+- Ontdek mijn aanbod
+- Boek een afspraak
+🔹 OVER TALK2
+SECTION: ABOUT TALK2
+
+Talk2 staat voor praten mét, in plaats van praten over.
+Vanuit het verlangen naar echte verbinding met jezelf en met de ander. Voorbij onze automatische neiging tot beschermen, verdedigen of terugtrekken.
+De spiraal in het hart staat symbool voor: verbinding en menselijkheid, persoonlijke groei en de natuurlijke beweging van het leven. 
+Een beweging die zich verdiept in lagen.
+INSTRUCTION (EN):
+Keep this as a short, calm section under the hero.
+Add logo here. Logo.png size 256x256
+Use enough white space.
+🔹 VIDEO: BEWEGING OP 4 LAGEN
+SECTION: MOVEMENT
+🎥 (video waarin je lagen uitlegt) reels.mp4 tiktok video size mobile screen
+Beweging gebeurt nooit op één vlak.
+Ze raakt tegelijk je lichaam, je innerlijke beleving, je relaties en de context waarin je leeft of werkt.
+INSTRUCTION (EN):
+Do NOT repeat the full content of the video.
+Keep only this short summary text.
+Give the video visual space.
+🔹 BOS – ZEE – WEI
+SECTION: HOW I WORK
+🎥 (visual image representing BOS-ZEE-WEI) logo1.png size 1024x768
+Ik werk op het kruispunt van lichaam, communicatie en betekenis. 
+Vanuit mijn opleiding en ervaring heb ik geleerd dat verandering niet alleen ontstaat door inzicht, maar ook door aandacht voor wat er gebeurt in je lichaam, in je gevoelens en in contact met anderen. Die drie lijnen komen samen in mijn manier van werken, die ik samenvat in drie bewegingen die elkaar versterken:
+BOS — Bewust Omgaan met Stress
+We starten bij het lichaam. Spanning en onrust krijgen opnieuw beweging en regulatie.
+🎥 (video BOS) reels.mp4 tiktok video size mobile screen
+ZEE — Zelfrefererend Echt luisteren en Echt spreken
+Van daaruit ontstaat ruimte om te voelen wat er in je omgaat, te onderscheiden wat van jou is en wat van de ander. En te zien wat er tussen jullie gebeurt wanneer dat wel of niet uitgesproken wordt.
+🎥 (video ZEE) reels.mp4 tiktok video size mobile screen
+
+WEI — Weten, Ervaren en Integreren
+Wat zich aandient wordt geïntegreerd, zodat verandering ook blijft doorwerken in het dagelijks leven.
+🎥 (video WEI) reels.mp4 tiktok video size mobile screen
+
+INSTRUCTION (EN): 
+At the top of this section, place a visual (diagram / image) representing BOS–ZEE–WEI. 
+This acts as a clear overview of the method. 
+Below the visual, place the introductory text. 
+Then structure the section into three clearly separated blocks: BOS, ZEE and WEI. Each block should contain: - the title (BOS / ZEE / WEI) - a short text - a short video that deepens this specific part.
+Ensure that each block starts on a new line and has enough spacing. The videos are essential and should be clearly visible, but not placed too close together. 
+Create a calm and progressive flow: overview (visual) → introduction → deepening per element. 
+Avoid placing multiple videos at the top of the section. The section should feel structured, calm and easy to navigate.
+🔹 VOOR WIE (HOMEPAGE)
+SECTION: WHO I HELP
+Ik begeleid:
+Individuen
+“ik ben aan het overleven in plaats van te leven en weet niet hoe het anders kan”
+Duo’s en koppels
+“we raken elkaar kwijt in de drukte”
+Professionals die met mensen werken
+“hoe begeleid ik mijn coachee naar meer afstemming en verbinding?”
+Organisaties & groepen
+“hoe gaan we om met emoties en spanning op de werkvloer?”                                                          of voor wie bewust tijd wil maken om samen te vertragen en te bezinnen.
+INSTRUCTION (EN):
+Display these as 4 separate blocks (grid or cards).
+Each block should feel clickable.
+Add button: Bekijk aanbod
+🔹 WIE BEN IK (KORT)
+SECTION: ABOUT ME SHORT
+Ik begeleid mensen op momenten waarop oude manieren niet meer werken en er iets nieuws wil ontstaan.
+Mijn werk is gegroeid uit een combinatie van opleidingen, praktijk en wat ik zelf doorleefd heb. Daardoor werk ik niet theoretisch, maar praktisch en afgestemd met wat echt helpend kan zijn in het moment.
+Ik werk daar waar iets opnieuw mag gaan bewegen: in jezelf, tussen mensen of binnen een team.
+INSTRUCTION (EN):
+Keep this relatively short.
+Add a photo of nature here, if possible. nature.jpg size 1216x913
+🔹 OPLEIDING 
+SECTION: TRAINING
+Ik werk op het kruispunt van lichaam, communicatie en betekenis. 
+Mijn manier van werken is gegroeid uit drie werelden die elkaar in de loop van mijn leven hebben ontmoet.
+
+De eerste is die van analyse, samenhang en complexiteit.
+In een vorig leven werkte ik als ingenieur-architect, onderzoeker, consulent, auteur en spreker.
+Die achtergrond leerde me kijken naar patronen, en samenhang, en helpt me vandaag om complexe menselijke vraagstukken te begrijpen zonder ze te vereenvoudigen.
+De tweede is die van lichaam, emoties en relaties.
+Vanuit een postgraduaat psychotherapie en verdere meerjarige opleidingen in o.a. Somatic Experiencing, creatieve therapie, groepstherapie en verbindende communicatie leerde ik dat verandering niet alleen ontstaat door inzicht, maar ook door aandacht voor wat zich afspeelt in het lichaam, in gevoelens en in contact.
+De derde is die van natuur, bezinning en aanwezig zijn.
+Via opleidingen in natuurcoaching, salutogenese en bezinningsbegeleiding, en jarenlange beoefening van praktische filosofie en dzogchenmeditatie, leerde ik hoe mensen richting vinden door te vertragen, waar te nemen en te luisteren naar wat wezenlijk is.
+Deze drie lijnen komen samen in mijn begeleiding, waar we werken aan meer samenhang tussen hoofd, lichaam, gevoel en context, en zo helderheid, keuzevrijheid en verbinding mogelijk maken.
+Mijn werk is gevormd door meer dan tien jaar ervaring als pscychotherapeut, coach en trainer, een vertrouwdheid met complexiteit en een lichaamsgerichte benadering waarin ook de natuur een actieve rol krijgt. 
+Het resoneert vaak bij mensen die de wereld intenser of complexer ervaren, waaronder hoogbegaafde en neurodivergente mensen.
+INSTRUCTION (EN):
+Keep this text readable and well-structured. 
+Break it into clear paragraphs with enough spacing. 
+This section may be slightly longer, but should feel light and easy to scan. 
+Avoid making it look like one dense block of text.
+🔹 #DEGELUKSBEWEGING
+SECTION: INSPIRATION
+Via #degeluksbeweging deel ik regelmatig inzichten en reflecties rond stress, communicatie en verbinding.
+INSTRUCTION (EN):
+Optional small block.
+Include link to social media, but can you make a hyperlink of it (degeluksbeweging): https://www.facebook.com/groups/393215694627781
+🔹 CTA
+SECTION: CTA
+Voel je dat er iets mag bewegen?
+Je hoeft het niet alleen te doen.
+Samen kijken we wat er vastzit en waar opnieuw beweging kan ontstaan.
+INSTRUCTION (EN):
+Add strong button:
+Boek een afspraak
+Place this at the bottom.
+ 
+PAGINA: AANBOD 
+🔹 Intro bovenaan
+SECTION: INTRO
+
+
+Aanbod
+Mijn begeleiding vertrekt telkens vanuit dezelfde beweging:
+meer regulatie, meer afstemming en meer verbinding.
+paint-people-talk.png 1384x1380
+
+Of je nu alleen komt, met twee, als professional die met mensen werkt of vanuit een organisatie, telkens kijken we samen waar het vastloopt en wat opnieuw in beweging wil komen.
+We werken vaak in de natuur, omdat dit helpt om te vertragen en helderder te voelen.
+Gesprekken gaan doorgaans door in blokken van minimaal anderhalf uur, zodat er voldoende ruimte is om te vertragen, te voelen en te verdiepen.
+Dit geldt zowel voor individuele begeleiding als voor gesprekken met koppels of ouder en kind.
+Trajecten worden steeds afgestemd op de vraag en kunnen zowel afzonderlijke gesprekken als meerdaagse trajecten omvatten.
+De begeleiding vindt voornamelijk plaats in de regio Antwerpen of op verplaatsing, afhankelijk van wat passend is.
+
+
+INSTRUCTION (EN):
+Place this at the top of the offer page.
+Keep it simple and readable (not too long).
+🔹 INDIVIDUEN
+paint-people-walk-cricle-in-the-right.png size 677x218
+SECTION: INDIVIDUALS
+Individuen
+Individuele sessies in de natuur, binnen of online.
+Voor wie merkt: “ik ben aan het overleven in plaats van te leven en weet niet hoe het anders kan”
+We werken vanuit het hier en nu rond:
+•	herkennen van spanning en overbelasting in het zenuwstelsel  
+•	kleine, behapbare stappen (“titreren”)  
+•	bewegen tussen spanning en ontspanning (“pendelen”)  
+•	afstemmen op het zenuwstelsel zodat het zichzelf opnieuw kan reguleren en bewegen
+
+De begeleiding sluit aan bij jouw tempo en gevoeligheid, ook voor neurodivergente profielen (zoals ASS, ADHD, hoogbegaafdheid of hooggevoeligheid) en wanneer er trauma meespeelt. 
+
+
+INSTRUCTION (EN):
+Create a clear block for individuals.
+Allow space for optional button (e.g. "Meer info" or "Boek een gesprek").
+🔹 DUO’S EN KOPPELS
+SECTION: COUPLES
+
+pint-people-zoom.png size 362x322
+Duo’s en koppels
+Sessies en trajecten van bescherming naar verbinding
+Voor wie merkt: “we raken elkaar kwijt in de drukte”
+We werken rond:
+•	communicatie die vastloopt 
+•	patronen van verdediging en afstand
+•	opnieuw verbinding maken
+•	elkaar opnieuw horen en begrijpen
+Deze manier van werken kan bijzonder helpend zijn in ouder-kindrelaties (vanaf ongeveer 10 jaar) en bij neurodivergentie (zoals ASS, ADHD, hoogbegaafheid, hooggevoeligheid). 
+INSTRUCTION (EN):
+Place this as a separate block.
+Make it visually parallel to the individuals section.
+🔹 PROFESSIONALS DIE MET MENSEN WERKEN
+SECTION: PROFESSIONALS
+pint-people-set.png size 550x378
+Professionals die met mensen werken (bijvoorbeeld therapeuten, coaches, leerkrachten, begeleiders en leidinggevenden)
+Intervisie en training met concrete tools rond communicatie vanuit regulatie
+Voor wie zich afvraagt: “hoe begeleid ik mijn coachee naar meer afstemming en verbinding?”
+We werken rond:
+•	werken met spanning in interactie
+•	herkennen van patronen in contact 
+•	afstemmen op jezelf en de ander 
+•	begeleiden van processen i.p.v. oplossen
+
+Deze manier van werken kan bijzonder helpend zijn bij neurodivergentie (zoals ASS, ADHD, hoogbegaafdheid, hooggevoeligheid)
+
+INSTRUCTION (EN):
+Keep language practical.
+This section should speak to therapists, coaches, and professionals.
+🔹 ORGANISATIES & GROEPEN
+SECTION: ORGANISATIONS & GROUPS
+paint-people-GROUPS.png size 611x449
+Organisaties en groepen
+Training en begeleiding en bezinningsmomenten op maat
+Voor teams, groepen of contexten waar “spanning oploopt of communicatie onder druk staat” of voor wie bewust tijd wil maken om samen te vertragen en te bezinnen.
+Afhankelijk van de context kan dit vorm krijgen als training, begeleiding of bezinning.
+We werken rond:
+•	omgaan met spanning en emoties in teams
+•	lastige gesprekken voeren vanuit veiligheid en afstemming 
+•	kalm blijven en helder handelen bij escalatie
+•	vertragen, verstillen en opnieuw verbinden
+Ik werk vaak met hybride trajecten, waar we binnen en buiten combineren, in beweging en in gesprek. 
+Soms kunnen daaruit ook meerdaagse trajecten in de natuur ontstaan, zoals wandel- of pelgrimstochten.
+
+INSTRUCTION (EN):
+This section can later expand with more detail if needed.
+Keep it clear and recognizable.
+🔹 OVERKOEPELEND (BELANGRIJK!)
+SECTION: COMMON GROUND
+Wat deze trajecten gemeen hebben, is dat ze vertrekken vanuit dezelfde beweging:
+van vastzitten naar opnieuw in beweging komen in je lichaam, in jezelf en in contact met anderen.
+Die beweging vraagt vertraging. Vertragen om opnieuw te voelen wat er leeft, en ruimte te maken voor echte afstemming. 
+
+In deze video leg ik uit wat ik bedoel met “trage communicatie” en hoe die vertraging helpt om opnieuw in contact te komen — met jezelf en met de ander.
+show.png banner size
+
+INSTRUCTION (EN):
+Place this as a closing paragraph with 🎥 (video)
+before the call-to-action.
+At the moment it is still a powerpoint with spoken words. Can you turn it into a mp4 bfore inculding it as a video on the website?
+🔹 CTA
+SECTION: CTA
+Voel je dat er iets mag bewegen?
+Je hoeft het niet alleen te doen.
+We kijken samen wat er speelt en wat jouw volgende stap kan zijn.
+👉 Boek een afspraak
+INSTRUCTION (EN):
+Add a clear button:
+"Boek een afspraak"
+Place prominently at bottom.
+
+ 
+PAGINA: Contact en praktisch
+✦ Contact
+Talk2 BE0633 453 649 Frans Blocklaan 14 2620 Hemiksem 0032/473 564 186 veerle@talk2.be
+Je bent welkom om contact op te nemen voor vragen of om een eerste kennismaking af te stemmen.
+✦ Praktisch
+Gesprekken gaan doorgaans door in blokken van minimaal anderhalf uur.
+De begeleiding vindt plaats in de regio Antwerpen, vaak in de natuur, en kan indien nodig ook op verplaatsing of online doorgaan.
+✦ Tarieven
+Individuele begeleiding particulieren
+Voor een individuele sessie bedraagt het tarief 80 euro per uur en de intake 90 euro per uur.
+Relatiegesprekken
+Voor een duo-of koppelgesprek bedraagt het tarief 90 euro per uur en de intake 100 euro per uur. 
+Zelfstandigen en organisaties
+Voor coaching, team- of groepsbegeleiding, trainingen en bezinningsbegeleidingen werk ik op maat. Hiervoor worden tarieven in overleg bepaald.
+✦ Terugbetaling
+Afhankelijk van je mutualiteit is een gedeeltelijke terugbetaling mogelijk.
+We bekijken samen wat voor jou van toepassing is tijdens het eerste gesprek.
+✦ Betaling
+De betaling gebeurt na elke sessie, cash of via Payconiq.
+✦ Annulatie
+Kan je niet aanwezig zijn op een afspraak, laat het dan graag minstens 24  uur op voorhand weten.
+Bij laattijdige annulatie kan de sessie aangerekend worden.
+✦ Privacy
+Alles wat je deelt, wordt met zorg en vertrouwelijkheid behandeld.
+Persoonsgegevens worden verwerkt in overeenstemming met de geldende privacywetgeving (GDPR).
+Je hebt steeds het recht om je gegevens in te kijken, te laten aanpassen of te laten verwijderen binnen de wettelijke grenzen.
+Heb je hierover vragen, dan mag je mij steeds contacteren.
+✦ Instructions for the webdesigner (do not display on the website)
+Page title: "Contact en praktisch"
+
+- Keep the page layout calm, clean and spacious.
+- Use clear sections with soft headings.
+
+Order of sections:
+1. Contact
+2. Praktisch
+3. Tarieven
+4. Terugbetaling
+5. Betaling
+6. Annulatie
+7. Privacy
+
+Design notes:
+- Do not make the pricing visually dominant
+- Keep a soft, non-commercial feel
+- Use enough white space between sections
+- Make the contact section easy to find and accessible
+
+Content notes:
+- Keep tone warm and human, not overly formal
+- Maintain Dutch text as provided
+- Do not rewrite privacy text into legal language
+``
+•	A section with 3–6 testimonials (expandable in the CMS):I will provide the content later
+•	A newsletter CTA at the bottom of the homepage or in the footer (editable text + link)
+•	CMS editable elements (only if possible): • pricing (annual indexation) • CTA text • link to the booking calendar • FAQ items • future workshops or multi day programs
+•	An FAQ section (homepage or separate page) — I will provide the content later
+•	Tone of voice: clear, human, concrete, trustworthy; no marketing jargon; plenty of white space; calm layout
+

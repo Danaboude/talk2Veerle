@@ -1,0 +1,137 @@
+<section id="voor-wie" class="vwh">
+
+  <!-- ── Panoramic header: text left, painting right ── -->
+  <div class="vwh-prelude">
+
+    <div class="vwh-prelude-text" appScrollAnimate>
+      <p class="vwh-label">Aanbod</p>
+      <h2 class="vwh-title">Ik begeleid</h2>
+      <p class="vwh-intro">
+        Of je nu vastloopt in jezelf, in een relatie of in je werk,
+        er is altijd een weg terug naar wat klopt.
+      </p>
+    </div>
+
+    <div class="vwh-prelude-art" appScrollAnimate animateFrom="right">
+      <img
+        src="paint-people-talk.png"
+        alt=""
+        aria-hidden="true"
+        class="vwh-prelude-img"
+      />
+    </div>
+
+  </div>
+
+  <!-- ── Card rows ── -->
+  <div class="vwh-cards">
+
+    <!-- Row A: Individuen (60%) | Duo's (40%) -->
+    <div class="vwh-row vwh-row--a">
+
+      <div class="vwh-card" appScrollAnimate animateFrom="left">
+        <div class="vwh-img-wrap">
+          <img
+            src="paint-people-walk-cricle-in-the-right.png"
+            alt=""
+            aria-hidden="true"
+            class="vwh-img"
+          />
+        </div>
+        <div class="vwh-card-body">
+          <span class="vwh-num">01</span>
+          <h3 class="vwh-card-title">Individuen</h3>
+          <p class="vwh-quote">
+            "Ik ben aan het overleven in plaats van te leven
+            en weet niet hoe het anders kan"
+          </p>
+          <p class="vwh-desc">
+            Individuele sessies in de natuur, binnen of online.
+            Werken op je tempo, afgestemd op jouw gevoeligheid.
+          </p>
+          <button class="vwh-link" (click)="scrollTo('contact')">Meer info</button>
+        </div>
+      </div>
+
+      <div class="vwh-card" appScrollAnimate [animateDelay]="140" animateFrom="right">
+        <div class="vwh-img-wrap">
+          <img
+            src="pint-people-zoom.png"
+            alt=""
+            aria-hidden="true"
+            class="vwh-img"
+          />
+        </div>
+        <div class="vwh-card-body">
+          <span class="vwh-num">02</span>
+          <h3 class="vwh-card-title">Duo's en koppels</h3>
+          <p class="vwh-quote">
+            "We raken elkaar kwijt in de drukte"
+          </p>
+          <p class="vwh-desc">
+            Sessies en trajecten van bescherming naar verbinding.
+          </p>
+          <button class="vwh-link" (click)="scrollTo('contact')">Meer info</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row B: Professionals (40%) | Organisaties (60%) — reversed -->
+    <div class="vwh-row vwh-row--b">
+
+      <div class="vwh-card" appScrollAnimate [animateDelay]="60" animateFrom="left">
+        <div class="vwh-img-wrap">
+          <img
+            src="pint-people-set.png"
+            alt=""
+            aria-hidden="true"
+            class="vwh-img"
+          />
+        </div>
+        <div class="vwh-card-body">
+          <span class="vwh-num">03</span>
+          <h3 class="vwh-card-title">Professionals</h3>
+          <p class="vwh-quote">
+            "Hoe begeleid ik mijn coachee naar meer afstemming?"
+          </p>
+          <p class="vwh-desc">
+            Intervisie en training voor therapeuten, coaches,
+            leerkrachten en leidinggevenden.
+          </p>
+          <button class="vwh-link" (click)="scrollTo('contact')">Meer info</button>
+        </div>
+      </div>
+
+      <div class="vwh-card" appScrollAnimate [animateDelay]="210" animateFrom="right">
+        <div class="vwh-img-wrap">
+          <img
+            src="paint-people-GROUPS.png"
+            alt=""
+            aria-hidden="true"
+            class="vwh-img"
+          />
+        </div>
+        <div class="vwh-card-body">
+          <span class="vwh-num">04</span>
+          <h3 class="vwh-card-title">Organisaties en groepen</h3>
+          <p class="vwh-quote">
+            "Hoe gaan we om met emoties en spanning op de werkvloer?"
+          </p>
+          <p class="vwh-desc">
+            Training, begeleiding en bezinningsmomenten op maat.
+          </p>
+          <button class="vwh-link" (click)="scrollTo('contact')">Meer info</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ── Bottom CTA ── -->
+  <div class="vwh-footer" appScrollAnimate [animateDelay]="180">
+    <button class="vwh-cta-btn" (click)="scrollTo('contact')">Bekijk aanbod</button>
+  </div>
+
+</section>

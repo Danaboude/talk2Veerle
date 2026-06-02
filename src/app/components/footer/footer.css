@@ -94,6 +94,13 @@
   flex-shrink: 0;
 }
 
+.footer-link--text {
+  cursor: default;
+}
+.footer-link--text:hover {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .footer-divider {
   width: 48px;
   height: 1px;

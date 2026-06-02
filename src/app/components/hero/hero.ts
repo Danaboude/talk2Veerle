@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { VideoScrollDirective } from '../../directives/video-scroll.directive';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [],
+  imports: [VideoScrollDirective],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })

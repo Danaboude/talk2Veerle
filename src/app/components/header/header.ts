@@ -14,10 +14,11 @@ export class HeaderComponent {
   readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
 
   navItems = [
-    { id: 'aanbod', label: 'Aanbod' },
-    { id: 'wie', label: 'Wie' },
+    { id: 'over-talk2', label: 'Over Talk2' },
+    { id: 'methode', label: 'Methode' },
+    { id: 'voor-wie', label: 'Aanbod' },
+    { id: 'over-mij', label: 'Over mij' },
     { id: 'contact', label: 'Contact' },
-    { id: 'voor-wie', label: 'Voor Wie?' },
   ];
 
   @HostListener('window:scroll')

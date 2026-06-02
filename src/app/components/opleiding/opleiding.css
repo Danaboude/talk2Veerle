@@ -1,0 +1,126 @@
+.opl {
+  background-color: var(--color-warm-white);
+  padding: 100px 48px;
+}
+
+.opl-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Header */
+.opl-header { width: 100%; }
+
+.opl-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--color-sage-dark);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-sage-pale);
+  position: relative;
+}
+
+.opl-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 64px;
+  height: 2px;
+  background: var(--color-sage);
+}
+
+/* Intro */
+.opl-intro-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Three worlds */
+.opl-worlds {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.opl-world {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 28px;
+  border-left: 2px solid var(--color-sage-pale);
+  position: relative;
+}
+
+.opl-world::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 2px;
+  height: 32px;
+  background: var(--color-sage);
+}
+
+.opl-world-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: var(--color-sage-mid);
+  display: block;
+}
+
+.opl-world-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 500;
+  color: var(--color-sage-dark);
+  line-height: 1.25;
+}
+
+.opl-world-body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.9;
+}
+
+/* Conclusion */
+.opl-conclusion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 40px;
+  border-top: 1px solid var(--color-sage-pale);
+}
+
+.opl-conclusion p {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.9;
+}
+
+@media (max-width: 640px) {
+  .opl { padding: 80px 24px; }
+  .opl-inner { gap: 40px; }
+  .opl-worlds { gap: 32px; }
+  .opl-world { padding-left: 20px; }
+}
+
+@media (max-width: 400px) {
+  .opl { padding: 64px 20px; }
+}

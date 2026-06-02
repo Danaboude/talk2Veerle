@@ -1,0 +1,434 @@
+/* ── VOOR WIE HOME ── Art-forward editorial gallery ── */
+.vwh {
+  background-color: var(--color-cream);
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════
+   PRELUDE — full-bleed split header
+   ════════════════════════════════════════════ */
+.vwh-prelude {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 560px;
+}
+
+/* Text side */
+.vwh-prelude-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding: 100px 72px 100px 80px;
+  background-color: var(--color-cream);
+}
+
+.vwh-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+}
+
+.vwh-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 5.5vw, 5.2rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.vwh-intro {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  max-width: 380px;
+}
+
+/* Art side */
+.vwh-prelude-art {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-sage-mist);
+}
+
+.vwh-prelude-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vwh-prelude-art:hover .vwh-prelude-img {
+  transform: scale(1.04);
+}
+
+/* ════════════════════════════════════════════
+   CARDS AREA
+   ════════════════════════════════════════════ */
+.vwh-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+/* Row layout */
+.vwh-row {
+  display: grid;
+  gap: 4px;
+}
+
+.vwh-row--a {
+  /* Individuen wide, Duo's narrow */
+  grid-template-columns: 3fr 2fr;
+}
+
+.vwh-row--b {
+  /* Professionals narrow, Organisaties wide */
+  grid-template-columns: 2fr 3fr;
+}
+
+/* ════════════════════════════════════════════
+   SINGLE CARD
+   ════════════════════════════════════════════ */
+.vwh-card {
+  background-color: var(--color-warm-white);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vwh-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 24px 64px rgba(30, 53, 32, 0.22);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.vwh-card:hover {
+  transform: translateY(-8px);
+}
+
+.vwh-card:hover::after {
+  opacity: 1;
+}
+
+/* Painting image */
+.vwh-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  background-color: var(--color-sage-mist);
+  flex-shrink: 0;
+}
+
+.vwh-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vwh-card:hover .vwh-img {
+  transform: scale(1.06);
+}
+
+/* Subtle warm overlay on hover */
+.vwh-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(237, 232, 222, 0.28) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.vwh-card:hover .vwh-img-wrap::after {
+  opacity: 1;
+}
+
+/* Card text body */
+.vwh-card-body {
+  padding: 36px 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+/* Number watermark */
+.vwh-num {
+  font-family: var(--font-heading);
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 0.9;
+  color: rgba(120, 156, 120, 0.15);
+  position: absolute;
+  top: 20px;
+  right: 32px;
+  user-select: none;
+  transition: color 0.4s ease;
+}
+
+.vwh-card:hover .vwh-num {
+  color: rgba(120, 156, 120, 0.3);
+}
+
+.vwh-card-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 2vw, 2.1rem);
+  font-weight: 400;
+  color: var(--color-sage-darkest);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.vwh-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  padding-left: 16px;
+  border-left: 2px solid var(--color-sage-light);
+  margin-top: 4px;
+}
+
+.vwh-desc {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.82;
+  max-width: 420px;
+}
+
+/* Inline arrow link */
+.vwh-link {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-start;
+  margin-top: 6px;
+  position: relative;
+  transition:
+    letter-spacing 0.4s ease,
+    color 0.25s ease;
+}
+
+.vwh-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-sage);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vwh-card:hover .vwh-link {
+  letter-spacing: 0.24em;
+  color: var(--color-sage-dark);
+}
+
+.vwh-card:hover .vwh-link::after {
+  width: 100%;
+}
+
+/* ════════════════════════════════════════════
+   FOOTER CTA
+   ════════════════════════════════════════════ */
+.vwh-footer {
+  display: flex;
+  justify-content: center;
+  padding: 80px 48px 100px;
+}
+
+.vwh-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 17px 56px;
+  background-color: var(--color-sage-dark);
+  color: white;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color 0.25s ease,
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vwh-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 16px 40px rgba(45, 74, 49, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.vwh-cta-btn:hover {
+  background-color: var(--color-sage);
+  transform: translateY(-4px);
+}
+
+.vwh-cta-btn:hover::before { opacity: 1; }
+.vwh-cta-btn:active { transform: scale(0.97); transition-duration: 0.1s; }
+.vwh-cta-btn:focus-visible { outline: 2px solid var(--color-sage-mid); outline-offset: 3px; }
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .vwh-prelude-text {
+    padding: 72px 48px 72px 56px;
+  }
+
+  .vwh-img-wrap {
+    height: 220px;
+  }
+
+  .vwh-card-body {
+    padding: 26px 28px 38px;
+  }
+}
+
+@media (max-width: 860px) {
+  /* Prelude: stack vertically */
+  .vwh-prelude {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .vwh-prelude-art {
+    height: 340px;
+  }
+
+  .vwh-prelude-text {
+    padding: 64px 32px 56px;
+    gap: 20px;
+  }
+
+  .vwh-intro {
+    max-width: none;
+  }
+
+  /* Card rows: two columns still but equal on tablet */
+  .vwh-row--a,
+  .vwh-row--b {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .vwh-img-wrap {
+    height: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Cards stack fully on small phones */
+  .vwh-row--a,
+  .vwh-row--b {
+    grid-template-columns: 1fr;
+  }
+
+  .vwh-img-wrap {
+    height: 220px;
+  }
+}
+
+@media (max-width: 540px) {
+  .vwh-prelude-text {
+    padding: 56px 20px 48px;
+    gap: 16px;
+  }
+
+  .vwh-prelude-art {
+    height: 260px;
+  }
+
+  .vwh-card-body {
+    padding: 22px 20px 32px;
+    gap: 10px;
+  }
+
+  .vwh-num {
+    font-size: 52px;
+    top: 14px;
+    right: 16px;
+  }
+
+  .vwh-footer {
+    padding: 56px 20px 72px;
+  }
+
+  .vwh-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* ════════════════════════════════════════════
+   REDUCED MOTION
+   ════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .vwh-card,
+  .vwh-cta-btn,
+  .vwh-prelude-img,
+  .vwh-img {
+    transition: none;
+  }
+
+  .vwh-card:hover {
+    transform: none;
+  }
+
+  .vwh-card::after,
+  .vwh-cta-btn::before,
+  .vwh-img-wrap::after {
+    display: none;
+  }
+
+  .vwh-link::after {
+    transition: none;
+  }
+}

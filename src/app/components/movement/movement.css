@@ -1,0 +1,81 @@
+.movement {
+  background-color: var(--color-cream);
+  padding: 100px 48px;
+}
+
+.movement-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 52px;
+}
+
+.movement-header {
+  width: 100%;
+}
+
+.movement-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--color-sage-dark);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-sage-pale);
+  position: relative;
+  text-align: left;
+}
+
+.movement-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 64px;
+  height: 2px;
+  background: var(--color-sage);
+}
+
+/* Portrait video — 9:16 reel/TikTok formaat */
+.movement-video-wrap {
+  width: 340px;
+  max-width: 100%;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: var(--color-sage-darkest);
+}
+
+.movement-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.movement-text {
+  max-width: 560px;
+}
+
+.movement-text p {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 640px) {
+  .movement { padding: 80px 24px; }
+  .movement-inner { gap: 36px; }
+  .movement-video-wrap { width: 100%; max-width: 300px; }
+}
+
+@media (max-width: 400px) {
+  .movement { padding: 64px 20px; }
+  .movement-video-wrap { max-width: 100%; }
+}
