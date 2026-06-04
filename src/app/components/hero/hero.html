@@ -1,42 +1,37 @@
 <section id="hero" class="hero">
+  <div class="hero-inner">
 
-  <!-- Left panel: full-height nature photo -->
-  <div class="hero-media">
-    <img
-      class="hero-bg-img"
-      src="image_nature.webp"
-      alt=""
-      aria-hidden="true"
-      loading="eager"
-      fetchpriority="high"
-    />
-    <div class="hero-veil"></div>
-  </div>
-
-  <!-- Right panel: editorial text on warm white -->
-  <div class="hero-panel">
-
-    <div class="hero-panel-top">
-      <span class="hero-tag">Therapie &middot; Coaching &middot; Training</span>
-    </div>
-
-    <div class="hero-content">
+    <!-- Label + Heading + Subtitle -->
+    <div class="hero-text-top">
+      <p class="hero-tag">Therapie &middot; Coaching &middot; Training</p>
       <h1 class="hero-heading">
         Begeleiding<br />
         in beweging
       </h1>
-
       <p class="hero-subtitle">
         Van bescherming naar verbinding,<br />
         in contact met jezelf en de ander
       </p>
+    </div>
 
+    <!-- Photo directly under the subtitle -->
+    <div class="hero-photo-wrap">
+      <img
+        class="hero-photo"
+        src="image_nature.webp"
+        alt="Begeleiding in de natuur"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+
+    <!-- Body text + buttons below photo -->
+    <div class="hero-text-bottom">
       <p class="hero-body">
         Voel je dat stress, spanning of terugkerende patronen je tegenhouden?
         Ik begeleid mensen om opnieuw beweging te ervaren in hun lichaam,
         in hun communicatie en in hun leven.
       </p>
-
       <div class="hero-actions">
         <button class="hero-btn-primary" (click)="scrollTo('voor-wie')">
           Ontdek mijn aanbod
@@ -47,11 +42,5 @@
       </div>
     </div>
 
-    <div class="hero-panel-foot" aria-hidden="true">
-      <span class="hero-scroll-line"></span>
-      <span class="hero-scroll-text">Ontdek</span>
-    </div>
-
   </div>
-
 </section>

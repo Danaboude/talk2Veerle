@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
 
 @Component({
@@ -9,7 +10,9 @@ import { ScrollAnimateDirective } from '../../directives/scroll-animate.directiv
   styleUrl: './voor-wie-home.css',
 })
 export class VoorWieHomeComponent {
-  scrollTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  private router = inject(Router);
+
+  goToAanbod(): void {
+    this.router.navigateByUrl('/aanbod');
   }
 }
