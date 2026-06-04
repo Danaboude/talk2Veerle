@@ -26,6 +26,10 @@ export const routes: Routes = [
         loadComponent: () => import('./survey/survey.component').then(m => m.SurveyComponent),
     },
     {
+        path: 'aanbod',
+        loadComponent: () => import('./pages/aanbod/aanbod').then(m => m.AanbodComponent),
+    },
+    {
         path: 'dashboard',
         canActivate: [adminGuard],
         loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),

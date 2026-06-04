@@ -2,53 +2,66 @@
   <div class="testimonials-inner">
 
     <div appScrollAnimate class="testimonials-header">
-      <p class="testimonials-label">ERVARINGEN</p>
+      <p class="testimonials-label">Ervaringen</p>
+      <h2 class="testimonials-heading">Wat mensen zeggen</h2>
     </div>
 
+    <!-- Two-column editorial layout -->
     <div class="testimonials-grid">
 
-      <!-- Featured: image bg + large editorial quote -->
+      <!-- Featured: large quote on sage background -->
       <div appScrollAnimate animateFrom="left" class="testimonial-featured">
-        <div class="tfeat-bg">
-          <img src="image_4.jpg" alt="Natuur als omgeving voor therapie en coaching" class="tfeat-bg-img" />
-        </div>
-        <div class="tfeat-overlay"></div>
-        <div class="tfeat-content">
-          <div class="tquote-mark">&ldquo;</div>
-          <blockquote class="tfeat-text">
-            De sessies met TALK2 hebben me geholpen inzicht te krijgen in mezelf.
-            De natuur als decor maakt het verschil. Ik voel me er opener en
-            meer aanwezig dan in een gewone therapieruimte.
-          </blockquote>
-          <footer class="testimonial-attr">
-            <p class="testimonial-name">Sophie V.</p>
-            <p class="testimonial-role">Individuele therapie &middot; Hasselt</p>
-          </footer>
-        </div>
+        <div class="tquote-mark">&ldquo;</div>
+        <blockquote class="tfeat-text">
+          Door mijn aandacht te richten op wat mij aantrok in de natuur,
+          verdween het piekeren naar de achtergrond. Er kwam ruimte,
+          nieuwsgierigheid, veerkracht.
+        </blockquote>
+        <footer class="testimonial-attr">
+          <p class="testimonial-context">Individuele begeleiding</p>
+        </footer>
       </div>
 
-      <!-- Right sidebar: landscape photo + second testimonial -->
-      <div class="testimonial-sidebar">
+      <!-- Stack of 3 small quote cards -->
+      <div class="testimonials-stack">
 
-        <div appScrollAnimate [animateDelay]="140" class="tsidebar-img-wrap">
-          <img src="image_3.jpg" alt="Wandelen en coaching in de Limburgse natuur" class="tsidebar-img" />
+        <div appScrollAnimate [animateDelay]="100" class="tcard">
+          <div class="tcard-mark">&ldquo;</div>
+          <blockquote class="tcard-text">
+            Ik voelde me gehoord, zonder oordeel en zonder haast.
+          </blockquote>
         </div>
 
-        <div appScrollAnimate [animateDelay]="240" class="testimonial-card">
-          <div class="tquote-mark tquote-mark--sm">&ldquo;</div>
+        <div appScrollAnimate [animateDelay]="200" class="tcard tcard--mid">
+          <div class="tcard-mark">&ldquo;</div>
           <blockquote class="tcard-text">
-            Ik liep vast in mijn werk en privéleven. De begeleiding van TALK2 heeft
-            me geholpen stap voor stap mijn weg terug te vinden, met aandacht en
-            zonder oordeel.
+            In één sessie kreeg ik verrassend veel helderheid
+            en ik ging lichter naar huis.
           </blockquote>
-          <footer class="testimonial-attr testimonial-attr--light">
-            <p class="testimonial-name testimonial-name--dark">Marc D.</p>
-            <p class="testimonial-role testimonial-role--dark">Coaching &middot; Genk</p>
-          </footer>
+        </div>
+
+        <div appScrollAnimate [animateDelay]="300" class="tcard">
+          <div class="tcard-mark">&ldquo;</div>
+          <blockquote class="tcard-text">
+            Het voelde veilig, warm en professioneel tegelijk.
+          </blockquote>
         </div>
 
       </div>
 
     </div>
+
+    <!-- Second row: wide horizontal quote -->
+    <div appScrollAnimate [animateDelay]="150" class="testimonials-wide">
+      <div class="twide-mark">&ldquo;</div>
+      <blockquote class="twide-text">
+        Merci voor de helderheid, professionaliteit en je warme aanwezigheid.
+        Ik heb het gevoel dat je leeft wat je ons leert.
+      </blockquote>
+      <footer>
+        <p class="testimonial-context">Training professionals</p>
+      </footer>
+    </div>
+
   </div>
 </section>

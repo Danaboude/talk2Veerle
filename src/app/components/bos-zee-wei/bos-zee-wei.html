@@ -1,12 +1,12 @@
 <section id="methode" class="bzw">
   <div class="bzw-inner">
 
-    <!-- Sectietitel + intro -->
+    <!-- Sectietitel -->
     <div appScrollAnimate class="bzw-header">
       <h2 class="bzw-title">BOS &middot; ZEE &middot; WEI</h2>
     </div>
 
-    <!-- Overzichtsbeeld (logo2.png, 1024x768) -->
+    <!-- Overzichtsdiagram -->
     <div appScrollAnimate [animateDelay]="100" class="bzw-diagram-wrap">
       <img
         src="logo2.png"
@@ -29,7 +29,7 @@
     <!-- Drie blokken -->
     <div class="bzw-blocks">
 
-      <!-- BOS: tekst links, video rechts -->
+      <!-- ── BOS ── tekst links, video rechts ── -->
       <div appScrollAnimate animateFrom="left" class="bzw-block bzw-block--bos">
         <div class="bzw-block-text">
           <p class="bzw-block-label">01</p>
@@ -41,30 +41,31 @@
             er in je zenuwstelsel gebeurt en hoe je daar zachter
             mee kan omgaan.
           </p>
+          <blockquote class="bzw-testimonial">
+            <p>"Door mijn aandacht te richten op wat mij aantrok in de natuur,
+            verdween het piekeren naar de achtergrond. Er kwam ruimte,
+            nieuwsgierigheid, veerkracht."</p>
+          </blockquote>
         </div>
         <div class="bzw-block-video-wrap">
-          <video
-            class="bzw-video"
-            appVideoScroll
-            src="reels.mp4"
-            loop
-            playsinline
-            aria-label="Video over BOS: Bewust Omgaan met Stress"
-          ></video>
+          <app-video-player
+            [src]="bosVideoUrl"
+            [vsThreshold]="0.25"
+            [loop]="true"
+            label="Video over BOS: Bewust Omgaan met Stress"
+          />
         </div>
       </div>
 
-      <!-- ZEE: video links, tekst rechts -->
+      <!-- ── ZEE ── video links, tekst rechts ── -->
       <div appScrollAnimate animateFrom="right" [animateDelay]="80" class="bzw-block bzw-block--zee">
         <div class="bzw-block-video-wrap">
-          <video
-            class="bzw-video"
-            appVideoScroll
-            src="reels.mp4"
-            loop
-            playsinline
-            aria-label="Video over ZEE: Zelfrefererend Echt luisteren en Echt spreken"
-          ></video>
+          <app-video-player
+            [src]="zeeVideoUrl"
+            [vsThreshold]="0.25"
+            [loop]="true"
+            label="Video over ZEE: Zelfrefererend Echt luisteren en Echt spreken"
+          />
         </div>
         <div class="bzw-block-text">
           <p class="bzw-block-label">02</p>
@@ -76,10 +77,15 @@
             En te zien wat er tussen jullie gebeurt wanneer dat
             wel of niet uitgesproken wordt.
           </p>
+          <blockquote class="bzw-testimonial">
+            <p>"Ik kwam omdat ik vastliep in hoe ik luisterde en reageerde.
+            In de sessies ontdekte ik dat empathisch luisteren iets is wat
+            je kunt leren, stap voor stap."</p>
+          </blockquote>
         </div>
       </div>
 
-      <!-- WEI: tekst gecentreerd boven, video gecentreerd onder -->
+      <!-- ── WEI ── gecentreerd ── -->
       <div appScrollAnimate class="bzw-block bzw-block--wei">
         <div class="bzw-block-text bzw-block-text--center">
           <p class="bzw-block-label">03</p>
@@ -90,16 +96,19 @@
             ook blijft doorwerken in het dagelijks leven.
             Nieuwe inzichten worden levende ervaringen.
           </p>
+          <blockquote class="bzw-testimonial bzw-testimonial--center">
+            <p>"We zaten vast in dezelfde patronen. Door de begeleiding
+            konden we elkaar opnieuw horen, zonder botsen. Geleidelijk
+            aan kwam er meer begrip en minder spanning."</p>
+          </blockquote>
         </div>
         <div class="bzw-wei-video-wrap">
-          <video
-            class="bzw-video bzw-video--center"
-            appVideoScroll
-            src="reels.mp4"
-            loop
-            playsinline
-            aria-label="Video over WEI: Weten, Ervaren en Integreren"
-          ></video>
+          <app-video-player
+            [src]="weiVideoUrl"
+            [vsThreshold]="0.25"
+            [loop]="true"
+            label="Video over WEI: Weten, Ervaren en Integreren"
+          />
         </div>
       </div>
 

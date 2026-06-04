@@ -4,18 +4,19 @@
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: transparent;
+  /* Frosted glass from the start — works with both the video and white panels */
+  background-color: rgba(254, 253, 251, 0.80);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid rgba(204, 227, 204, 0.25);
   transition:
     background-color 0.5s ease,
-    backdrop-filter 0.5s ease,
     box-shadow 0.5s ease;
 }
 
-/* Scrolled: frosted glass feel — premium */
+/* Scrolled: slightly more opaque + shadow */
 .header.scrolled {
-  background-color: rgba(254, 253, 251, 0.88);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(254, 253, 251, 0.92);
   box-shadow: 0 1px 0 rgba(45, 74, 49, 0.08), 0 8px 32px rgba(45, 74, 49, 0.1);
 }
 
@@ -287,47 +288,6 @@
 .mobile-book:active {
   transform: scale(0.97);
   transition-duration: 0.1s;
-}
-
-/* ── Transparent state: white text over dark hero video ── */
-.header:not(.scrolled) .logo {
-  color: rgba(255, 248, 235, 0.92);
-}
-
-.header:not(.scrolled) .logo:hover {
-  color: white;
-}
-
-.header:not(.scrolled) .brand-descriptors {
-  color: rgba(255, 248, 235, 0.55);
-  opacity: 1;
-}
-
-.header:not(.scrolled) .nav-link {
-  color: rgba(255, 248, 235, 0.82);
-}
-
-.header:not(.scrolled) .nav-link:hover {
-  color: white;
-}
-
-.header:not(.scrolled) .nav-link::after {
-  background: rgba(255, 248, 235, 0.82);
-}
-
-.header:not(.scrolled) .nav-book {
-  background-color: rgba(255, 248, 235, 0.18);
-  color: rgba(255, 248, 235, 0.92);
-  border: 1px solid rgba(255, 248, 235, 0.35);
-}
-
-.header:not(.scrolled) .nav-book:hover {
-  background-color: rgba(255, 248, 235, 0.28);
-  color: white;
-}
-
-.header:not(.scrolled) .hamburger span {
-  background: rgba(255, 248, 235, 0.88);
 }
 
 /* ── Responsive ── */

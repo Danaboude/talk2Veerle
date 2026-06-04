@@ -1,48 +1,57 @@
 <section id="hero" class="hero">
 
-  <!-- ── Full-bleed background video ── -->
-  <div class="hero-video-wrap">
-    <video
-      class="hero-video"
-      appVideoScroll
-      [vsThreshold]="0.05"
-      src="herosction.mp4"
-      loop
-      playsinline
-      aria-label="Introductievideo TALK2, begeleiding in beweging"
-    ></video>
-    <div class="hero-overlay"></div>
+  <!-- Left panel: full-height nature photo -->
+  <div class="hero-media">
+    <img
+      class="hero-bg-img"
+      src="image_nature.jpg"
+      alt=""
+      aria-hidden="true"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="hero-veil"></div>
   </div>
 
-  <!-- ── Text & buttons, layered over the video ── -->
-  <div class="hero-inner">
+  <!-- Right panel: editorial text on warm white -->
+  <div class="hero-panel">
 
-    <p class="hero-tag">Therapie &middot; Coaching &middot; Training</p>
+    <div class="hero-panel-top">
+      <span class="hero-tag">Therapie &middot; Coaching &middot; Training</span>
+    </div>
 
-    <h1 class="hero-heading">
-      Begeleiding<br />in beweging
-    </h1>
+    <div class="hero-content">
+      <h1 class="hero-heading">
+        Begeleiding<br />
+        in beweging
+      </h1>
 
-    <p class="hero-subtitle">
-      Van bescherming naar verbinding,<br />
-      in contact met jezelf en de ander
-    </p>
+      <p class="hero-subtitle">
+        Van bescherming naar verbinding,<br />
+        in contact met jezelf en de ander
+      </p>
 
-    <p class="hero-body">
-      Voel je dat stress, spanning of terugkerende patronen je tegenhouden?
-      Ik begeleid mensen om opnieuw beweging te ervaren in hun lichaam,
-      in hun communicatie en in hun leven, zodat je opnieuw kan voelen
-      wat klopt en van daaruit kan handelen.
-    </p>
+      <p class="hero-body">
+        Voel je dat stress, spanning of terugkerende patronen je tegenhouden?
+        Ik begeleid mensen om opnieuw beweging te ervaren in hun lichaam,
+        in hun communicatie en in hun leven.
+      </p>
 
-    <div class="hero-actions">
-      <button class="hero-btn-primary" (click)="scrollTo('voor-wie')">
-        Ontdek mijn aanbod
-      </button>
-      <a class="hero-btn-outline" [href]="bookingUrl" target="_blank" rel="noopener">
-        Boek een afspraak
-      </a>
+      <div class="hero-actions">
+        <button class="hero-btn-primary" (click)="scrollTo('voor-wie')">
+          Ontdek mijn aanbod
+        </button>
+        <a class="hero-btn-ghost" [href]="bookingUrl" target="_blank" rel="noopener">
+          Boek een afspraak
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-panel-foot" aria-hidden="true">
+      <span class="hero-scroll-line"></span>
+      <span class="hero-scroll-text">Ontdek</span>
     </div>
 
   </div>
+
 </section>

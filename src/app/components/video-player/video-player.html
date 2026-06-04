@@ -1,0 +1,90 @@
+<div class="vp"
+     [class.vp--playing]="isPlaying"
+     [class.vp--loading]="isLoading"
+     (mouseenter)="showControls()"
+     (mouseleave)="blurControls()"
+     (touchstart)="showControls()">
+
+  <!-- ── Video ── -->
+  <video #vid
+         class="vp-video"
+         appVideoScroll
+         [vsThreshold]="vsThreshold"
+         [src]="src"
+         [loop]="loop"
+         playsinline
+         preload="metadata"
+         [attr.aria-label]="label"
+         (loadstart)="onLoadStart()"
+         (canplay)="onCanPlay()"
+         (waiting)="onWaiting()"
+         (playing)="onPlaying()"
+         (pause)="onPause()"
+         (ended)="onEnded()">
+  </video>
+
+  <!-- ── Circular buffering spinner ── -->
+  @if (isLoading) {
+    <div class="vp-loader" aria-hidden="true">
+      <svg class="vp-spinner" viewBox="0 0 44 44">
+        <circle class="vp-track"
+                cx="22" cy="22" r="18"
+                fill="none" stroke-width="2.5"/>
+        <circle class="vp-arc"
+                cx="22" cy="22" r="18"
+                fill="none" stroke-width="2.5"
+                stroke-dasharray="113.1"
+                stroke-dashoffset="28"/>
+      </svg>
+    </div>
+  }
+
+  <!-- ── Controls overlay ── -->
+  <div class="vp-controls" [class.vp-controls--visible]="controlsVisible || !isPlaying">
+
+    <!-- −3 s -->
+    <button class="vp-btn vp-btn--skip" (click)="skip(-3)" aria-label="3 seconden terug">
+      <svg class="vp-skip-svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M1 4v6h6"/>
+        <path d="M3.51 15a9 9 0 1 0 .49-3.5"/>
+      </svg>
+      <span class="vp-skip-num">3</span>
+    </button>
+
+    <!-- Play / Pause -->
+    <button class="vp-btn vp-btn--play"
+            (click)="togglePlay()"
+            [attr.aria-label]="isPlaying ? 'Pauzeren' : 'Afspelen'">
+      @if (isPlaying) {
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="6" y="4" width="4" height="16" rx="1"/>
+          <rect x="14" y="4" width="4" height="16" rx="1"/>
+        </svg>
+      } @else {
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      }
+    </button>
+
+    <!-- +3 s -->
+    <button class="vp-btn vp-btn--skip" (click)="skip(3)" aria-label="3 seconden vooruit">
+      <svg class="vp-skip-svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M23 4v6h-6"/>
+        <path d="M20.49 15a9 9 0 1 1-.49-3.5"/>
+      </svg>
+      <span class="vp-skip-num">3</span>
+    </button>
+
+  </div>
+
+  <!-- ── Progress bar ── -->
+  <div class="vp-progress" role="progressbar"
+       [attr.aria-valuenow]="progress | number:'1.0-0'"
+       aria-valuemin="0" aria-valuemax="100">
+    <div class="vp-progress-fill" [style.width.%]="progress"></div>
+  </div>
+
+</div>

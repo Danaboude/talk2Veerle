@@ -1,0 +1,111 @@
+/* ── COMMON GROUND: Overkoepelend section with Streamable video ── */
+.cg {
+  background-color: var(--color-sage-mist);
+  padding: 100px 48px;
+  border-top: 1px solid var(--color-sage-pale);
+}
+
+.cg-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* ── Text column ── */
+.cg-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cg-label {
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+}
+
+.cg-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 300;
+  color: var(--color-sage-darkest);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+}
+
+.cg-rule {
+  width: 40px;
+  height: 1.5px;
+  background: var(--color-sage);
+  margin: 4px 0;
+}
+
+.cg-body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.9;
+  max-width: 480px;
+}
+
+/* ── Video column ── */
+.cg-video-col {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Streamable iframe: 16:9 with soft frame */
+.cg-iframe-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-sage-darkest);
+  /* Subtle outer shell — premium framing */
+  box-shadow:
+    0 0 0 1px rgba(45, 74, 49, 0.10),
+    0 16px 56px rgba(30, 53, 32, 0.16);
+}
+
+.cg-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .cg-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .cg-video-col {
+    justify-content: flex-start;
+  }
+
+  .cg-iframe-wrap {
+    max-width: 600px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .cg { padding: 80px 24px; }
+  .cg-inner { gap: 36px; }
+}
+
+@media (max-width: 400px) {
+  .cg { padding: 64px 20px; }
+}

@@ -14,7 +14,7 @@
     <!-- Desktop nav right -->
     <nav class="desktop-nav" aria-label="Hoofdnavigatie">
       @for (item of navItems; track item.id) {
-        <button class="nav-link" (click)="scrollTo(item.id)">{{ item.label }}</button>
+        <button class="nav-link" (click)="navigate(item)">{{ item.label }}</button>
       }
       <a class="nav-book" [href]="bookingUrl" target="_blank" rel="noopener">
         Boek een afspraak
@@ -39,7 +39,7 @@
   @if (mobileMenuOpen()) {
     <nav class="mobile-menu" aria-label="Mobiele navigatie">
       @for (item of navItems; track item.id) {
-        <button class="mobile-nav-link" (click)="scrollTo(item.id)">{{ item.label }}</button>
+        <button class="mobile-nav-link" (click)="navigate(item)">{{ item.label }}</button>
       }
       <a class="mobile-book" [href]="bookingUrl" target="_blank" rel="noopener">
         Boek een afspraak

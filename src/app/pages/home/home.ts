@@ -7,6 +7,8 @@ import { VoorWieHomeComponent } from '../../components/voor-wie-home/voor-wie-ho
 import { AboutShortComponent } from '../../components/about-short/about-short';
 import { OpleidingComponent } from '../../components/opleiding/opleiding';
 import { DegeluksbewegingComponent } from '../../components/degeluksbeweging/degeluksbeweging';
+import { TestimonialsComponent } from '../../components/testimonials/testimonials';
+import { CommonGroundComponent } from '../../components/common-ground/common-ground';
 import { CtaBottomComponent } from '../../components/cta-bottom/cta-bottom';
 import { FooterComponent } from '../../components/footer/footer';
 
@@ -19,6 +21,8 @@ import { FooterComponent } from '../../components/footer/footer';
     MovementComponent,
     BosZeeWeiComponent,
     VoorWieHomeComponent,
+    CommonGroundComponent,
+    TestimonialsComponent,
     AboutShortComponent,
     OpleidingComponent,
     DegeluksbewegingComponent,

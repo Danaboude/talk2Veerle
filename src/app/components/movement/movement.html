@@ -1,24 +1,25 @@
 <section id="beweging" class="movement">
   <div class="movement-inner">
 
-    <div appScrollAnimate class="movement-header">
-      <h2 class="movement-heading">Beweging op 4 lagen</h2>
+    <!-- Portrait video — left column -->
+    <div appScrollAnimate animateFrom="left" class="movement-video-wrap">
+      <app-video-player
+        [src]="videoUrl"
+        [vsThreshold]="0.25"
+        [loop]="true"
+        label="Video over beweging op 4 lagen"
+      />
     </div>
 
-    <!-- reels.mp4 — TikTok/reel formaat (9:16), speelt wanneer zichtbaar -->
-    <div appScrollAnimate [animateDelay]="100" class="movement-video-wrap">
-      <video
-        class="movement-video"
-        appVideoScroll
-        src="reels.mp4"
-        loop
-        playsinline
-        aria-label="Video over beweging op 4 lagen"
-      ></video>
-    </div>
-
-    <div appScrollAnimate [animateDelay]="200" class="movement-text">
-      <p>
+    <!-- Editorial text — right column -->
+    <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="movement-text-col">
+      <p class="movement-label">Beweging</p>
+      <h2 class="movement-heading">
+        Op vier<br />
+        lagen
+      </h2>
+      <div class="movement-rule"></div>
+      <p class="movement-body">
         Beweging gebeurt nooit op één vlak.
         Ze raakt tegelijk je lichaam, je innerlijke beleving,
         je relaties en de context waarin je leeft of werkt.

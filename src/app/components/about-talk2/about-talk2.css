@@ -1,16 +1,25 @@
 .at2 {
   background-color: var(--color-warm-white);
-  padding: 120px 48px;
+  padding: 120px 48px 140px;
 }
 
 .at2-inner {
-  max-width: 680px;
+  max-width: 640px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 40px;
+  gap: 48px;
+}
+
+/* Decorative sage line above and below content */
+.at2-rule {
+  display: block;
+  width: 40px;
+  height: 1.5px;
+  background: var(--color-sage-pale);
+  align-self: center;
 }
 
 /* Logo */
@@ -20,10 +29,11 @@
 }
 
 .at2-logo {
-  width: 256px;
-  height: 256px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
   display: block;
+  opacity: 0.9;
 }
 
 /* Text block */
@@ -31,27 +41,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
 }
 
+/* Heading hidden — logo already conveys "TALK2" */
 .at2-heading {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 300;
-  letter-spacing: 0.22em;
-  color: var(--color-sage-dark);
-  line-height: 1;
+  display: none;
 }
 
 .at2-lead {
   font-family: var(--font-heading);
-  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
   font-style: italic;
   font-weight: 300;
   color: var(--color-text);
-  line-height: 1.45;
+  line-height: 1.48;
   letter-spacing: -0.01em;
-  max-width: 560px;
+  max-width: 520px;
 }
 
 .at2-body {
@@ -59,17 +65,17 @@
   font-size: 15px;
   font-weight: 300;
   color: var(--color-text-muted);
-  line-height: 1.88;
-  max-width: 560px;
+  line-height: 1.92;
+  max-width: 520px;
 }
 
 @media (max-width: 640px) {
-  .at2 { padding: 80px 24px; }
-  .at2-inner { gap: 32px; }
-  .at2-logo { width: 180px; height: 180px; }
+  .at2 { padding: 88px 24px 100px; }
+  .at2-inner { gap: 36px; }
+  .at2-logo { width: 96px; height: 96px; }
 }
 
 @media (max-width: 400px) {
-  .at2 { padding: 64px 20px; }
-  .at2-logo { width: 140px; height: 140px; }
+  .at2 { padding: 72px 20px 84px; }
+  .at2-logo { width: 80px; height: 80px; }
 }

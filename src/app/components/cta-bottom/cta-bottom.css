@@ -1,6 +1,6 @@
 .ctab {
-  background-color: var(--color-sage-darkest);
-  padding: 100px 48px;
+  background-color: var(--color-sage-dark);
+  padding: 120px 48px;
   position: relative;
   overflow: hidden;
 }
@@ -40,11 +40,11 @@
 
 .ctab-heading {
   font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
   font-weight: 300;
-  color: white;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  color: rgba(255, 248, 235, 0.96);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
 }
 
 .ctab-body {
