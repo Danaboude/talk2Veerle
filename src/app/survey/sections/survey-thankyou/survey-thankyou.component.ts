@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { CalendarSettings } from '../../../models/survey.model';
 
 @Component({
     selector: 'app-survey-thankyou',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
     templateUrl: './survey-thankyou.component.html',
     styleUrl: './survey-thankyou.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
