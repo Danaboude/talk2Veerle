@@ -19,7 +19,8 @@
       "Bash(python build_report.py)",
       "Bash(python scripts/recalc.py daily-report-AK.xlsx)",
       "Bash(BASE_URL=https://talk2-veerle.vercel.app node seed/seed.js)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
