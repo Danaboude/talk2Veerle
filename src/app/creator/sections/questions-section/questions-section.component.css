@@ -1,0 +1,119 @@
+.question-card {
+  border: 1px solid var(--color-sage-pale);
+  background: white;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.question-card--expanded { border-color: var(--color-sage-mid); }
+
+.question-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  cursor: pointer;
+  gap: 10px;
+  background: var(--color-cream);
+  user-select: none;
+}
+
+.question-header:hover { background: var(--color-sage-mist); }
+
+.question-num {
+  background: var(--color-sage-darkest);
+  color: rgba(255,248,235,0.9);
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.question-title-display {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-sage-darkest);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.question-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.expand-icon {
+  color: var(--color-text-muted);
+  transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+
+.expand-icon.rotated { transform: rotate(180deg); }
+
+.question-body {
+  padding: 16px;
+  border-top: 1px solid var(--color-sage-pale);
+  background: white;
+}
+
+.checkbox-row {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.checkbox-row .form-label { margin-bottom: 0; cursor: pointer; }
+
+.answers-section { margin-top: 14px; }
+
+.answers-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.answer-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.answer-bullet {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--color-sage-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: 8px;
+  border-radius: 1px;
+}
+
+.answer-fields { flex: 1; }
+
+.questions-empty {
+  padding: 20px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-sage-pale);
+  border-radius: 2px;
+}

@@ -1,0 +1,6 @@
+/* Surveys tab inherits all styles from dashboard.component.css via global scope.
+   Component-specific overrides only below. */
+
+:host {
+  display: contents; /* renders children directly in dash-body layout */
+}

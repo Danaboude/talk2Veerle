@@ -1,0 +1,21 @@
+<header class="survey-hero"
+    [style.backgroundImage]="heroImage
+        ? 'linear-gradient(rgba(19,32,32,0.75), rgba(19,32,32,0.75)), url(' + heroImage + ')'
+        : 'none'"
+    [style.backgroundColor]="heroImage ? 'transparent' : 'var(--color-sage)'">
+    <div class="hero-inner">
+        <div class="hero-content-wrap">
+            <img src="/logo.jpg" class="hero-logo" alt="Logo" />
+            <div class="hero-badge">Gratis download: Verbeter de samenwerking binnen je team</div>
+            <h1 class="hero-headline">{{ heroHeadline }}</h1>
+            <p class="hero-subtext">{{ heroSubtext }}</p>
+            <button class="hero-cta-btn" (click)="ctaClick.emit()">
+                {{ ctaText || 'Download Brochure' }}
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>

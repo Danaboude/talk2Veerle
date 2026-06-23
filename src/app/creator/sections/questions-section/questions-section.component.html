@@ -1,0 +1,104 @@
+<section class="panel-section">
+  <div class="panel-section-header">
+    <span class="section-icon-wrap" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </span>
+    <h3 class="section-title">Kwalificatievragen</h3>
+  </div>
+
+  <div class="panel-section-body">
+    <p class="section-desc">Voeg vragen toe om leads te kwalificeren. Klik op een vraag om te bewerken.</p>
+
+    @for (question of questions; track question.id; let qi = $index) {
+      <div class="question-card" [class.question-card--expanded]="expandedQuestion() === question.id">
+        <!-- Question header -->
+        <div class="question-header" (click)="toggleExpand(question.id)">
+          <div class="question-num">{{ qi + 1 }}</div>
+          <div class="question-title-display">{{ question.text || 'Nieuwe vraag — klik om te bewerken' }}</div>
+          <div class="question-header-actions" (click)="$event.stopPropagation()">
+            <button class="btn-icon danger" (click)="removeQuestion(question.id)" title="Vraag verwijderen">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+              </svg>
+            </button>
+            <svg class="expand-icon" [class.rotated]="expandedQuestion() === question.id"
+              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Question body (expanded) -->
+        @if (expandedQuestion() === question.id) {
+          <div class="question-body animated-in">
+            <div class="form-group">
+              <label class="form-label">Vraagstelling</label>
+              <input class="form-input"
+                [value]="question.text"
+                (input)="updateQuestion(question.id, 'text', $any($event.target).value)"
+                placeholder="Bijv. Hoeveel medewerkers heeft uw bedrijf?" />
+            </div>
+
+            <div class="form-group checkbox-row">
+              <input type="checkbox" [checked]="question.allowOther"
+                (change)="updateQuestion(question.id, 'allowOther', $any($event.target).checked)"
+                id="allowOther-{{question.id}}">
+              <label [for]="'allowOther-' + question.id" class="form-label">
+                Eigen antwoord toestaan ("Anders, namelijk...")
+              </label>
+            </div>
+
+            <div class="answers-section">
+              <div class="answers-header">
+                <label class="form-label">Antwoordopties</label>
+              </div>
+              @for (answer of question.answers; track answer.id; let ai = $index) {
+                <div class="answer-row">
+                  <div class="answer-bullet">{{ ai + 1 }}</div>
+                  <div class="answer-fields">
+                    <input class="form-input form-input-sm" type="text"
+                      [value]="answer.text"
+                      (input)="updateAnswer(question.id, answer.id, 'text', $any($event.target).value)"
+                      placeholder="Antwoordoptie..." />
+                  </div>
+                  <button class="btn-icon danger sm"
+                    (click)="removeAnswer(question.id, answer.id)"
+                    [disabled]="question.answers.length <= 2"
+                    title="Optie verwijderen">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                  </button>
+                </div>
+              }
+              <button class="btn-add-dashed-sm" (click)="addAnswer(question.id)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Antwoordoptie toevoegen
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (questions.length === 0) {
+      <div class="questions-empty">
+        Nog geen vragen. Voeg je eerste kwalificatievraag toe.
+      </div>
+    }
+
+    <button class="btn-add-dashed" (click)="addQuestion()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Nieuwe kwalificatievraag toevoegen
+    </button>
+  </div>
+</section>

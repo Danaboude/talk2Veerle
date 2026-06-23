@@ -1,0 +1,74 @@
+<div class="dash-full-main">
+    <div class="email-templates-panel">
+        <div class="et-header">
+            <div>
+                <h2 class="et-title">
+                    <svg class="et-title-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    E-mail Templates
+                </h2>
+                <p class="et-subtitle">
+                    Bewerk bestaande templates of voeg nieuwe toe. Gebruik <code>%FIRSTNAME%</code> voor de voornaam
+                    en <code>%LINK%</code> voor de CTA-link.
+                </p>
+            </div>
+            <button class="btn-primary" (click)="templateAdd.emit()">+ Nieuwe template</button>
+        </div>
+
+        <div class="et-grid">
+            @if (emailTemplatesLoading) {
+            <div class="dash-loading" style="grid-column: 1 / -1;">
+                <div class="dash-spinner"></div>
+            </div>
+            } @else {
+            @for (t of emailTemplates; track t.id) {
+            <div class="et-card">
+                <div class="et-card-header">
+                    <div class="et-icon">
+                        @if (t.id.includes('REMINDER')) {
+                        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        } @else if (t.id === 'BOOKING_CONFIRMATION') {
+                        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        } @else {
+                        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        }
+                    </div>
+                    <div class="et-card-label-wrap">
+                        <input class="et-name-input" type="text" [(ngModel)]="t.label" placeholder="Template Naam" />
+                        <span class="et-badge" [class.automation]="t.id.includes('REMINDER')">{{ t.id }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label-sm">Onderwerp</label>
+                    <input class="form-input" type="text" [(ngModel)]="t.subject" placeholder="E-mail onderwerp..." />
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Bericht</label>
+                    <textarea class="form-input" rows="8" [(ngModel)]="t.body" placeholder="Beste %FIRSTNAME%, ..."></textarea>
+                </div>
+                <div class="et-card-actions">
+                    <button class="btn-save-template" (click)="templateSave.emit(t)">Opslaan</button>
+                    <button class="btn-delete-template" (click)="templateDelete.emit(t)" title="Verwijderen">
+                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            }
+            }
+        </div>
+    </div>
+</div>

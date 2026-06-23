@@ -1,0 +1,26 @@
+<section class="testimonials-section">
+    <h3 class="testimonials-title">Wat zeggen onze tevreden klanten</h3>
+    <div class="testimonials-grid"
+        [style.grid-template-columns]="testimonials.length < 3
+            ? 'repeat(' + testimonials.length + ', 1fr)'
+            : 'repeat(3, 1fr)'">
+        @for (t of testimonials; track t.id) {
+        <div class="testimonial-card">
+            <p class="testimonial-text">"{{ t.quote }}"</p>
+            <div class="testimonial-footer">
+                <div class="google-info">
+                    <span class="google-label">Reviews</span>
+                    <div class="google-stars">
+                        @for (star of [1,2,3,4,5]; track star) {
+                            @if (star <= t.stars) { <span>★</span> }
+                        }
+                    </div>
+                </div>
+                <div class="client-info">
+                    <span class="client-name">{{ t.author }}</span>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</section>

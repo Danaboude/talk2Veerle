@@ -1,0 +1,102 @@
+{
+  "company": "Talk2",
+  "title": "Talk2 — In Contact Met Jezelf",
+
+  "heroHeadline": "Ben je moe van altijd maar doorgaan, terwijl je vanbinnen voelt dat er iets niet klopt?",
+  "heroSubtext": "Download gratis de gids 'In Contact Met Jezelf' en ontdek hoe je opnieuw beweging vindt in stress, spanning en vastgelopen patronen.",
+  "ctaText": "Download gratis gids",
+
+  "bonusTitle": "Wat je ontdekt in de gids",
+  "bonus1Label": "Waarom je vastloopt",
+  "bonus1Text": "Begrijp welke patronen je tegenhouden — en waar ze écht vandaan komen.",
+  "bonus2Label": "Lichaam als kompas",
+  "bonus2Text": "Leer luisteren naar wat je lichaam je wil vertellen over stress en spanning.",
+  "bonus3Label": "Eerste concrete stappen",
+  "bonus3Text": "Praktische oefeningen om meer rust, helderheid en verbinding te vinden — vanaf vandaag.",
+
+  "questions": [
+    {
+      "id": "q1-situatie",
+      "text": "Wat herken jij het meest in jouw situatie op dit moment?",
+      "type": "single",
+      "allowOther": false,
+      "emailEnabled": false,
+      "emailType": "NONE",
+      "answers": [
+        { "id": "a1-stress",     "text": "Ik ervaar veel stress, spanning of burn-out gevoelens" },
+        { "id": "a1-relaties",   "text": "Ik voel me vastgelopen in mijn relaties (thuis of op het werk)" },
+        { "id": "a1-richting",   "text": "Ik zoek meer richting en diepgang in mijn leven" },
+        { "id": "a1-anders",     "text": "Ik voel me anders dan anderen en kom moeilijk tot rust" }
+      ]
+    },
+    {
+      "id": "q2-duur",
+      "text": "Hoe lang loop je hier al mee?",
+      "type": "single",
+      "allowOther": false,
+      "emailEnabled": false,
+      "emailType": "NONE",
+      "answers": [
+        { "id": "a2-kort",   "text": "Korter dan 6 maanden — het is recent opgestoken" },
+        { "id": "a2-midden", "text": "Tussen 6 maanden en 2 jaar" },
+        { "id": "a2-lang",   "text": "Al meer dan 2 jaar" },
+        { "id": "a2-altijd", "text": "Eigenlijk al zo lang als ik me kan herinneren" }
+      ]
+    },
+    {
+      "id": "q3-verlangen",
+      "text": "Wat zou het voor jou betekenen als dit verandert?",
+      "type": "single",
+      "allowOther": true,
+      "emailEnabled": false,
+      "emailType": "NONE",
+      "answers": [
+        { "id": "a3-slapen",     "text": "Eindelijk weer slapen en diep tot rust kunnen komen" },
+        { "id": "a3-contact",    "text": "Beter contact voelen — met mezelf en de mensen om me heen" },
+        { "id": "a3-helderheid", "text": "Meer helderheid over wie ik ben en wat ik echt wil" },
+        { "id": "a3-mezelf",     "text": "Gewoon mezelf voelen — vrij, licht en aanwezig" }
+      ]
+    }
+  ],
+
+  "globalEmailConfig": {
+    "enabled": true,
+    "subject": "Je gids staat klaar",
+    "body": "",
+    "type": "BROCHURE"
+  },
+
+  "testimonials": [
+    {
+      "id": "t1",
+      "author": "Sarah V., 34 jaar",
+      "quote": "Ik was sceptisch, maar na een eerste gesprek met Ives begreep ik eindelijk waarom ik altijd zo moe was. Het was niet lui zijn — het was mijn lichaam dat schreeuwde om aandacht. Drie maanden later slaap ik weer en voel ik me meer mezelf dan in jaren.",
+      "stars": 5
+    },
+    {
+      "id": "t2",
+      "author": "Tom D., 41 jaar",
+      "quote": "Ik dacht dat ik alles onder controle had. Tot ik bij Talk2 begreep dat controle houden net het probleem was. De sessies in de natuur waren een openbaring. Ik ben rustiger, lichter en mijn relatie met mijn vrouw is er helemaal op vooruit gegaan.",
+      "stars": 5
+    },
+    {
+      "id": "t3",
+      "author": "Lien M., 29 jaar",
+      "quote": "Als hoogbegaafd persoon had ik het gevoel dat niemand me echt begreep. Ives wel. Ze werkt anders dan andere therapeuten — minder vanuit het hoofd, meer vanuit het echte contact. Dat maakte voor mij het verschil.",
+      "stars": 5
+    }
+  ],
+
+  "videoUrl": "",
+
+  "automationSequenceB": [
+    { "id": "seq-b-1", "templateId": "NO_MEETING_REMINDER", "delayDays": 2 },
+    { "id": "seq-b-2", "templateId": "IMPROVEMENT",         "delayDays": 5 },
+    { "id": "seq-b-3", "templateId": "UNDERSTANDING",       "delayDays": 10 }
+  ],
+
+  "automationSequenceC": [
+    { "id": "seq-c-1", "templateId": "SURVEY_REMINDER",     "delayDays": 1 },
+    { "id": "seq-c-2", "templateId": "BROCHURE_REMINDER",   "delayDays": 4 }
+  ]
+}

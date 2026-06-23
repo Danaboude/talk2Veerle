@@ -1,18 +1,23 @@
-import { Component, signal, computed, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, computed, inject, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SurveyService } from '../services/survey.service';
 import { Survey, SurveyResponse, CalendarSettings } from '../models/survey.model';
+import { SurveyHeroComponent } from './sections/survey-hero/survey-hero.component';
+import { SurveyWizardComponent } from './sections/survey-wizard/survey-wizard.component';
+import { SurveyTestimonialsComponent } from './sections/survey-testimonials/survey-testimonials.component';
+import { SurveyThankyouComponent } from './sections/survey-thankyou/survey-thankyou.component';
 
 @Component({
     selector: 'app-survey',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, SurveyHeroComponent, SurveyWizardComponent, SurveyTestimonialsComponent, SurveyThankyouComponent],
     templateUrl: './survey.component.html',
     styleUrl: './survey.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class SurveyComponent implements OnInit {
     private route = inject(ActivatedRoute);

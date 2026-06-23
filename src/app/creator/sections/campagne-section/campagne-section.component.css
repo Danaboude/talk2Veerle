@@ -1,0 +1,45 @@
+.brochure-upload-area {
+  border: 1.5px dashed var(--color-sage-pale);
+  border-radius: 3px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--color-cream);
+  margin-top: 4px;
+}
+
+.brochure-upload-area:hover {
+  border-color: var(--color-sage-mid);
+  background: white;
+}
+
+.brochure-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-sage);
+}
+
+.brochure-name {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-sage-darkest);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+}
+
+.upload-placeholder span {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+}

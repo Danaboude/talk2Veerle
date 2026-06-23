@@ -1,0 +1,37 @@
+<section class="panel-section">
+  <div class="panel-section-header">
+    <span class="section-icon-wrap" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+    </span>
+    <h3 class="section-title">Hero sectie</h3>
+  </div>
+
+  <div class="panel-section-body">
+    <div class="form-group">
+      <label class="form-label">Hoofdtitel</label>
+      <textarea class="form-input textarea-md"
+        [ngModel]="heroHeadline" (ngModelChange)="heroHeadlineChange.emit($event)"
+        rows="3"
+        placeholder="Ontdek hoe uw bedrijf met 30–40% kan verbeteren..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Subtekst</label>
+      <textarea class="form-input textarea-sm"
+        [ngModel]="heroSubtext" (ngModelChange)="heroSubtextChange.emit($event)"
+        rows="2"
+        placeholder="Inzicht in tijdsbesteding leidt tot betere beslissingen..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">CTA-knoptekst</label>
+      <input class="form-input" type="text"
+        [ngModel]="ctaText" (ngModelChange)="ctaTextChange.emit($event)"
+        placeholder="Download brochure" />
+    </div>
+  </div>
+</section>

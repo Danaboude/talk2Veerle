@@ -1,0 +1,42 @@
+.testimonial-edit-card {
+  background: white;
+  border: 1px solid var(--color-sage-pale);
+  border-radius: 2px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.testimonial-edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.testimonial-edit-num {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.star-rating-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.star-rating-input input[type="range"] {
+  flex: 1;
+  accent-color: var(--color-sage);
+}
+
+.star-count {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  min-width: 36px;
+}

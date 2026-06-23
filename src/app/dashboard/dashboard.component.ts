@@ -5,13 +5,16 @@ import { HttpClient } from '@angular/common/http';
 import { SurveyService } from '../services/survey.service';
 import { AuthService } from '../services/auth.service';
 import { Survey, SurveyResponse, CalendarSettings, Booking } from '../models/survey.model';
-
 import { FormsModule } from '@angular/forms';
+
+import { SurveysTabComponent }       from './tabs/surveys-tab/surveys-tab.component';
+import { BookingsTabComponent }       from './tabs/bookings-tab/bookings-tab.component';
+import { EmailTemplatesTabComponent } from './tabs/email-templates-tab/email-templates-tab.component';
 
 @Component({
     selector: 'app-dashboard',
     standalone: true,
-    imports: [CommonModule, RouterLink, FormsModule],
+    imports: [CommonModule, RouterLink, FormsModule, SurveysTabComponent, BookingsTabComponent, EmailTemplatesTabComponent],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,62 @@
+<section class="panel-section">
+  <div class="panel-section-header">
+    <span class="section-icon-wrap" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+      </svg>
+    </span>
+    <h3 class="section-title">Bonusteksten</h3>
+  </div>
+
+  <div class="panel-section-body">
+    <p class="section-desc">Deze teksten verschijnen naast de mockupafbeelding op de surveypagina.</p>
+
+    <div class="form-group">
+      <label class="form-label">Koptitel</label>
+      <textarea class="form-input textarea-sm"
+        [ngModel]="bonusTitle" (ngModelChange)="bonusTitleChange.emit($event)"
+        rows="2"
+        placeholder="Verbeter de samenwerking binnen je bedrijf..."></textarea>
+    </div>
+
+    <div class="bonus-grid">
+      <div class="form-group">
+        <label class="form-label-sm">Label 1</label>
+        <input class="form-input form-input-sm" type="text"
+          [ngModel]="bonus1Label" (ngModelChange)="bonus1LabelChange.emit($event)"
+          placeholder="Bonus #1: Inzicht" />
+      </div>
+      <div class="form-group">
+        <label class="form-label-sm">Tekst 1</label>
+        <input class="form-input form-input-sm" type="text"
+          [ngModel]="bonus1Text" (ngModelChange)="bonus1TextChange.emit($event)"
+          placeholder="Leer hoe je inzicht krijgt..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label-sm">Label 2</label>
+        <input class="form-input form-input-sm" type="text"
+          [ngModel]="bonus2Label" (ngModelChange)="bonus2LabelChange.emit($event)"
+          placeholder="Bonus #2: Tijdstudie" />
+      </div>
+      <div class="form-group">
+        <label class="form-label-sm">Tekst 2</label>
+        <input class="form-input form-input-sm" type="text"
+          [ngModel]="bonus2Text" (ngModelChange)="bonus2TextChange.emit($event)"
+          placeholder="Klantcase over duur..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label-sm">Label 3</label>
+        <input class="form-input form-input-sm" type="text"
+          [ngModel]="bonus3Label" (ngModelChange)="bonus3LabelChange.emit($event)"
+          placeholder="Bonus #3: Gratis advies" />
+      </div>
+      <div class="form-group">
+        <label class="form-label-sm">Tekst 3</label>
+        <input class="form-input form-input-sm" type="text"
+          [ngModel]="bonus3Text" (ngModelChange)="bonus3TextChange.emit($event)"
+          placeholder="15 minuten gesprek..." />
+      </div>
+    </div>
+  </div>
+</section>

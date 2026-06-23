@@ -1,435 +1,94 @@
-<div class="survey-root"  *ngIf="!loading(); else loadingTpl">
+<div class="survey-root" *ngIf="!loading(); else loadingTpl">
+
     <!-- ERROR STATE -->
     <div class="error-screen" *ngIf="error()">
         <div class="error-card">
-            <div class="error-icon">⚠️</div>
+            <div class="error-icon">
+                <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
             <h2>Survey niet gevonden</h2>
             <p>{{ error() }}</p>
         </div>
     </div>
 
-    <!-- THANK YOU STATE (WITH VIDEO) -->
-    <div class="thankyou-screen" *ngIf="submitted() && !error()">
-        <ng-container *ngIf="survey() as s">
-            <div class="thankyou-container">
-                <div class="thankyou-card">
-                    <div class="thankyou-icon">
-                        <svg width="48" height="48" fill="none" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="12" fill="var(--color-sage)" />
-                            <path d="M7 12.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                    <h2 class="thankyou-title" *ngIf="!isBrochureDownloadDone()">Bedankt voor uw deelname!</h2>
-                    <h2 class="thankyou-title" *ngIf="isBrochureDownloadDone()">Download succesvol!</h2>
-                    <p class="thankyou-sub" *ngIf="!isBrochureDownloadDone()">Uw antwoorden zijn succesvol opgeslagen.</p>
-                    <p class="thankyou-sub" *ngIf="isBrochureDownloadDone()">De brochure is gedownload. Controleer ook uw mailbox voor een kopie.</p>
-                </div>
-
-                <!-- Case A & B: Video is always shown -->
-                <div class="final-video-section" *ngIf="embedUrl() && !isBrochureDownloadDone()">
-                    <h3 class="final-video-title">Speciaal voor jou: Bekijk deze video</h3>
-                    <div class="video-wrap">
-                        <iframe [src]="embedUrl()" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen class="video-iframe"></iframe>
-                    </div>
-                </div>
-
-                <!-- BOOKING UI: Shown if calendar settings and dates are available -->
-                <div class="booking-section animated-in" *ngIf="calendarSettings() && availableDates().length > 0 && !isBrochureDownloadDone()">
-                    <div class="booking-header">
-                        <h3>Plan een vrijblijvende kennismaking</h3>
-                        <p>Kies een datum en tijd die voor jou past om de resultaten te bespreken.</p>
-                    </div>
-
-                    <div *ngIf="bookingStatus() === 'idle' || bookingStatus() === 'error'">
-                        <div class="booking-error" *ngIf="bookingStatus() === 'error'">
-                            Er is iets misgegaan met het boeken. Probeer later opnieuw.
-                        </div>
-
-                        <!-- Date Selection with Datepicker -->
-                        <div class="booking-datepicker-wrap" style="margin-bottom: 24px;">
-                            <label
-                                style="display: block; font-size: 14px; color: #64748b; margin-bottom: 8px; font-weight: 500; text-align: center;">
-                                Selecteer een datum
-                            </label>
-                            <div class="datepicker-premium-input" (click)="safeShowPicker(datePicker)">
-                                <input type="date" #datePicker class="survey-native-datepicker"
-                                    [ngModel]="selectedDate()" (ngModelChange)="selectDate($event)"
-                                    [attr.min]="minDateString()" [attr.max]="maxDateString()"
-                                    (click)="$event.stopPropagation(); safeShowPicker(datePicker)" />
-                                <div class="datepicker-icon">📅</div>
-                            </div>
-                            <!-- Show available dates to help user -->
-                            <div class="available-dates-hints animated-in" *ngIf="availableDates().length > 0">
-                                <p class="hint-title">Beschikbare dagen:</p>
-                                <div class="hints-grid">
-                                    <button *ngFor="let d of availableDates()" class="hint-date-btn"
-                                        [class.active]="selectedDate() === d.date" (click)="selectDate(d.date)">
-                                        {{ d.display }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Time Selection -->
-                        <div class="booking-times-container animated-in" *ngIf="selectedDate()">
-                            <h4 class="time-selection-title">Beschikbare tijden op {{ formattedSelectedDate() }}:</h4>
-                            <div class="loading-spinner small" *ngIf="loadingTimes()" style="margin: 20px auto;"></div>
-
-                            <div class="booking-times-grid" *ngIf="!loadingTimes()">
-                                <div class="no-times" *ngIf="availableTimes().length === 0">
-                                    Geen tijden beschikbaar op deze datum.
-                                </div>
-                                <button *ngFor="let t of availableTimes()" class="booking-time-btn"
-                                    [class.active]="selectedTime() === t" (click)="selectedTime.set(t)">
-                                    {{ t }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Submit Booking -->
-                        <div class="booking-submit-wrap" *ngIf="selectedDate() && selectedTime() && !loadingTimes()">
-                            <button class="btn-booking-submit" (click)="bookAppointment()">
-                                Bevestig Afspraak om {{ selectedTime() }}
-                                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="booking-loading" *ngIf="bookingStatus() === 'booking'">
-                        <div class="loading-spinner small"></div>
-                        <p>Afspraak wordt ingepland...</p>
-                    </div>
-
-                    <div class="booking-success animated-in" *ngIf="bookingStatus() === 'success'">
-                        <div class="success-check-circle">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                <path d="M20 6L9 17L4 12" />
-                            </svg>
-                        </div>
-                        <h3>Afspraak Bevestigd!</h3>
-                        <p>We hebben een bevestiging gestuurd naar <strong>{{ email() }}</strong>.</p>
-                        <div class="booking-summary-pill">
-                            📅 {{ formattedSelectedDate() }} om {{ selectedTime() }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-    </div>
+    <!-- THANK YOU STATE -->
+    <app-survey-thankyou
+        *ngIf="submitted() && !error()"
+        [isBrochureDownloadDone]="isBrochureDownloadDone()"
+        [embedUrl]="embedUrl()"
+        [calendarSettings]="calendarSettings()"
+        [availableDates]="availableDates()"
+        [availableTimes]="availableTimes()"
+        [loadingTimes]="loadingTimes()"
+        [selectedDate]="selectedDate()"
+        [formattedSelectedDate]="formattedSelectedDate()"
+        [selectedTime]="selectedTime()"
+        [bookingStatus]="bookingStatus()"
+        [minDateString]="minDateString()"
+        [maxDateString]="maxDateString()"
+        [email]="email()"
+        (dateSelect)="selectDate($event)"
+        (timeSelect)="selectedTime.set($event)"
+        (bookAppointmentClick)="bookAppointment()">
+    </app-survey-thankyou>
 
     <!-- MAIN SURVEY -->
     <ng-container *ngIf="survey() as s">
         <ng-container *ngIf="!submitted() && !error()">
-            <!-- ===== HERO ===== -->
-            <header class="survey-hero"
-                [style.backgroundImage]="s.heroImage ? 'linear-gradient(rgba(19, 32, 32, 0.75), rgba(19, 32, 32, 0.75)), url(' + s.heroImage + ')' : 'none'"
-                [style.backgroundColor]="s.heroImage ? 'transparent' : 'var(--color-sage)'">
-                <div class="hero-inner">
-                    <div class="hero-content-wrap">
-                        <img [src]="'/logo.jpg'" class="hero-logo"
-                            alt="Logo" />
-                        <div class="hero-badge">Gratis download: Verbeter de samenwerking binnen je team</div>
-                        <h1 class="hero-headline">{{ s.heroHeadline }}</h1>
-                        <p class="hero-subtext">{{ s.heroSubtext }}</p>
 
-                        <button class="hero-cta-btn" (click)="scrollToSurvey()">
-                            {{ s.ctaText || 'Download Brochure' || 'Start Vragenlijst' }}
-                            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                    d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </header>
+            <!-- ── HERO ── -->
+            <app-survey-hero
+                [heroHeadline]="s.heroHeadline"
+                [heroSubtext]="s.heroSubtext"
+                [ctaText]="s.ctaText"
+                [heroImage]="s.heroImage"
+                (ctaClick)="scrollToSurvey()">
+            </app-survey-hero>
 
-            <!-- ===== SURVEY WIZARD ===== -->
-            <section class="survey-section" id="survey-form" *ngIf="showIntro()">
-                <div class="survey-body-layout">
-                    <div class="survey-mockup-col">
-                        <div class="mockup-bonus-wrapper">
-                            <div class="mockup-bonus-content">
-                                <div class="mockup-header-row">
-                                    @if (s.bonusTitle) {
-                                    <h3 class="mockup-bonus-title">{{ s.bonusTitle }}</h3>
-                                    }
-                                </div>
-                                <div class="mockup-body-row">
-                                    <ul class="mockup-bonus-list">
-                                        @if (s.bonus1Label) {
-                                        <li class="mockup-bonus-item">
-                                            <strong>{{ s.bonus1Label }}</strong>
-                                            <span>{{ s.bonus1Text }}</span>
-                                        </li>
-                                        }
-                                        @if (s.bonus2Label) {
-                                        <li class="mockup-bonus-item">
-                                            <strong>{{ s.bonus2Label }}</strong>
-                                            <span>{{ s.bonus2Text }}</span>
-                                        </li>
-                                        }
-                                        @if (s.bonus3Label) {
-                                        <li class="mockup-bonus-item">
-                                            <strong>{{ s.bonus3Label }}</strong>
-                                            <span>{{ s.bonus3Text }}</span>
-                                        </li>
-                                        }
-                                    </ul>
-                                    <div class="mockup-img-col">
-                                        <img src="/Grote mockup1 - Talk2.png" class="mockup-main-side"
-                                            alt="Grote Brochure Mockup" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- ── SURVEY WIZARD ── -->
+            <app-survey-wizard
+                *ngIf="showIntro()"
+                [survey]="survey()"
+                [currentStep]="currentStep()"
+                [submitting]="submitting()"
+                [name]="name()"
+                [email]="email()"
+                [phone]="phone()"
+                [phoneError]="phoneError"
+                [canProceedToQuestions]="canProceedToQuestions"
+                [answers]="answers()"
+                [otherAnswers]="otherAnswers()"
+                (nameChange)="name.set($event)"
+                (emailChange)="email.set($event)"
+                (phoneChange)="phone.set($event)"
+                (submitLeadClick)="submitLead()"
+                (nextStepClick)="nextStep()"
+                (prevStepClick)="prevStep()"
+                (answerAndNextSelect)="selectAnswerAndNext($event.questionId, $event.answerId, $event.isLast)"
+                (otherAnswerSubmit)="submitOtherAnswer($event)"
+                (otherAnswerUpdate)="updateOtherAnswer($event.questionId, $event.text)"
+                (meetingPreferenceSelect)="selectMeetingPreference($event)">
+            </app-survey-wizard>
 
-                    <div class="survey-container">
+            <!-- ── TESTIMONIALS ── -->
+            <app-survey-testimonials [testimonials]="s.testimonials || []" />
 
-                        <!-- Progress Bar -->
-                        <div class="wizard-progress">
-                            <div class="progress-track">
-                                <div class="progress-fill"
-                                    [style.width.%]="(currentStep() / (s.questions.length + 2)) * 100">
-                                </div>
-                            </div>
-                            <div class="progress-text">Stap {{ currentStep() === 0 ? 1 : (currentStep() === 1 ? 1 :
-                                (currentStep() > s.questions.length + 2 ? s.questions.length + 2 : currentStep())) }}
-                                van {{
-                                s.questions.length + 2 }}</div>
-                        </div>
-
-                        <div class="survey-card">
-                            <ng-container *ngIf="!submitting()">
-                                <!-- Step 0: Contact Info -->
-                                <div class="wizard-step" *ngIf="currentStep() === 0">
-                                    <div class="survey-card-header">
-                                        <h2 class="survey-title">Vraag je brochure aan</h2>
-                                        <p class="survey-subtitle">Vul je gegevens in om de brochure direct te
-                                            ontvangen.</p>
-                                    </div>
-
-                                    <div class="wizard-body">
-                                        <div class="form-group">
-                                            <label class="form-label-sm">Volledige Naam *</label>
-                                            <input type="text" class="form-input" [(ngModel)]="name"
-                                                placeholder="Bijv. Ives De Saeger">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label-sm">E-mailadres *</label>
-                                            <input type="email" class="form-input" [(ngModel)]="email"
-                                                placeholder="naam@bedrijf.be">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label-sm">Telefoonnummer *</label>
-                                            <input type="tel" class="form-input"
-                                                [class.form-input--error]="phoneError && phone()" [(ngModel)]="phone"
-                                                placeholder="+32 ...">
-                                            <div class="field-error" *ngIf="phoneError && phone()">
-                                                {{ phoneError }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="wizard-footer">
-                                        <button class="btn-wizard-next"
-                                            [disabled]="!canProceedToQuestions || submitting()"
-                                            [class.btn-wizard-next--valid]="canProceedToQuestions"
-                                            (click)="submitLead()">
-                                            {{ submitting() ? 'Verwerken...' : 'Brochure aanvragen' }}
-                                            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor" *ngIf="!submitting()">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Step 1: Intermediate Intro Screen -->
-                                <div class="wizard-step animated-in" *ngIf="currentStep() === 1">
-                                    <div class="survey-card-header">
-                                        <h2 class="survey-title">Dankjewel voor je interesse!</h2>
-                                        <p class="survey-subtitle">Om je zo goed mogelijk te kunnen helpen hebben we een
-                                            korte vragenlijst opgesteld, het invullen duurt ongeveer één minuutje.</p>
-                                    </div>
-
-                                    <div class="wizard-body" style="text-align: center; padding: 20px 0;">
-                                        <div class="intro-message-box"
-                                            style="background: rgba(var(--p41-teal-rgb), 0.05); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
-                                            <p
-                                                style="font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 16px;">
-                                                Wil jij hem ook invullen?</p>
-                                            <p style="font-size: 14px; color: #64748b; line-height: 1.6;">
-                                                <strong style="color: var(--color-sage);">Let op:</strong> Het invullen
-                                                van de vragenlijst is nodig om je aanvraag compleet te maken.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="wizard-footer">
-                                        <button class="btn-wizard-next btn-wizard-next--valid" (click)="nextStep()">
-                                            Volgende
-                                            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Intermediate steps removed as per request -->
-
-                                <!-- Questions Loop -->
-                                <div *ngFor="let q of survey()?.questions; let i = index">
-                                    <div class="wizard-step" *ngIf="currentStep() === (i + 2)">
-                                        <div class="survey-card-header">
-                                            <div class="q-badge">Vraag {{ i + 1 }} van {{ survey()?.questions?.length ||
-                                                0 }}</div>
-                                            <h2 class="survey-title">{{ q.text }}</h2>
-                                        </div>
-
-                                        <div class="answers-grid">
-                                            <button *ngFor="let a of q.answers" class="answer-card"
-                                                [class.answer-card--selected]="isSelected(q.id, a.id)"
-                                                (click)="selectAnswerAndNext(q.id, a.id, false)">
-                                                <span class="answer-text">{{ a.text }}</span>
-                                                <div class="answer-check" *ngIf="isSelected(q.id, a.id)">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                        stroke="currentColor" stroke-width="3">
-                                                        <path d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                </div>
-                                            </button>
-
-                                            <!-- Other Answer Logic -->
-                                            <div class="other-answer-cell" *ngIf="q.allowOther"
-                                                style="width: 100%; grid-column: 1 / -1; margin-top: 10px;">
-                                                <button class="answer-card"
-                                                    [class.answer-card--selected]="isSelected(q.id, 'other') || answers()[q.id]?.startsWith('OTHER:')"
-                                                    (click)="selectAnswerAndNext(q.id, 'other', false)"
-                                                    style="width: 100%;">
-                                                    <span class="answer-text">Anders, namelijk...</span>
-                                                </button>
-
-                                                <div class="other-input-wrap animated-in"
-                                                    *ngIf="isSelected(q.id, 'other')"
-                                                    style="margin-top: 12px; display: flex; gap: 10px;">
-                                                    <input type="text" class="form-input"
-                                                        [ngModel]="otherAnswers()[q.id]"
-                                                        (ngModelChange)="updateOtherAnswer(q.id, $event)"
-                                                        placeholder="Typ hier uw antwoord..." style="flex: 1;"
-                                                        (keyup.enter)="submitOtherAnswer(q.id)">
-                                                    <button class="btn-other-submit" (click)="submitOtherAnswer(q.id)"
-                                                        [disabled]="!otherAnswers()[q.id]"
-                                                        style="background: var(--color-sage); color: white; border: none; padding: 0 20px; border-radius: 8px; font-weight: 600;">
-                                                        OK
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FINAL STEP: Meeting Request -->
-                                <div class="wizard-step"
-                                    *ngIf="currentStep() === ((survey()?.questions?.length || 0) + 2)">
-                                    <div class="survey-card-header">
-                                        <div class="q-badge">Laatste Stap</div>
-                                        <h2 class="survey-title">Zullen we gratis even meekijken wat haalbaar is voor
-                                            jouw bedrijf?</h2>
-                                    </div>
-
-                                    <div class="answers-grid">
-                                        <button class="answer-card" (click)="selectMeetingPreference('yes')">
-                                            <span class="answer-text">Ja, je krijgt een kalender om afspraak te maken
-                                                wanneer het jou past</span>
-                                        </button>
-                                        <button class="answer-card" (click)="selectMeetingPreference('no')">
-                                            <span class="answer-text">Nu nog niet.</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="wizard-footer space-between">
-                                    <button class="btn-wizard-back" *ngIf="currentStep() > 0" (click)="prevStep()">
-                                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                        </svg>
-                                        Vorige
-                                    </button>
-
-                                    <!-- Keep subtle info about privacy at the bottom -->
-                                    <p class="submit-privacy-wizard">Veilig bewaard & vertrouwelijk.</p>
-                                </div>
-                            </ng-container>
-
-                            <!-- SUBMITTING OVERLAY INSIDE CARD -->
-                            <div class="submitting-overlay" *ngIf="submitting()">
-                                <img [src]="'/logo.jpg'"
-                                    class="loading-logo-img"
-                                    [alt]="'Talk2'" />
-                                <div class="loading-spinner"></div>
-                                <p>Je antwoorden worden verwerkt. Een moment geduld aub...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TESTIMONIALS SECTION -->
-            <section class="testimonials-section">
-                <h3 class="testimonials-title">Wat zeggen onze tevreden klanten</h3>
-                <div class="testimonials-grid" [style.grid-template-columns]="s.testimonials && s.testimonials.length < 3 ? 'repeat(' + s.testimonials.length + ', 1fr)' : 'repeat(3, 1fr)'" [style.justify-content]="'center'">
-                    @for (t of s.testimonials; track t.id) {
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"{{ t.quote }}"</p>
-                        <div class="testimonial-footer">
-                            <div class="google-info">
-                                <span class="google-label">Reviews</span>
-                                <div class="google-stars">
-                                    @for (star of [1,2,3,4,5]; track star) {
-                                        @if (star <= t.stars) {
-                                            <span>★</span>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                            <div class="client-info">
-                                <span class="client-name">{{ t.author }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    }
-                </div>
-            </section>
-
-            <!-- FOOTER -->
+            <!-- ── FOOTER ── -->
             <footer class="survey-footer">
-                <img [src]="'/logo.jpg'" class="footer-logo"
-                    [alt]="'Talk2'" />
-                <span class="footer-text">© 2026 {{ 'Talk2' }} | Ives De
-                    Saeger</span>
+                <img src="/logo.jpg" class="footer-logo" alt="Talk2" />
+                <span class="footer-text">© 2026 Talk2 | Ives De Saeger</span>
             </footer>
-        </ng-container>
 
+        </ng-container>
     </ng-container>
 </div>
 
-<!-- LOADING -->
 <ng-template #loadingTpl>
-    <div class="loading-screen" >
-        <img [src]="'/logo.jpg'" class="loading-logo-img"
-            [alt]="'Talk2'" />
+    <div class="loading-screen">
+        <img src="/logo.jpg" class="loading-logo-img" alt="Talk2" />
         <div class="loading-spinner"></div>
     </div>
 </ng-template>

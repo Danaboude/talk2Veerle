@@ -1,0 +1,102 @@
+<main class="creator-preview">
+  <div class="preview-label">Live voorbeeld</div>
+  <div class="preview-frame">
+
+    <!-- Hero -->
+    <div class="preview-hero"
+      [style.backgroundImage]="heroImagePreview
+        ? 'linear-gradient(rgba(19,32,32,0.7),rgba(19,32,32,0.7)),url(' + heroImagePreview + ')'
+        : 'none'">
+      <img src="/logo.jpg" class="preview-logo" alt="Logo" />
+      <h1 class="preview-headline">{{ heroHeadline || 'Hoofdtitel verschijnt hier' }}</h1>
+      <p class="preview-subtext">{{ heroSubtext || 'Subtekst verschijnt hier' }}</p>
+      <button class="preview-cta">{{ ctaText || 'CTA-knop' }}</button>
+    </div>
+
+    <!-- Bonus -->
+    <div class="preview-bonus-section">
+      <div class="preview-header-row">
+        <h3 class="preview-bonus-title">{{ bonusTitle }}</h3>
+        <div class="preview-cta-badge">{{ bonusCTALabel }}</div>
+      </div>
+      <div class="preview-body-row">
+        <ul class="preview-bonus-list">
+          <li><strong>{{ bonus1Label }}</strong><span>{{ bonus1Text }}</span></li>
+          <li><strong>{{ bonus2Label }}</strong><span>{{ bonus2Text }}</span></li>
+          <li><strong>{{ bonus3Label }}</strong><span>{{ bonus3Text }}</span></li>
+        </ul>
+        <div class="preview-bonus-img-col">
+          <img src="/Grote mockup1 - Talk2.png" class="preview-mockup-img" alt="Mockup" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    @if (questions.length > 0) {
+      <div class="preview-survey">
+        <h2 class="preview-survey-title">Kwalificatievragen</h2>
+        @for (q of questions; track q.id; let qi = $index) {
+          <div class="preview-question">
+            <p class="preview-q-text">{{ qi + 1 }}. {{ q.text || 'Vraag ' + (qi + 1) }}</p>
+            <div class="preview-answers">
+              @for (a of q.answers; track a.id) {
+                <label class="preview-answer-option">
+                  <input type="radio" [name]="q.id" disabled />
+                  <span>{{ a.text || 'Antwoordoptie' }}</span>
+                </label>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Testimonials -->
+    <div class="preview-testimonials">
+      <h3 class="preview-section-title">Wat zeggen onze klanten</h3>
+      <div class="preview-testimonials-grid">
+        @for (t of testimonials; track t.id) {
+          <div class="preview-testimonial-card">
+            <p class="preview-testimonial-quote">"{{ t.quote || 'Getuigenis...' }}"</p>
+            <div class="preview-testimonial-footer">
+              <span class="preview-testimonial-stars">{{ t.stars }}/5</span>
+              <span class="preview-testimonial-author">{{ t.author || 'Anoniem' }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Automation -->
+    @if (sequenceB.length > 0 || sequenceC.length > 0) {
+      <div class="preview-automation-section">
+        <h3 class="preview-automation-title">Actieve reeksen</h3>
+        <div class="preview-automation-list">
+          @for (step of sequenceB; track step.id; let i = $index) {
+            <div class="preview-automation-item">
+              <span>Reeks B — E-mail {{ i + 1 }}: {{ getEmailLabel(step.templateId) }}</span>
+              <span class="preview-automation-delay">+{{ step.delayDays === -1 ? '1 min' : step.delayDays + 'd' }}</span>
+            </div>
+          }
+          @for (step of sequenceC; track step.id; let i = $index) {
+            <div class="preview-automation-item">
+              <span>Reeks C — E-mail {{ i + 1 }}: {{ getEmailLabel(step.templateId) }}</span>
+              <span class="preview-automation-delay">+{{ step.delayDays === -1 ? '1 min' : step.delayDays + 'd' }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Video -->
+    @if (embedUrl) {
+      <div class="preview-video-section">
+        <h2 class="preview-section-title">Video</h2>
+        <div class="preview-video-wrap">
+          <iframe [src]="embedUrl" frameborder="0" allowfullscreen class="preview-iframe"></iframe>
+        </div>
+      </div>
+    }
+
+  </div>
+</main>
