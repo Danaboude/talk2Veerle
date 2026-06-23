@@ -133,42 +133,58 @@ export class CreatorComponent implements OnInit {
         // Load existing survey if editing
         const id = this.activeRoute.snapshot.paramMap.get('id');
         if (id) {
-            this.savedId.set(id);
-            this.surveyService.getSurveyById(id).subscribe({
-                next: (s) => {
-                    this.company.set(s.company || 'Talk2');
-                    this.title.set(s.title || 'Campagne');
-                    this.heroHeadline.set(s.heroHeadline || '');
-                    this.heroSubtext.set(s.heroSubtext || '');
-                    this.ctaText.set(s.ctaText || '');
-                    this.videoUrl.set(s.videoUrl || '');
-
-                    if (s.heroImage) {
-                        this.heroImagePreview.set(s.heroImage);
-                        this.heroImageBase64.set(s.heroImage);
+            this.loadSurvey(id);
+        } else {
+            // No ID → auto-load the most recent survey instead of showing blank
+            this.surveyService.getAllSurveys().subscribe({
+                next: (surveys) => {
+                    if (surveys?.length) {
+                        const latest = surveys[surveys.length - 1];
+                        this.router.navigate(['/create', latest._id], { replaceUrl: true });
                     }
-                    if (s.brochureUrl) {
-                        this.brochureUrl.set(s.brochureUrl);
-                        this.brochureBase64.set(s.brochureUrl);
-                    }
-                    if (s.questions?.length) this.questions.set(s.questions);
-
-                    if (s.bonusTitle)   this.bonusTitle.set(s.bonusTitle);
-                    if (s.bonus1Label)  this.bonus1Label.set(s.bonus1Label);
-                    if (s.bonus1Text)   this.bonus1Text.set(s.bonus1Text);
-                    if (s.bonus2Label)  this.bonus2Label.set(s.bonus2Label);
-                    if (s.bonus2Text)   this.bonus2Text.set(s.bonus2Text);
-                    if (s.bonus3Label)  this.bonus3Label.set(s.bonus3Label);
-                    if (s.bonus3Text)   this.bonus3Text.set(s.bonus3Text);
-                    if (s.bonusCTALabel) this.bonusCTALabel.set(s.bonusCTALabel);
-
-                    if (s.automationSequenceB) this.automationSequenceB.set(s.automationSequenceB);
-                    if (s.automationSequenceC) this.automationSequenceC.set(s.automationSequenceC);
-                    if (s.testimonials?.length) this.testimonials.set(s.testimonials);
+                    // If no surveys exist at all, stay on blank new-survey form
                 },
-                error: (err) => console.error('Failed to load survey', err)
+                error: () => { /* stay on blank form */ }
             });
         }
+    }
+
+    private loadSurvey(id: string): void {
+        this.savedId.set(id);
+        this.surveyService.getSurveyById(id).subscribe({
+            next: (s) => {
+                this.company.set(s.company || 'Talk2');
+                this.title.set(s.title || 'Campagne');
+                this.heroHeadline.set(s.heroHeadline || '');
+                this.heroSubtext.set(s.heroSubtext || '');
+                this.ctaText.set(s.ctaText || '');
+                this.videoUrl.set(s.videoUrl || '');
+
+                if (s.heroImage) {
+                    this.heroImagePreview.set(s.heroImage);
+                    this.heroImageBase64.set(s.heroImage);
+                }
+                if (s.brochureUrl) {
+                    this.brochureUrl.set(s.brochureUrl);
+                    this.brochureBase64.set(s.brochureUrl);
+                }
+                if (s.questions?.length) this.questions.set(s.questions);
+
+                if (s.bonusTitle)    this.bonusTitle.set(s.bonusTitle);
+                if (s.bonus1Label)   this.bonus1Label.set(s.bonus1Label);
+                if (s.bonus1Text)    this.bonus1Text.set(s.bonus1Text);
+                if (s.bonus2Label)   this.bonus2Label.set(s.bonus2Label);
+                if (s.bonus2Text)    this.bonus2Text.set(s.bonus2Text);
+                if (s.bonus3Label)   this.bonus3Label.set(s.bonus3Label);
+                if (s.bonus3Text)    this.bonus3Text.set(s.bonus3Text);
+                if (s.bonusCTALabel) this.bonusCTALabel.set(s.bonusCTALabel);
+
+                if (s.automationSequenceB) this.automationSequenceB.set(s.automationSequenceB);
+                if (s.automationSequenceC) this.automationSequenceC.set(s.automationSequenceC);
+                if (s.testimonials?.length) this.testimonials.set(s.testimonials);
+            },
+            error: (err) => console.error('Failed to load survey', err)
+        });
     }
 
     get sharableUrl(): string {
