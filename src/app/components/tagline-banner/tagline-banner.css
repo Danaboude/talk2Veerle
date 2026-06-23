@@ -11,7 +11,7 @@
   position: relative;
 }
 
-/* Grain texture — same SVG noise technique as hero */
+/* Grain texture  same SVG noise technique as hero */
 .banner::after {
   content: '';
   position: absolute;

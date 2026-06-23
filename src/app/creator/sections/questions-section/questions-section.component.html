@@ -18,7 +18,7 @@
         <!-- Question header -->
         <div class="question-header" (click)="toggleExpand(question.id)">
           <div class="question-num">{{ qi + 1 }}</div>
-          <div class="question-title-display">{{ question.text || 'Nieuwe vraag — klik om te bewerken' }}</div>
+          <div class="question-title-display">{{ question.text || 'Nieuwe vraag  klik om te bewerken' }}</div>
           <div class="question-header-actions" (click)="$event.stopPropagation()">
             <button class="btn-icon danger" (click)="removeQuestion(question.id)" title="Vraag verwijderen">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">

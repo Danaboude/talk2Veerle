@@ -24,7 +24,7 @@ export class VideoManagerService {
       // Fall back to muted so the video still plays visually.
       video.muted = true;
       video.play().catch(() => {
-        // Video play entirely blocked — nothing we can do
+        // Video play entirely blocked  nothing we can do
       });
     });
   }

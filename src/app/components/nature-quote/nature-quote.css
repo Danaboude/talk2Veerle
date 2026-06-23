@@ -106,7 +106,7 @@
   position: relative;
 }
 
-/* Taste + Impeccable: no side-stripe, no dash character — CSS line marker */
+/* Taste + Impeccable: no side-stripe, no dash character  CSS line marker */
 .voor-wie-items p::before {
   content: '';
   position: absolute;

@@ -69,7 +69,7 @@
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--color-sage-darkest);
-  /* Subtle outer shell — premium framing */
+  /* Subtle outer shell  premium framing */
   box-shadow:
     0 0 0 1px rgba(45, 74, 49, 0.10),
     0 16px 56px rgba(30, 53, 32, 0.16);

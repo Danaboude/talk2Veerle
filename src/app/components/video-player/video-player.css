@@ -1,4 +1,4 @@
-/* ── VideoPlayer — host fills the parent's size exactly ── */
+/* ── VideoPlayer  host fills the parent's size exactly ── */
 :host {
   display: block;
   width: 100%;

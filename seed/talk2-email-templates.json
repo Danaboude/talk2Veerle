@@ -3,43 +3,43 @@
     "id": "BROCHURE",
     "label": "Brochure Download",
     "subject": "Je gratis gids staat klaar 🌿",
-    "body": "Fijn dat je de gids 'In Contact Met Jezelf' hebt aangevraagd, %FIRSTNAME%!\n\nHieronder vind je de link om de gids te downloaden. Neem er even rustig de tijd voor — hij is geschreven om bij te lezen, niet om door te jagen.\n\nKlik hier om de gids te downloaden: %LINK%\n\nIn de gids ontdek je:\n— Waarom je vastzit (en dat het niet aan jou ligt)\n— Hoe je lichaam je de weg kan wijzen\n— Concrete eerste stappen die je vandaag nog kunt zetten\n\nWe stellen ook voor om even samen te zitten — vrijblijvend, 20 minuten — om te kijken wat voor jou het meest helpend zou zijn. Dat doe je via de link in de survey.\n\nMet vriendelijke groeten,\nIves | Talk2"
+    "body": "Fijn dat je de gids 'In Contact Met Jezelf' hebt aangevraagd, %FIRSTNAME%!\n\nHieronder vind je de link om de gids te downloaden. Neem er even rustig de tijd voor  hij is geschreven om bij te lezen, niet om door te jagen.\n\nKlik hier om de gids te downloaden: %LINK%\n\nIn de gids ontdek je:\n Waarom je vastzit (en dat het niet aan jou ligt)\n Hoe je lichaam je de weg kan wijzen\n Concrete eerste stappen die je vandaag nog kunt zetten\n\nWe stellen ook voor om even samen te zitten  vrijblijvend, 20 minuten  om te kijken wat voor jou het meest helpend zou zijn. Dat doe je via de link in de survey.\n\nMet vriendelijke groeten,\nIves | Talk2"
   },
   {
     "id": "SURVEY_REMINDER",
     "label": "Herinnering Vragenlijst",
     "subject": "Je gids wacht nog op je, %FIRSTNAME%",
-    "body": "Hey %FIRSTNAME%,\n\nJe hebt de gids aangevraagd maar de korte vragenlijst nog niet ingevuld. Dat is helemaal oké — het leven is druk.\n\nMaar de vragenlijst duurt letterlijk één minuutje en helpt ons om je de juiste informatie te sturen.\n\nFinish hier: %LINK%\n\nTot snel,\nIves | Talk2"
+    "body": "Hey %FIRSTNAME%,\n\nJe hebt de gids aangevraagd maar de korte vragenlijst nog niet ingevuld. Dat is helemaal oké  het leven is druk.\n\nMaar de vragenlijst duurt letterlijk één minuutje en helpt ons om je de juiste informatie te sturen.\n\nFinish hier: %LINK%\n\nTot snel,\nIves | Talk2"
   },
   {
     "id": "BROCHURE_REMINDER",
     "label": "Herinnering Brochure",
     "subject": "Heb je de gids al kunnen lezen?",
-    "body": "Hoi %FIRSTNAME%,\n\nEen paar dagen geleden downloadde je de gids 'In Contact Met Jezelf'. We zijn benieuwd of je er al even in hebt kunnen kijken.\n\nAls je vragen hebt, of gewoon even wil praten over wat je herkent — we zijn er. Een vrijblijvend gesprek plannen kan via: %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
+    "body": "Hoi %FIRSTNAME%,\n\nEen paar dagen geleden downloadde je de gids 'In Contact Met Jezelf'. We zijn benieuwd of je er al even in hebt kunnen kijken.\n\nAls je vragen hebt, of gewoon even wil praten over wat je herkent  we zijn er. Een vrijblijvend gesprek plannen kan via: %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
   },
   {
     "id": "NO_MEETING_REMINDER",
     "label": "Herinnering: Geen afspraak geboekt",
     "subject": "Klaar voor een vrijblijvend gesprek?",
-    "body": "Beste %FIRSTNAME%,\n\nJe hebt de vragenlijst ingevuld — dank daarvoor. We hebben je antwoorden gelezen en denken dat een kort gesprek voor jou veel duidelijkheid kan brengen.\n\nHet is volledig vrijblijvend: 20 minuten, geen verplichtingen, gewoon kijken of er een klik is en wat helpend kan zijn.\n\nKies een moment dat jou past: %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
+    "body": "Beste %FIRSTNAME%,\n\nJe hebt de vragenlijst ingevuld  dank daarvoor. We hebben je antwoorden gelezen en denken dat een kort gesprek voor jou veel duidelijkheid kan brengen.\n\nHet is volledig vrijblijvend: 20 minuten, geen verplichtingen, gewoon kijken of er een klik is en wat helpend kan zijn.\n\nKies een moment dat jou past: %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
   },
   {
     "id": "IMPROVEMENT",
     "label": "30-40% Verbetering",
     "subject": "Wat als 30% minder spanning alles verandert?",
-    "body": "Hoi %FIRSTNAME%,\n\nWist je dat mensen die starten met begeleiding bij Talk2 al na 4-6 sessies een merkbare verschuiving ervaren?\n\nNiet omdat ze harder werken of meer wilskracht hebben — maar omdat ze voor het eerst echt luisteren naar wat er in hen leeft.\n\nStress, spanning en vastgelopen patronen: ze hebben altijd een reden. En die reden is bijna nooit wat je denkt.\n\nBen je nieuwsgierig wat dit voor jou zou kunnen betekenen? Plan een vrijblijvend kennismakingsgesprek: %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
+    "body": "Hoi %FIRSTNAME%,\n\nWist je dat mensen die starten met begeleiding bij Talk2 al na 4-6 sessies een merkbare verschuiving ervaren?\n\nNiet omdat ze harder werken of meer wilskracht hebben  maar omdat ze voor het eerst echt luisteren naar wat er in hen leeft.\n\nStress, spanning en vastgelopen patronen: ze hebben altijd een reden. En die reden is bijna nooit wat je denkt.\n\nBen je nieuwsgierig wat dit voor jou zou kunnen betekenen? Plan een vrijblijvend kennismakingsgesprek: %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
   },
   {
     "id": "UNDERSTANDING",
     "label": "Begrijpen voor Verbeteren",
     "subject": "Eerst begrijpen, dan veranderen",
-    "body": "Hoi %FIRSTNAME%,\n\nEr is een misverstand over verandering: de meeste mensen denken dat ze harder moeten proberen, meer wilskracht moeten hebben of gewoon 'er doorheen moeten bijten'.\n\nMaar duurzame verandering begint met begrijpen — niet met pushen.\n\nBegrijpen waarom je reageert zoals je reageert. Begrijpen wat je lichaam je probeert te vertellen. Begrijpen welke beschermingspatronen er zijn — en waarom ze er ooit waren.\n\nDat is precies waar we bij Talk2 mee beginnen.\n\nWil je eens vrijblijvend kennismaken? %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
+    "body": "Hoi %FIRSTNAME%,\n\nEr is een misverstand over verandering: de meeste mensen denken dat ze harder moeten proberen, meer wilskracht moeten hebben of gewoon 'er doorheen moeten bijten'.\n\nMaar duurzame verandering begint met begrijpen  niet met pushen.\n\nBegrijpen waarom je reageert zoals je reageert. Begrijpen wat je lichaam je probeert te vertellen. Begrijpen welke beschermingspatronen er zijn  en waarom ze er ooit waren.\n\nDat is precies waar we bij Talk2 mee beginnen.\n\nWil je eens vrijblijvend kennismaken? %LINK%\n\nMet vriendelijke groeten,\nIves | Talk2"
   },
   {
     "id": "BOOKING_CONFIRMATION",
     "label": "Afspraak Bevestiging",
     "subject": "Je afspraak is bevestigd ✓",
-    "body": "Beste %FIRSTNAME%,\n\nJe kennismakingsgesprek met Talk2 is bevestigd.\n\nWe kijken er naar uit om je te ontmoeten. Het gesprek duurt ongeveer 20 minuten en is volledig vrijblijvend.\n\nEen kleine voorbereiding:\n— Geen voorbereiding nodig. Kom zoals je bent.\n— Je hoeft niets te weten of te kunnen uitleggen — we beginnen gewoon met wat er is.\n— Als je toch iets wil nadenken: wat hoopt jij dat er anders wordt?\n\nTot dan!\n\nMet vriendelijke groeten,\nIves | Talk2"
+    "body": "Beste %FIRSTNAME%,\n\nJe kennismakingsgesprek met Talk2 is bevestigd.\n\nWe kijken er naar uit om je te ontmoeten. Het gesprek duurt ongeveer 20 minuten en is volledig vrijblijvend.\n\nEen kleine voorbereiding:\n Geen voorbereiding nodig. Kom zoals je bent.\n Je hoeft niets te weten of te kunnen uitleggen  we beginnen gewoon met wat er is.\n Als je toch iets wil nadenken: wat hoopt jij dat er anders wordt?\n\nTot dan!\n\nMet vriendelijke groeten,\nIves | Talk2"
   },
   {
     "id": "LINK_OPENED_REMINDER",
@@ -51,6 +51,6 @@
     "id": "SURVEY_INCOMPLETE_REMINDER",
     "label": "Herinnering: Survey niet afgemaakt",
     "subject": "Je was halverwege...",
-    "body": "Hoi %FIRSTNAME%,\n\nJe was begonnen met de vragenlijst maar had hem nog niet helemaal afgerond. Dat overkomt iedereen.\n\nFinish hem hier — het duurt nog geen minuut: %LINK%\n\nZodra je klaar bent, sturen we je wat aanvullende informatie op basis van jouw antwoorden.\n\nMet vriendelijke groeten,\nIves | Talk2"
+    "body": "Hoi %FIRSTNAME%,\n\nJe was begonnen met de vragenlijst maar had hem nog niet helemaal afgerond. Dat overkomt iedereen.\n\nFinish hem hier  het duurt nog geen minuut: %LINK%\n\nZodra je klaar bent, sturen we je wat aanvullende informatie op basis van jouw antwoorden.\n\nMet vriendelijke groeten,\nIves | Talk2"
   }
 ]

@@ -61,7 +61,7 @@ async function seed() {
     for (const tmpl of templates) {
         try {
             await put('email-templates-api', tmpl);
-            console.log(`    ✓ ${tmpl.id} — ${tmpl.label}`);
+            console.log(`    ✓ ${tmpl.id}  ${tmpl.label}`);
         } catch (err) {
             console.error(`    ✗ ${tmpl.id} failed: ${err.message}`);
         }

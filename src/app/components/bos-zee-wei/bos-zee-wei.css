@@ -78,7 +78,7 @@
   grid-template-columns: 380px 1fr;
 }
 
-/* WEI: centered column — different layout family */
+/* WEI: centered column  different layout family */
 .bzw-block--wei {
   display: flex;
   flex-direction: column;
@@ -152,7 +152,7 @@
   max-width: 520px;
 }
 
-/* Portrait video — 9:16 reel formaat */
+/* Portrait video  9:16 reel formaat */
 .bzw-block-video-wrap {
   aspect-ratio: 9 / 16;
   overflow: hidden;
@@ -160,7 +160,7 @@
   flex-shrink: 0;
 }
 
-/* Centered WEI video — slightly wider */
+/* Centered WEI video  slightly wider */
 .bzw-wei-video-wrap {
   width: 360px;
   max-width: 100%;

@@ -24,11 +24,11 @@ export class VideoScrollDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const video = this.el.nativeElement as HTMLVideoElement;
-    // Do NOT force muted — let sound play if browser allows it.
+    // Do NOT force muted  let sound play if browser allows it.
     // VideoManagerService handles the muted fallback when autoplay is blocked.
     video.playsInline = true;
 
-    // Respect user's motion preference — do not autoplay
+    // Respect user's motion preference  do not autoplay
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     this.observer = new IntersectionObserver(
@@ -37,7 +37,7 @@ export class VideoScrollDirective implements OnInit, OnDestroy {
         if (entry.isIntersecting && entry.intersectionRatio >= this.vsThreshold) {
           this.videoManager.play(video);
         } else if (!entry.isIntersecting) {
-          // Fully left the viewport — pause
+          // Fully left the viewport  pause
           this.videoManager.pause(video);
         }
         // Partially visible but below threshold: leave current state unchanged

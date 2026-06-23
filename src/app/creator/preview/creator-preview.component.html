@@ -74,13 +74,13 @@
         <div class="preview-automation-list">
           @for (step of sequenceB; track step.id; let i = $index) {
             <div class="preview-automation-item">
-              <span>Reeks B — E-mail {{ i + 1 }}: {{ getEmailLabel(step.templateId) }}</span>
+              <span>Reeks B  E-mail {{ i + 1 }}: {{ getEmailLabel(step.templateId) }}</span>
               <span class="preview-automation-delay">+{{ step.delayDays === -1 ? '1 min' : step.delayDays + 'd' }}</span>
             </div>
           }
           @for (step of sequenceC; track step.id; let i = $index) {
             <div class="preview-automation-item">
-              <span>Reeks C — E-mail {{ i + 1 }}: {{ getEmailLabel(step.templateId) }}</span>
+              <span>Reeks C  E-mail {{ i + 1 }}: {{ getEmailLabel(step.templateId) }}</span>
               <span class="preview-automation-delay">+{{ step.delayDays === -1 ? '1 min' : step.delayDays + 'd' }}</span>
             </div>
           }

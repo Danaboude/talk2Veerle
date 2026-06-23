@@ -42,7 +42,7 @@
   align-items: start;
 }
 
-/* Left column — photo fills as much as it can, no forced aspect-ratio crop */
+/* Left column  photo fills as much as it can, no forced aspect-ratio crop */
 .about-photo-wrap {
   overflow: hidden;
   aspect-ratio: 3 / 4;

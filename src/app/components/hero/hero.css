@@ -1,4 +1,4 @@
-/* ── HERO: Full-viewport stacked editorial — no scroll needed ── */
+/* ── HERO: Full-viewport stacked editorial  no scroll needed ── */
 .hero {
   background-color: var(--color-warm-white);
   height: 100dvh;          /* exactly one screen tall */
@@ -21,7 +21,7 @@
 }
 
 /* ══════════════════════════════════════════════
-   TOP TEXT — label / heading / subtitle
+   TOP TEXT  label / heading / subtitle
    ══════════════════════════════════════════════ */
 .hero-text-top {
   flex-shrink: 0;
@@ -41,7 +41,7 @@
   animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.08s forwards;
 }
 
-/* Heading — large but not so large it eats all vertical space */
+/* Heading  large but not so large it eats all vertical space */
 .hero-heading {
   font-family: var(--font-heading);
   font-size: clamp(3rem, 5.2vw, 5.6rem);
@@ -68,7 +68,7 @@
 }
 
 /* ══════════════════════════════════════════════
-   PHOTO — grows to fill all remaining vertical space
+   PHOTO  grows to fill all remaining vertical space
    ══════════════════════════════════════════════ */
 .hero-photo-wrap {
   flex: 1;                 /* fills whatever space the text blocks leave */
@@ -94,7 +94,7 @@
 }
 
 /* ══════════════════════════════════════════════
-   BOTTOM TEXT — body paragraph + buttons
+   BOTTOM TEXT  body paragraph + buttons
    ══════════════════════════════════════════════ */
 .hero-text-bottom {
   flex-shrink: 0;
@@ -193,13 +193,13 @@
    RESPONSIVE
    ══════════════════════════════════════════════ */
 
-/* Short laptop screens — tighten further */
+/* Short laptop screens  tighten further */
 @media (max-height: 780px) and (min-width: 769px) {
   .hero-inner { padding-top: 72px; padding-bottom: 24px; gap: 16px; }
   .hero-heading { font-size: clamp(2.6rem, 4.5vw, 4.8rem); }
 }
 
-/* Tablet: let content flow naturally — no viewport lock */
+/* Tablet: let content flow naturally  no viewport lock */
 @media (max-width: 900px) {
   .hero {
     height: auto;

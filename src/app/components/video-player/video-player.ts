@@ -23,7 +23,7 @@ import { VideoManagerService } from '../../services/video-manager.service';
   styleUrl: './video-player.css',
 })
 export class VideoPlayerComponent implements OnDestroy {
-  /** Video source — local path or full external URL */
+  /** Video source  local path or full external URL */
   @Input() src!: string;
   /** Intersection ratio before autoplay fires (0–1) */
   @Input() vsThreshold = 0.3;
