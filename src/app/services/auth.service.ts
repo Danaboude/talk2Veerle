@@ -24,7 +24,7 @@ export class AuthService {
 
     login(email: string, password: string): Observable<{ success: boolean; token: string }> {
         return new Observable(observer => {
-            if (email === 'veerlefollens@hotmail.com' && password === 'veerle2001') {
+            if (email === 'veerlefollens@hotmail.com' && password === 'ives-veerle') {
                 const token = 'talk2-hardcoded-token';
                 localStorage.setItem('talk2_admin_token', token);
                 this.isAuthenticatedSubject.next(true);

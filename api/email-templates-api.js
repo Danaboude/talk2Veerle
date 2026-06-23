@@ -14,13 +14,20 @@ export default async function handler(request, response) {
         await sql`
             CREATE TABLE IF NOT EXISTS email_templates (
                 id TEXT PRIMARY KEY,
-                label TEXT NOT NULL,
+                label TEXT NOT NULL DEFAULT '',
                 subject TEXT DEFAULT '',
                 body TEXT DEFAULT '',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `;
+
+        // Migrate: add missing columns if table already existed without them
+        await sql`ALTER TABLE email_templates ADD COLUMN IF NOT EXISTS label TEXT NOT NULL DEFAULT ''`;
+        await sql`ALTER TABLE email_templates ADD COLUMN IF NOT EXISTS subject TEXT DEFAULT ''`;
+        await sql`ALTER TABLE email_templates ADD COLUMN IF NOT EXISTS body TEXT DEFAULT ''`;
+        await sql`ALTER TABLE email_templates ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP`;
+        await sql`ALTER TABLE email_templates ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP`;
 
         if (request.method === 'GET') {
             const templates = await sql`SELECT * FROM email_templates ORDER BY created_at ASC`;

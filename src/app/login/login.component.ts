@@ -13,7 +13,7 @@ import { AuthService } from '../services/auth.service';
     <div class="login-root">
         <div class="login-card">
             <div class="login-logo-wrap">
-                <img src="/logo.jpg" alt="Talk2 Logo" class="login-logo">
+                <img src="/logo.png" alt="Talk2 Logo" class="login-logo">
             </div>
             <h1 class="login-title">Admin Inloggen</h1>
             <p class="login-sub">Log in om leads en afspraken te beheren</p>

@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, computed, inject, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +18,7 @@ import { EmailTemplatesTabComponent } from './tabs/email-templates-tab/email-tem
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
     private surveyService = inject(SurveyService);
