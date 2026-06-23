@@ -57,11 +57,14 @@ import { AuthService } from '../services/auth.service';
         border: 1px solid var(--color-sage-light);
     }
     .login-logo-wrap {
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-bottom: 24px;
     }
     .login-logo {
         height: 60px;
+        display: block;
     }
     .login-title {
         font-size: 24px;
