@@ -1,6 +1,6 @@
 {
   "company": "Talk2",
-  "title": "Talk2  In Contact Met Jezelf",
+  "title": "Talk2 — In Contact Met Jezelf",
 
   "heroHeadline": "Ben je moe van altijd maar doorgaan, terwijl je vanbinnen voelt dat er iets niet klopt?",
   "heroSubtext": "Download gratis de gids 'In Contact Met Jezelf' en ontdek hoe je opnieuw beweging vindt in stress, spanning en vastgelopen patronen.",
@@ -8,53 +8,81 @@
 
   "bonusTitle": "Wat je ontdekt in de gids",
   "bonus1Label": "Waarom je vastloopt",
-  "bonus1Text": "Begrijp welke patronen je tegenhouden  en waar ze écht vandaan komen.",
+  "bonus1Text": "Begrijp welke patronen je tegenhouden en waar ze écht vandaan komen.",
   "bonus2Label": "Lichaam als kompas",
   "bonus2Text": "Leer luisteren naar wat je lichaam je wil vertellen over stress en spanning.",
   "bonus3Label": "Eerste concrete stappen",
-  "bonus3Text": "Praktische oefeningen om meer rust, helderheid en verbinding te vinden  vanaf vandaag.",
+  "bonus3Text": "Praktische oefeningen om meer rust, helderheid en verbinding te vinden — vanaf vandaag.",
 
   "questions": [
     {
-      "id": "q1-situatie",
-      "text": "Wat herken jij het meest in jouw situatie op dit moment?",
+      "id": "q1-voor-wie",
+      "text": "Voor wie zoek je begeleiding?",
       "type": "single",
       "allowOther": false,
       "emailEnabled": false,
       "emailType": "NONE",
       "answers": [
-        { "id": "a1-stress",     "text": "Ik ervaar veel stress, spanning of burn-out gevoelens" },
-        { "id": "a1-relaties",   "text": "Ik voel me vastgelopen in mijn relaties (thuis of op het werk)" },
-        { "id": "a1-richting",   "text": "Ik zoek meer richting en diepgang in mijn leven" },
-        { "id": "a1-anders",     "text": "Ik voel me anders dan anderen en kom moeilijk tot rust" }
+        { "id": "a1-individueel",    "text": "Voor mezelf — ik wil individuele begeleiding" },
+        { "id": "a1-duo",            "text": "Voor mij en mijn partner, kind of iemand dichtbij" },
+        { "id": "a1-professional",   "text": "Als professional die zelf met mensen werkt (coach, leerkracht, therapeut…)" },
+        { "id": "a1-organisatie",    "text": "Voor mijn team of organisatie" }
       ]
     },
     {
-      "id": "q2-duur",
+      "id": "q2-uitdaging",
+      "text": "Wat speelt er voor jou momenteel het sterkst?",
+      "type": "single",
+      "allowOther": false,
+      "emailEnabled": false,
+      "emailType": "NONE",
+      "answers": [
+        { "id": "a2-spanning",       "text": "Spanning, overprikkeling of burn-out gevoelens" },
+        { "id": "a2-relatie",        "text": "Vastgelopen communicatie of afstand in een relatie of op het werk" },
+        { "id": "a2-losgevoel",      "text": "Ik voel me los van mezelf of anderen — aanwezig zijn lukt niet echt meer" },
+        { "id": "a2-richting",       "text": "Ik zoek meer richting, rust of diepgang in mijn leven" }
+      ]
+    },
+    {
+      "id": "q3-duur",
       "text": "Hoe lang loop je hier al mee?",
       "type": "single",
       "allowOther": false,
       "emailEnabled": false,
       "emailType": "NONE",
       "answers": [
-        { "id": "a2-kort",   "text": "Korter dan 6 maanden  het is recent opgestoken" },
-        { "id": "a2-midden", "text": "Tussen 6 maanden en 2 jaar" },
-        { "id": "a2-lang",   "text": "Al meer dan 2 jaar" },
-        { "id": "a2-altijd", "text": "Eigenlijk al zo lang als ik me kan herinneren" }
+        { "id": "a3-kort",           "text": "Korter dan 6 maanden — het is recent opgestoken" },
+        { "id": "a3-midden",         "text": "Tussen 6 maanden en 2 jaar" },
+        { "id": "a3-lang",           "text": "Al meer dan 2 jaar" },
+        { "id": "a3-altijd",         "text": "Eigenlijk al zo lang als ik me kan herinneren" }
       ]
     },
     {
-      "id": "q3-verlangen",
-      "text": "Wat zou het voor jou betekenen als dit verandert?",
+      "id": "q4-eerder",
+      "text": "Heb je al eerder begeleiding gezocht hiervoor?",
       "type": "single",
-      "allowOther": true,
+      "allowOther": false,
       "emailEnabled": false,
       "emailType": "NONE",
       "answers": [
-        { "id": "a3-slapen",     "text": "Eindelijk weer slapen en diep tot rust kunnen komen" },
-        { "id": "a3-contact",    "text": "Beter contact voelen  met mezelf en de mensen om me heen" },
-        { "id": "a3-helderheid", "text": "Meer helderheid over wie ik ben en wat ik echt wil" },
-        { "id": "a3-mezelf",     "text": "Gewoon mezelf voelen  vrij, licht en aanwezig" }
+        { "id": "a4-nooit",          "text": "Nee, dit is de eerste keer dat ik er actief naar zoek" },
+        { "id": "a4-niet-geholpen",  "text": "Ja, maar het heeft me niet gebracht wat ik zocht" },
+        { "id": "a4-klaar-meer",     "text": "Ja, en het heeft geholpen — maar ik zoek nu iets diepers of anders" },
+        { "id": "a4-andere-aanpak",  "text": "Ik ben nu klaar voor een andere, meer lichaamsgerichte aanpak" }
+      ]
+    },
+    {
+      "id": "q5-stap",
+      "text": "Wat zou voor jou een ideale eerste stap zijn?",
+      "type": "single",
+      "allowOther": true,
+      "emailEnabled": true,
+      "emailType": "NO_MEETING_REMINDER",
+      "answers": [
+        { "id": "a5-kennismaking",   "text": "Een vrijblijvend kennismakingsgesprek met Ives" },
+        { "id": "a5-traject",        "text": "Direct starten met een traject" },
+        { "id": "a5-info",           "text": "Eerst meer informatie ontvangen over het aanbod" },
+        { "id": "a5-weet-niet",      "text": "Ik weet het nog niet precies — ik wil graag gevoeld worden" }
       ]
     }
   ],
@@ -70,7 +98,7 @@
     {
       "id": "t1",
       "author": "Sarah V., 34 jaar",
-      "quote": "Ik was sceptisch, maar na een eerste gesprek met Ives begreep ik eindelijk waarom ik altijd zo moe was. Het was niet lui zijn  het was mijn lichaam dat schreeuwde om aandacht. Drie maanden later slaap ik weer en voel ik me meer mezelf dan in jaren.",
+      "quote": "Ik was sceptisch, maar na een eerste gesprek met Ives begreep ik eindelijk waarom ik altijd zo moe was. Het was niet lui zijn — het was mijn lichaam dat schreeuwde om aandacht. Drie maanden later slaap ik weer en voel ik me meer mezelf dan in jaren.",
       "stars": 5
     },
     {
@@ -82,7 +110,7 @@
     {
       "id": "t3",
       "author": "Lien M., 29 jaar",
-      "quote": "Als hoogbegaafd persoon had ik het gevoel dat niemand me echt begreep. Ives wel. Ze werkt anders dan andere therapeuten  minder vanuit het hoofd, meer vanuit het echte contact. Dat maakte voor mij het verschil.",
+      "quote": "Als hoogbegaafd persoon had ik het gevoel dat niemand me echt begreep. Ives wel. Ze werkt anders dan andere therapeuten — minder vanuit het hoofd, meer vanuit het echte contact. Dat maakte voor mij het verschil.",
       "stars": 5
     }
   ],
