@@ -1,5 +1,19 @@
 import { Component, HostListener, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { BOOKING_LINKS } from '../../config/booking-links';
+
+interface NavChild {
+  label: string;
+  fragment: string;
+  description: string;
+}
+
+interface NavItem {
+  id: string;
+  label: string;
+  route: string;
+  dropdown: NavChild[] | null;
+}
 
 @Component({
   selector: 'app-header',
@@ -11,16 +25,37 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   mobileMenuOpen = signal(false);
   scrolled = signal(false);
+  openDropdown = signal<string | null>(null);
+  mobileOpenDropdown = signal<string | null>(null);
 
   private router = inject(Router);
-  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
+  readonly bookingUrl = BOOKING_LINKS.general;
 
-  navItems = [
-    { id: 'over-talk2', label: 'Over Talk2', route: null },
-    { id: 'methode',    label: 'Methode',    route: null },
-    { id: 'aanbod',     label: 'Aanbod',     route: '/aanbod' },
-    { id: 'over-mij',  label: 'Over mij',   route: null },
-    { id: 'contact',   label: 'Contact',    route: null },
+  navItems: NavItem[] = [
+    { id: 'over-talk2', label: 'Over Talk2', route: '/', dropdown: null },
+    {
+      id: 'aanpak',
+      label: 'Aanpak',
+      route: '/aanpak',
+      dropdown: [
+        { label: 'Bos', fragment: 'bos', description: 'Grond onder de voeten' },
+        { label: 'Zee', fragment: 'zee', description: 'Ruimte voor emotie en beweging' },
+        { label: 'Wei', fragment: 'wei', description: 'Openheid en verbinding' },
+      ],
+    },
+    {
+      id: 'aanbod',
+      label: 'Aanbod',
+      route: '/aanbod',
+      dropdown: [
+        { label: 'Individuen', fragment: 'individuen', description: 'Voor je eigen proces' },
+        { label: "Duo's & Koppels", fragment: 'duos', description: 'Samen in verbinding' },
+        { label: 'Professionals', fragment: 'professionals', description: 'Begeleiding voor begeleiders' },
+        { label: 'Organisaties & Groepen', fragment: 'organisaties', description: 'Team- en groepswerk' },
+      ],
+    },
+    { id: 'over-mij', label: 'Over mij', route: '/over-mij', dropdown: null },
+    { id: 'contact', label: 'Contact', route: '/contact', dropdown: null },
   ];
 
   @HostListener('window:scroll')
@@ -28,30 +63,27 @@ export class HeaderComponent {
     this.scrolled.set(window.scrollY > 60);
   }
 
-  navigate(item: { id: string; route: string | null }): void {
+  goHome(): void {
     this.mobileMenuOpen.set(false);
-    if (item.route) {
-      this.router.navigateByUrl(item.route);
-    } else {
-      // If on the home page scroll to section; otherwise go home first
-      if (this.router.url === '/') {
-        document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        this.router.navigateByUrl('/').then(() => {
-          setTimeout(() => {
-            document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
-        });
-      }
-    }
+    this.router.navigateByUrl('/');
   }
 
-  scrollTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  navigate(item: NavItem, child?: NavChild): void {
     this.mobileMenuOpen.set(false);
+    this.openDropdown.set(null);
+    this.mobileOpenDropdown.set(null);
+    if (child) {
+      this.router.navigate([item.route], { fragment: child.fragment });
+    } else {
+      this.router.navigateByUrl(item.route);
+    }
   }
 
   toggleMenu(): void {
     this.mobileMenuOpen.update((v) => !v);
+  }
+
+  toggleMobileDropdown(id: string): void {
+    this.mobileOpenDropdown.update((current) => (current === id ? null : id));
   }
 }

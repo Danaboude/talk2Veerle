@@ -30,7 +30,7 @@
     <div class="bzw-blocks">
 
       <!-- ── BOS ── tekst links, video rechts ── -->
-      <div appScrollAnimate animateFrom="left" class="bzw-block bzw-block--bos">
+      <div id="bos" appScrollAnimate animateFrom="left" class="bzw-block bzw-block--bos">
         <div class="bzw-block-text">
           <p class="bzw-block-label">01</p>
           <h3 class="bzw-block-title">BOS</h3>
@@ -50,7 +50,6 @@
         <div class="bzw-block-video-wrap">
           <app-video-player
             [src]="bosVideoUrl"
-            [vsThreshold]="0.25"
             [loop]="true"
             label="Video over BOS: Bewust Omgaan met Stress"
           />
@@ -58,19 +57,18 @@
       </div>
 
       <!-- ── ZEE ── video links, tekst rechts ── -->
-      <div appScrollAnimate animateFrom="right" [animateDelay]="80" class="bzw-block bzw-block--zee">
+      <div id="zee" appScrollAnimate animateFrom="right" [animateDelay]="80" class="bzw-block bzw-block--zee">
         <div class="bzw-block-video-wrap">
           <app-video-player
             [src]="zeeVideoUrl"
-            [vsThreshold]="0.25"
             [loop]="true"
-            label="Video over ZEE: Zelfrefererend Echt luisteren en Echt spreken"
+            label="Video over ZEE: Zelfverbonden Echt luisteren en Echt spreken"
           />
         </div>
         <div class="bzw-block-text">
           <p class="bzw-block-label">02</p>
           <h3 class="bzw-block-title">ZEE</h3>
-          <p class="bzw-block-subtitle">Zelfrefererend Echt luisteren en Echt spreken</p>
+          <p class="bzw-block-subtitle">Zelfverbonden Echt luisteren en Echt spreken</p>
           <p class="bzw-block-body">
             Van daaruit ontstaat ruimte om te voelen wat er in je omgaat,
             te onderscheiden wat van jou is en wat van de ander.
@@ -85,9 +83,9 @@
         </div>
       </div>
 
-      <!-- ── WEI ── gecentreerd ── -->
-      <div appScrollAnimate class="bzw-block bzw-block--wei">
-        <div class="bzw-block-text bzw-block-text--center">
+      <!-- ── WEI ── tekst links, video rechts (zelfde opbouw als BOS) ── -->
+      <div id="wei" appScrollAnimate animateFrom="left" class="bzw-block bzw-block--wei">
+        <div class="bzw-block-text">
           <p class="bzw-block-label">03</p>
           <h3 class="bzw-block-title">WEI</h3>
           <p class="bzw-block-subtitle">Weten, Ervaren en Integreren</p>
@@ -96,16 +94,15 @@
             ook blijft doorwerken in het dagelijks leven.
             Nieuwe inzichten worden levende ervaringen.
           </p>
-          <blockquote class="bzw-testimonial bzw-testimonial--center">
+          <blockquote class="bzw-testimonial">
             <p>"We zaten vast in dezelfde patronen. Door de begeleiding
             konden we elkaar opnieuw horen, zonder botsen. Geleidelijk
             aan kwam er meer begrip en minder spanning."</p>
           </blockquote>
         </div>
-        <div class="bzw-wei-video-wrap">
+        <div class="bzw-block-video-wrap">
           <app-video-player
             [src]="weiVideoUrl"
-            [vsThreshold]="0.25"
             [loop]="true"
             label="Video over WEI: Weten, Ervaren en Integreren"
           />

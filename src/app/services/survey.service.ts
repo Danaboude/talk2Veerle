@@ -88,4 +88,14 @@ export class SurveyService {
     deleteEmailTemplate(id: string): Observable<any> {
         return this.http.delete(`${this.baseUrl}/email-templates-api`, { params: { id } });
     }
+
+    // ---- Newsletter ----
+    subscribeNewsletter(email: string): Observable<any> {
+        return this.http.post(`${this.baseUrl}/newsletter-api`, { email });
+    }
+
+    // ---- Contact form ----
+    submitContact(data: { naam: string; email: string; telefoon: string; bericht: string }): Observable<any> {
+        return this.http.post(`${this.baseUrl}/contact-api`, data);
+    }
 }

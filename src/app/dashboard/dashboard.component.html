@@ -18,6 +18,7 @@
             <button class="dash-tab" [class.active]="activeTab() === 'surveys'"        (click)="setTab('surveys')">Surveys</button>
             <button class="dash-tab" [class.active]="activeTab() === 'bookings'"       (click)="setTab('bookings')">Afspraken</button>
             <button class="dash-tab" [class.active]="activeTab() === 'email-templates'" (click)="setTab('email-templates')">E-mail Templates</button>
+            <button class="dash-tab" [class.active]="activeTab() === 'offerings'"       (click)="setTab('offerings')">Aanbod</button>
             <button class="dash-tab" (click)="logout()" style="color: #dc2626;">Uitloggen</button>
         </div>
     </nav>
@@ -61,6 +62,17 @@
             (templateSave)="saveEmailTemplate($event)"
             (templateDelete)="deleteEmailTemplate($event)"
             (templateAdd)="addNewTemplate()"
+        />
+        }
+
+        <!-- ══ AANBOD TAB ══ -->
+        @if (activeTab() === 'offerings') {
+        <app-offerings-tab
+            [offerings]="offerings()"
+            [offeringsLoading]="offeringsLoading()"
+            (offeringSave)="saveOffering($event)"
+            (offeringDelete)="deleteOffering($event)"
+            (offeringAdd)="addNewOffering()"
         />
         }
 

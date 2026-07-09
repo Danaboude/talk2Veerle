@@ -139,7 +139,7 @@ export class CreatorComponent implements OnInit {
             this.surveyService.getAllSurveys().subscribe({
                 next: (surveys) => {
                     if (surveys?.length) {
-                        const latest = surveys[surveys.length - 1];
+                        const latest = surveys[0]; // API returns ORDER BY created_at DESC
                         this.router.navigate(['/create', latest._id], { replaceUrl: true });
                     }
                     // If no surveys exist at all, stay on blank new-survey form

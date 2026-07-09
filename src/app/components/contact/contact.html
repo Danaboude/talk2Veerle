@@ -41,12 +41,25 @@
       <!-- Right: direct booking + form -->
       <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="contact-form-wrap">
 
-        <!-- Direct booking option  most clients prefer this -->
+        <!-- Direct booking options  most clients prefer this -->
         <div class="booking-direct">
           <p class="booking-direct-label">Direct inplannen</p>
-          <a class="booking-direct-btn" [href]="bookingUrl" target="_blank" rel="noopener">
-            Boek een afspraak
-          </a>
+
+          <div class="booking-options">
+            <a class="booking-option" [href]="bookingLinks.firstSession" target="_blank" rel="noopener">
+              <span class="booking-option-title">Eerste sessie</span>
+              <span class="booking-option-desc">Voor nieuwe clienten die willen starten</span>
+            </a>
+            <a class="booking-option" [href]="bookingLinks.followUp" target="_blank" rel="noopener">
+              <span class="booking-option-title">Vervolgsessie</span>
+              <span class="booking-option-desc">Voor bestaande clienten</span>
+            </a>
+            <a class="booking-option booking-option--free" [href]="bookingLinks.freeDiscoveryCall" target="_blank" rel="noopener">
+              <span class="booking-option-title">Gratis kennismaking</span>
+              <span class="booking-option-desc">Kort intro-gesprek, 15-20 min</span>
+            </a>
+          </div>
+
           <p class="booking-direct-note">Online agenda, kies zelf uw moment</p>
         </div>
 
@@ -117,7 +130,13 @@
               ></textarea>
             </div>
 
-            <button type="submit" class="btn-submit">Verstuur bericht</button>
+            @if (submitError) {
+              <p class="form-error">Er ging iets mis bij het versturen. Probeer het opnieuw of mail rechtstreeks.</p>
+            }
+
+            <button type="submit" class="btn-submit" [disabled]="submitting">
+              {{ submitting ? 'Bezig met versturen...' : 'Verstuur bericht' }}
+            </button>
           </form>
         }
 

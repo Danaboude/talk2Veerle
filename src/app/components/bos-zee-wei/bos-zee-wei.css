@@ -48,10 +48,10 @@
 
 .bzw-intro p {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: clamp(15px, 1.1vw, 17px);
   font-weight: 300;
   color: var(--color-text-muted);
-  line-height: 1.9;
+  line-height: 1.85;
 }
 
 /* ── Blocks ── */
@@ -78,28 +78,9 @@
   grid-template-columns: 380px 1fr;
 }
 
-/* WEI: centered column  different layout family */
+/* WEI: same two-column layout as BOS  text left (60%), video right (40%) */
 .bzw-block--wei {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 48px;
-  padding: 64px 0;
-  border-top: 1px solid var(--color-sage-pale);
-  border-bottom: 1px solid var(--color-sage-pale);
-  position: relative;
-}
-
-.bzw-block--wei::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 2px;
-  background: var(--color-sage);
+  grid-template-columns: 1fr 380px;
 }
 
 /* Text portion */
@@ -116,9 +97,9 @@
 
 .bzw-block-label {
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.22em;
   color: var(--color-sage-mid);
   margin-bottom: 4px;
 }
@@ -145,10 +126,10 @@
 
 .bzw-block-body {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: clamp(15px, 1vw, 16.5px);
   font-weight: 300;
   color: var(--color-text-muted);
-  line-height: 1.9;
+  line-height: 1.85;
   max-width: 520px;
 }
 
@@ -158,15 +139,6 @@
   overflow: hidden;
   background: var(--color-sage-darkest);
   flex-shrink: 0;
-}
-
-/* Centered WEI video  slightly wider */
-.bzw-wei-video-wrap {
-  width: 360px;
-  max-width: 100%;
-  aspect-ratio: 9 / 16;
-  overflow: hidden;
-  background: var(--color-sage-darkest);
 }
 
 .bzw-video {
@@ -187,22 +159,17 @@
 .bzw-testimonial p {
   font-family: var(--font-heading);
   font-style: italic;
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
   font-weight: 300;
   color: var(--color-text-muted);
   line-height: 1.65;
 }
 
-.bzw-testimonial--center {
-  border-left: none;
-  text-align: center;
-  padding: 20px 32px;
-}
-
 /* ── Responsive ── */
 @media (max-width: 960px) {
   .bzw-block--bos,
-  .bzw-block--zee {
+  .bzw-block--zee,
+  .bzw-block--wei {
     grid-template-columns: 1fr;
     gap: 40px;
   }
@@ -230,11 +197,9 @@
   .bzw-blocks { gap: 56px; }
   .bzw-block { gap: 32px; }
   .bzw-block-video-wrap { width: min(280px, 100%); }
-  .bzw-wei-video-wrap { width: min(280px, 100%); }
-  .bzw-block--wei { gap: 32px; padding: 44px 0; }
 }
 
 @media (max-width: 400px) {
   .bzw { padding: 64px 20px; }
-  .bzw-block-video-wrap, .bzw-wei-video-wrap { width: 100%; }
+  .bzw-block-video-wrap { width: 100%; }
 }

@@ -20,7 +20,11 @@
       "Bash(python scripts/recalc.py daily-report-AK.xlsx)",
       "Bash(BASE_URL=https://talk2-veerle.vercel.app node seed/seed.js)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(xargs -I{} echo {})",
+      "Bash(tee /tmp/ng-serve.log)",
+      "Bash(npx tsc *)",
+      "Bash(node --env-file=.env.local seed/seed-offerings.js)"
     ]
   }
 }

@@ -30,6 +30,18 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/aanbod/aanbod').then(m => m.AanbodComponent),
     },
     {
+        path: 'aanpak',
+        loadComponent: () => import('./pages/aanpak/aanpak').then(m => m.AanpakComponent),
+    },
+    {
+        path: 'over-mij',
+        loadComponent: () => import('./pages/over-mij/over-mij').then(m => m.OverMijComponent),
+    },
+    {
+        path: 'contact',
+        loadComponent: () => import('./pages/contact/contact-page').then(m => m.ContactPageComponent),
+    },
+    {
         path: 'dashboard',
         canActivate: [adminGuard],
         loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),

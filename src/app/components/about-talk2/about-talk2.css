@@ -1,81 +1,92 @@
 .at2 {
   background-color: var(--color-warm-white);
-  padding: 120px 48px 140px;
+  padding: 100px 48px;
 }
 
 .at2-inner {
-  max-width: 640px;
+  max-width: 1180px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
   gap: 48px;
 }
 
-/* Decorative sage line above and below content */
-.at2-rule {
-  display: block;
-  width: 40px;
-  height: 1.5px;
-  background: var(--color-sage-pale);
-  align-self: center;
+/* Headline */
+.at2-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.65rem, 3.2vw, 2.6rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-sage-dark);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  max-width: 900px;
 }
 
-/* Logo */
+/* Logo · text · video row */
+.at2-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) 1fr 1.4fr;
+  gap: 56px;
+  align-items: center;
+}
+
+/* Logo — big enough that the lettering stays legible */
 .at2-logo-wrap {
   display: flex;
   justify-content: center;
 }
 
 .at2-logo {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
   object-fit: contain;
   display: block;
-  opacity: 0.9;
 }
 
 /* Text block */
 .at2-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-/* Heading hidden  logo already conveys "TALK2" */
-.at2-heading {
-  display: none;
-}
-
-.at2-lead {
-  font-family: var(--font-heading);
-  font-size: clamp(1.45rem, 2.4vw, 2rem);
-  font-style: italic;
-  font-weight: 300;
-  color: var(--color-text);
-  line-height: 1.48;
-  letter-spacing: -0.01em;
-  max-width: 520px;
+  gap: 22px;
 }
 
 .at2-body {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: clamp(15px, 1.05vw, 17px);
   font-weight: 300;
   color: var(--color-text-muted);
-  line-height: 1.92;
-  max-width: 520px;
+  line-height: 1.85;
+  text-align: left;
+}
+
+/* Video */
+.at2-video-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--color-sage-darkest);
+  box-shadow: 0 8px 28px rgba(30, 53, 32, 0.14);
+}
+
+@media (max-width: 900px) {
+  .at2-row {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .at2-logo-wrap { justify-content: flex-start; }
+  .at2-logo { max-width: 160px; }
+  .at2-video-wrap { aspect-ratio: 16 / 10; }
 }
 
 @media (max-width: 640px) {
-  .at2 { padding: 88px 24px 100px; }
+  .at2 { padding: 80px 24px; }
   .at2-inner { gap: 36px; }
-  .at2-logo { width: 96px; height: 96px; }
 }
 
 @media (max-width: 400px) {
-  .at2 { padding: 72px 20px 84px; }
-  .at2-logo { width: 80px; height: 80px; }
+  .at2 { padding: 64px 20px; }
+  .at2-logo { max-width: 140px; }
 }

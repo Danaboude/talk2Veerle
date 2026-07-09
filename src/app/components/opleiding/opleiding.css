@@ -74,9 +74,9 @@
 
 .opl-world-num {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
   color: var(--color-sage-mid);
   display: block;
 }
@@ -91,10 +91,10 @@
 
 .opl-world-body {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: clamp(15px, 1vw, 16.5px);
   font-weight: 300;
   color: var(--color-text-muted);
-  line-height: 1.9;
+  line-height: 1.85;
 }
 
 /* Conclusion */
@@ -108,10 +108,10 @@
 
 .opl-conclusion p {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: clamp(15px, 1vw, 16.5px);
   font-weight: 300;
   color: var(--color-text-muted);
-  line-height: 1.9;
+  line-height: 1.85;
 }
 
 @media (max-width: 640px) {

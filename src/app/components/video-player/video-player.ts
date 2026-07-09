@@ -3,12 +3,11 @@ import {
   OnDestroy, inject,
 } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { VideoScrollDirective } from '../../directives/video-scroll.directive';
 import { VideoManagerService } from '../../services/video-manager.service';
 
 /**
  * Drop-in video player with:
- *  • Scroll-triggered autoplay via VideoScrollDirective
+ *  • Manual play only  no autoplay on scroll (low sensory load)
  *  • Circular buffering spinner during network stalls
  *  • Play / Pause toggle
  *  • −3 s / +3 s skip buttons
@@ -18,15 +17,13 @@ import { VideoManagerService } from '../../services/video-manager.service';
 @Component({
   selector: 'app-video-player',
   standalone: true,
-  imports: [VideoScrollDirective, DecimalPipe],
+  imports: [DecimalPipe],
   templateUrl: './video-player.html',
   styleUrl: './video-player.css',
 })
 export class VideoPlayerComponent implements OnDestroy {
   /** Video source  local path or full external URL */
   @Input() src!: string;
-  /** Intersection ratio before autoplay fires (0–1) */
-  @Input() vsThreshold = 0.3;
   @Input() loop = true;
   @Input() label = 'Video';
 

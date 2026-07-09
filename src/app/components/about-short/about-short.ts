@@ -8,4 +8,10 @@ import { ScrollAnimateDirective } from '../../directives/scroll-animate.directiv
   templateUrl: './about-short.html',
   styleUrl: './about-short.css',
 })
-export class AboutShortComponent {}
+export class AboutShortComponent {
+  usePlaceholderPhoto(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null; // avoid a loop if the fallback is also missing
+    img.src = 'veelr_draw_paint.jpg';
+  }
+}

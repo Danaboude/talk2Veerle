@@ -1,25 +1,41 @@
 <header [class.scrolled]="scrolled()" class="header">
   <div class="header-inner">
-    <!-- Desktop: service descriptors left -->
-    <div class="brand-descriptors">
-      <span>Therapie</span>
-      <span>Coaching in de natuur</span>
-      <span>Training</span>
-      <span class="italic-tag">Anders Benaderd Communiceren</span>
-    </div>
+    <!-- Brand first: mark + wordmark, descriptor underneath -->
+    <button class="brand" (click)="goHome()" aria-label="Naar beginpagina">
+      <img src="logo.png" alt="" class="brand-mark" />
+      <span class="brand-text">
+        <span class="brand-word">TALK2</span>
+        <span class="brand-descriptor">Therapie · Coaching · Training</span>
+      </span>
+    </button>
 
-    <!-- Brand logo center -->
-    <button class="logo" (click)="scrollTo('hero')" aria-label="Naar beginpagina">TALK2</button>
-
-    <!-- Desktop nav right -->
+    <!-- Desktop nav with dropdowns -->
     <nav class="desktop-nav" aria-label="Hoofdnavigatie">
       @for (item of navItems; track item.id) {
-        <button class="nav-link" (click)="navigate(item)">{{ item.label }}</button>
+        <div
+          class="nav-item"
+          (mouseenter)="item.dropdown && openDropdown.set(item.id)"
+          (mouseleave)="item.dropdown && openDropdown.set(null)"
+        >
+          <button class="nav-link" (click)="navigate(item)">{{ item.label }}</button>
+
+          @if (item.dropdown) {
+            <div class="dropdown-panel" [class.open]="openDropdown() === item.id">
+              @for (child of item.dropdown; track child.label) {
+                <button class="dropdown-item" (click)="navigate(item, child)">
+                  <span class="dropdown-item-title">{{ child.label }}</span>
+                  <span class="dropdown-item-desc">{{ child.description }}</span>
+                </button>
+              }
+            </div>
+          }
+        </div>
       }
-      <a class="nav-book" [href]="bookingUrl" target="_blank" rel="noopener">
-        Boek een afspraak
-      </a>
     </nav>
+
+    <a class="nav-book" [href]="bookingUrl" target="_blank" rel="noopener">
+      Boek een afspraak
+    </a>
 
     <!-- Mobile hamburger -->
     <button
@@ -35,11 +51,33 @@
     </button>
   </div>
 
-  <!-- Mobile dropdown menu -->
+  <!-- Mobile menu -->
   @if (mobileMenuOpen()) {
     <nav class="mobile-menu" aria-label="Mobiele navigatie">
       @for (item of navItems; track item.id) {
-        <button class="mobile-nav-link" (click)="navigate(item)">{{ item.label }}</button>
+        <div class="mobile-nav-group">
+          @if (item.dropdown) {
+            <button
+              class="mobile-nav-link mobile-nav-link--parent"
+              (click)="toggleMobileDropdown(item.id)"
+              [attr.aria-expanded]="mobileOpenDropdown() === item.id"
+            >
+              <span>{{ item.label }}</span>
+              <span class="chevron" [class.open]="mobileOpenDropdown() === item.id">⌄</span>
+            </button>
+            @if (mobileOpenDropdown() === item.id) {
+              <div class="mobile-dropdown">
+                @for (child of item.dropdown; track child.label) {
+                  <button class="mobile-dropdown-item" (click)="navigate(item, child)">
+                    {{ child.label }}
+                  </button>
+                }
+              </div>
+            }
+          } @else {
+            <button class="mobile-nav-link" (click)="navigate(item)">{{ item.label }}</button>
+          }
+        </div>
       }
       <a class="mobile-book" [href]="bookingUrl" target="_blank" rel="noopener">
         Boek een afspraak

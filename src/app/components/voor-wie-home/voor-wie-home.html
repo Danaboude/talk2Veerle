@@ -49,7 +49,7 @@
             Individuele sessies in de natuur, binnen of online.
             Werken op je tempo, afgestemd op jouw gevoeligheid.
           </p>
-          <button class="vwh-link" (click)="goToAanbod()">Meer info</button>
+          <button class="vwh-link" (click)="scrollToSection('individuen')">Meer info</button>
         </div>
       </div>
 
@@ -71,7 +71,7 @@
           <p class="vwh-desc">
             Sessies en trajecten van bescherming naar verbinding.
           </p>
-          <button class="vwh-link" (click)="goToAanbod()">Meer info</button>
+          <button class="vwh-link" (click)="scrollToSection('duos')">Meer info</button>
         </div>
       </div>
 
@@ -93,13 +93,13 @@
           <span class="vwh-num">03</span>
           <h3 class="vwh-card-title">Professionals</h3>
           <p class="vwh-quote">
-            "Hoe begeleid ik mijn coachee naar meer afstemming?"
+            "Hoe begeleid ik de ander naar meer afstemming en verbinding?"
           </p>
           <p class="vwh-desc">
             Intervisie en training voor therapeuten, coaches,
             leerkrachten en leidinggevenden.
           </p>
-          <button class="vwh-link" (click)="goToAanbod()">Meer info</button>
+          <button class="vwh-link" (click)="scrollToSection('professionals')">Meer info</button>
         </div>
       </div>
 
@@ -116,12 +116,13 @@
           <span class="vwh-num">04</span>
           <h3 class="vwh-card-title">Organisaties en groepen</h3>
           <p class="vwh-quote">
-            "Hoe gaan we om met emoties en spanning op de werkvloer?"
+            "Hoe gaan we om met emoties en spanning op de werkvloer, of hoe maken
+            we bewust tijd om samen te vertragen en te bezinnen?"
           </p>
           <p class="vwh-desc">
             Training, begeleiding en bezinningsmomenten op maat.
           </p>
-          <button class="vwh-link" (click)="goToAanbod()">Meer info</button>
+          <button class="vwh-link" (click)="scrollToSection('organisaties')">Meer info</button>
         </div>
       </div>
 
@@ -131,7 +132,7 @@
 
   <!-- ── Bottom CTA ── -->
   <div class="vwh-footer" appScrollAnimate [animateDelay]="180">
-    <button class="vwh-cta-btn" (click)="goToAanbod()">Bekijk aanbod</button>
+    <button class="vwh-cta-btn" (click)="scrollToSection('individuen')">Bekijk aanbod</button>
   </div>
 
 </section>

@@ -1,0 +1,94 @@
+<div class="dash-full-main">
+    <div class="email-templates-panel">
+        <div class="et-header">
+            <div>
+                <h2 class="et-title">
+                    <svg class="et-title-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Aanbod
+                </h2>
+                <p class="et-subtitle">
+                    Beheer je concrete aanbod voor Individuen, Organisaties &amp; Groepen en Professionals.
+                    Zet "Gepubliceerd" aan zodat een aanbod zichtbaar wordt op de bijhorende aanbod-pagina.
+                    Duo's blijft een statische pagina en heeft geen dynamisch aanbod.
+                </p>
+            </div>
+            <button class="btn-primary" (click)="offeringAdd.emit()">+ Nieuw aanbod</button>
+        </div>
+
+        <div class="et-grid">
+            @if (offeringsLoading) {
+            <div class="dash-loading" style="grid-column: 1 / -1;">
+                <div class="dash-spinner"></div>
+            </div>
+            } @else {
+            @for (o of offerings; track o.id) {
+            <div class="et-card">
+                <div class="form-group">
+                    <label class="form-label-sm">Titel</label>
+                    <input class="form-input" type="text" [(ngModel)]="o.title" placeholder="Titel van het aanbod" />
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Doelgroep</label>
+                    <select class="form-input" [(ngModel)]="o.audience">
+                        @for (a of audiences; track a.value) {
+                        <option [value]="a.value">{{ a.label }}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Korte intro</label>
+                    <input class="form-input" type="text" [(ngModel)]="o.intro" placeholder="Korte introductie..." />
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Volledige beschrijving</label>
+                    <textarea class="form-input" rows="5" [(ngModel)]="o.description" placeholder="Volledige beschrijving..."></textarea>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Datum</label>
+                    <input class="form-input" type="text" [(ngModel)]="o.eventDate" placeholder="bv. 14 september 2026" />
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Locatie</label>
+                    <input class="form-input" type="text" [(ngModel)]="o.location" placeholder="bv. Hasselt, in de natuur" />
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Prijs (optioneel)</label>
+                    <input class="form-input" type="text" [(ngModel)]="o.price" placeholder="bv. €80" />
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Contact / inschrijflink</label>
+                    <input class="form-input" type="text" [(ngModel)]="o.contactLink" placeholder="https://..." />
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">
+                        <input type="checkbox" [(ngModel)]="o.published" />
+                        Gepubliceerd (zichtbaar op de website)
+                    </label>
+                </div>
+
+                <div class="et-card-actions">
+                    <button class="btn-save-template" (click)="offeringSave.emit(o)">Opslaan</button>
+                    <button class="btn-delete-template" (click)="offeringDelete.emit(o)" title="Verwijderen">
+                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            }
+            }
+        </div>
+    </div>
+</div>

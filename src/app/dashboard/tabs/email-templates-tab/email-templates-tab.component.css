@@ -1,1 +1,5 @@
 /* Email templates tab  styles live in dashboard.component.css */
+
+:host {
+    display: contents; /* renders children directly in dash-body layout so .dash-full-main gets the real flex sizing + scroll */
+}

@@ -4,17 +4,19 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SurveyService } from '../services/survey.service';
 import { AuthService } from '../services/auth.service';
+import { OfferingsService, Offering } from '../services/offerings.service';
 import { Survey, SurveyResponse, CalendarSettings, Booking } from '../models/survey.model';
 import { FormsModule } from '@angular/forms';
 
 import { SurveysTabComponent }       from './tabs/surveys-tab/surveys-tab.component';
 import { BookingsTabComponent }       from './tabs/bookings-tab/bookings-tab.component';
 import { EmailTemplatesTabComponent } from './tabs/email-templates-tab/email-templates-tab.component';
+import { OfferingsTabComponent }      from './tabs/offerings-tab/offerings-tab.component';
 
 @Component({
     selector: 'app-dashboard',
     standalone: true,
-    imports: [CommonModule, RouterLink, FormsModule, SurveysTabComponent, BookingsTabComponent, EmailTemplatesTabComponent],
+    imports: [CommonModule, RouterLink, FormsModule, SurveysTabComponent, BookingsTabComponent, EmailTemplatesTabComponent, OfferingsTabComponent],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +24,7 @@ import { EmailTemplatesTabComponent } from './tabs/email-templates-tab/email-tem
 })
 export class DashboardComponent implements OnInit {
     private surveyService = inject(SurveyService);
+    private offeringsService = inject(OfferingsService);
     private router = inject(Router);
     private http = inject(HttpClient);
     private authService = inject(AuthService);
@@ -98,8 +101,12 @@ export class DashboardComponent implements OnInit {
     emailTemplates = signal<any[]>([]);
     emailTemplatesLoading = signal(false);
 
+    // Offerings (Aanbod CMS)
+    offerings = signal<Offering[]>([]);
+    offeringsLoading = signal(false);
+
     // Dashboard Tabs
-    activeTab = signal<'surveys' | 'bookings' | 'email-templates'>('surveys');
+    activeTab = signal<'surveys' | 'bookings' | 'email-templates' | 'offerings'>('surveys');
 
     // UI State
     snackbarMessage = signal<string | null>(null);
@@ -167,11 +174,14 @@ export class DashboardComponent implements OnInit {
         this.loadEmailTemplates();
     }
 
-    setTab(tab: 'surveys' | 'bookings' | 'email-templates'): void {
+    setTab(tab: 'surveys' | 'bookings' | 'email-templates' | 'offerings'): void {
         this.activeTab.set(tab);
         // tab bookings handled externally
         if (tab === 'email-templates' && this.emailTemplates().length === 0) {
             this.loadEmailTemplates();
+        }
+        if (tab === 'offerings' && this.offerings().length === 0) {
+            this.loadOfferings();
         }
     }
 
@@ -420,6 +430,47 @@ saveCalendarSettings(): void { }
     addNewTemplate(): void {
         const id = `CUSTOM_${Math.floor(Math.random() * 100000)}`;
         this.emailTemplates.update(ts => [{ id, label: 'Label schrijven', subject: '', body: '' }, ...ts]);
+        // Note: they need to click "Opslaan" to actually save it to DB
+    }
+
+    loadOfferings(): void {
+        this.offeringsLoading.set(true);
+        this.offeringsService.getAll().subscribe({
+            next: (data) => {
+                this.offerings.set(data);
+                this.offeringsLoading.set(false);
+            },
+            error: () => {
+                console.error('Failed to load offerings');
+                this.offeringsLoading.set(false);
+            }
+        });
+    }
+
+    saveOffering(offering: Offering): void {
+        this.offeringsService.save(offering).subscribe({
+            next: () => this.showSnackbar(`Aanbod '${offering.title}' opgeslagen!`),
+            error: () => this.showSnackbar(`Fout bij opslaan van '${offering.title}'.`),
+        });
+    }
+
+    deleteOffering(offering: Offering): void {
+        if (!confirm(`Aanbod '${offering.title}' verwijderen?`)) return;
+        this.offeringsService.delete(offering.id).subscribe({
+            next: () => {
+                this.offerings.update(os => os.filter(o => o.id !== offering.id));
+                this.showSnackbar(`Aanbod '${offering.title}' verwijderd.`);
+            },
+            error: () => this.showSnackbar(`Fout bij verwijderen van '${offering.title}'.`),
+        });
+    }
+
+    addNewOffering(): void {
+        const id = `OFFERING_${Math.floor(Math.random() * 100000)}`;
+        this.offerings.update(os => [{
+            id, title: 'Nieuw aanbod', intro: '', description: '', eventDate: '',
+            location: '', price: '', contactLink: '', audience: 'individuen', published: false,
+        }, ...os]);
         // Note: they need to click "Opslaan" to actually save it to DB
     }
 

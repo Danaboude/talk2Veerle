@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { BOOKING_LINKS } from '../../config/booking-links';
 
 @Component({
   selector: 'app-hero',
@@ -8,9 +10,10 @@ import { Component } from '@angular/core';
   styleUrl: './hero.css',
 })
 export class HeroComponent {
-  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
+  private router = inject(Router);
+  readonly bookingUrl = BOOKING_LINKS.general;
 
-  scrollTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  goToAanbod(): void {
+    this.router.navigateByUrl('/aanbod');
   }
 }

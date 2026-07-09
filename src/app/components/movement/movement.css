@@ -2,6 +2,11 @@
 .movement {
   background-color: var(--color-cream);
   overflow: hidden;
+  padding-top: 128px; /* first section on /aanpak  clears the fixed header */
+}
+
+@media (max-width: 900px) {
+  .movement { padding-top: 104px; }
 }
 
 .movement-inner {
@@ -32,21 +37,21 @@
 /* Label */
 .movement-label {
   font-family: var(--font-sans);
-  font-size: 9.5px;
+  font-size: 13.5px;
   font-weight: 500;
-  letter-spacing: 0.36em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--color-sage);
 }
 
-/* Massive serif heading */
+/* Calmer serif heading  less contrast against the label */
 .movement-heading {
   font-family: var(--font-heading);
-  font-size: clamp(3.8rem, 7.5vw, 8rem);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
   font-weight: 300;
   color: var(--color-sage-darkest);
-  line-height: 0.90;
-  letter-spacing: -0.025em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
 /* Thin sage rule */
@@ -88,7 +93,7 @@
   }
 
   .movement-heading {
-    font-size: clamp(3.2rem, 8vw, 5.5rem);
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
   }
 }
 
@@ -103,7 +108,7 @@
   }
 
   .movement-heading {
-    font-size: clamp(3rem, 11vw, 4.5rem);
+    font-size: clamp(2rem, 9vw, 2.8rem);
   }
 }
 

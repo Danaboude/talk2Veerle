@@ -2,11 +2,24 @@
      AANBOD PAGE
      ════════════════════════════════════════════ -->
 
+<!-- ── Intro to the 4 target groups ── -->
+<app-voor-wie-home />
+
 <!-- ── INTRO ── -->
 <section class="aanbod-intro">
   <div class="aanbod-intro-inner">
 
-    <div appScrollAnimate class="aanbod-intro-header">
+    <!-- Photo left -->
+    <div appScrollAnimate animateFrom="left" class="aanbod-intro-img-wrap">
+      <img
+        src="trees.jpg"
+        alt="Bomendreef in de natuur"
+        class="aanbod-intro-img"
+      />
+    </div>
+
+    <!-- Heading + copy right -->
+    <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="aanbod-intro-text">
       <p class="aanbod-label">Aanbod</p>
       <h1 class="aanbod-intro-heading">
         Mijn begeleiding vertrekt telkens<br />
@@ -15,31 +28,22 @@
       <p class="aanbod-intro-lead">
         Meer regulatie, meer afstemming en meer verbinding.
       </p>
-    </div>
 
-    <!-- Table / nature image -->
-    <div appScrollAnimate [animateDelay]="120" class="aanbod-intro-img-wrap">
-      <img
-        src="table_image.png"
-        alt="Begeleiding in de natuur  rondetafel"
-        class="aanbod-intro-img"
-      />
-    </div>
-
-    <div appScrollAnimate [animateDelay]="200" class="aanbod-intro-body">
-      <p>
-        Of je nu alleen komt, met twee, als professional die met mensen werkt
-        of vanuit een organisatie, telkens kijken we samen waar het vastloopt
-        en wat opnieuw in beweging wil komen.
-      </p>
-      <p>
-        We werken vaak in de natuur, omdat verandering vaak begint wanneer
-        ook je lichaam weer mag meedoen. Wandelend, staand of zittend ontstaat
-        er ruimte om helderder te voelen wat er speelt. De natuur is daarbij
-        geen decor, maar een vanzelfsprekende mede-begeleider: ze vertraagt,
-        spiegelt en helpt zichtbaar maken wat klopt en waar aandacht nodig is,
-        zonder dat er iets geforceerd moet worden.
-      </p>
+      <div class="aanbod-intro-body">
+        <p>
+          Of je nu alleen komt, met twee, als professional die met mensen werkt
+          of vanuit een organisatie, telkens kijken we samen waar het vastloopt
+          en wat opnieuw in beweging wil komen.
+        </p>
+        <p>
+          We werken vaak in de natuur, omdat verandering vaak begint wanneer
+          ook je lichaam weer mag meedoen. Wandelend, staand of zittend ontstaat
+          er ruimte om helderder te voelen wat er speelt. De natuur is daarbij
+          geen decor, maar een vanzelfsprekende mede-begeleider: ze vertraagt,
+          spiegelt en helpt zichtbaar maken wat klopt en waar aandacht nodig is,
+          zonder dat er iets geforceerd moet worden.
+        </p>
+      </div>
     </div>
 
   </div>
@@ -87,7 +91,7 @@
         ook wanneer er trauma meespeelt.
       </p>
 
-      <a class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
+      <a id="cta-individuen" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
         Boek een eerste gesprek
       </a>
     </div>
@@ -102,18 +106,28 @@
         <span class="aanbod-quote-context">Individuele begeleiding</span>
       </div>
 
-      <div class="aanbod-quote-card">
-        <p class="aanbod-quote-text">
-          "Ik wilde onze sessie bijna afzeggen omdat het zo druk was.
-          Nu ben ik blij dat ik toch gekomen ben. Ik begrijp beter wat er
-          gebeurt als ik 'ja' zeg en 'nee denk' en hoe ik daar zorgzaam
-          mee kan omgaan."
-        </p>
-        <span class="aanbod-quote-context">Individuele begeleiding</span>
-      </div>
+      <button class="aanbod-illustration" (click)="scrollToBooking('cta-individuen')" aria-label="Boek een eerste gesprek voor individuen">
+        <img src="paint-people-walk-cricle-in-the-right.png" alt="" aria-hidden="true" />
+      </button>
     </div>
 
   </div>
+
+  @if (individueleOfferings().length) {
+  <div class="aanbod-offerings">
+    @for (o of individueleOfferings(); track o.id) {
+    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+      <h4 class="aanbod-offering-title">{{ o.title }}</h4>
+      <p class="aanbod-offering-intro">{{ o.intro }}</p>
+      <div class="aanbod-offering-meta">
+        @if (o.eventDate) { <span>{{ o.eventDate }}</span> }
+        @if (o.location) { <span>{{ o.location }}</span> }
+        @if (o.price) { <span>{{ o.price }}</span> }
+      </div>
+    </a>
+    }
+  </div>
+  }
 </section>
 
 <!-- ── DUO'S EN KOPPELS ── -->
@@ -130,15 +144,9 @@
         <span class="aanbod-quote-context">Verbindende communicatie</span>
       </div>
 
-      <div class="aanbod-quote-card">
-        <p class="aanbod-quote-text">
-          "Ik zei tegen mijn kind dat de details niet belangrijk waren.
-          Het antwoordde: 'Voor mij wel.' In de sessie ontdekte ik hoe
-          belangrijk het is om echt te luisteren, in plaats van mijn kind
-          'weerbaar' te willen maken. Dat inzicht neem ik mee, elke dag opnieuw."
-        </p>
-        <span class="aanbod-quote-context">Ouder-kindrelatie</span>
-      </div>
+      <button class="aanbod-illustration" (click)="scrollToBooking('cta-duos')" aria-label="Boek een eerste gesprek voor duo's en koppels">
+        <img src="pint-people-zoom.png" alt="" aria-hidden="true" />
+      </button>
     </div>
 
     <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="aanbod-section-text">
@@ -175,7 +183,7 @@
         neurodivergentie binnen relaties.
       </p>
 
-      <a class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
+      <a id="cta-duos" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
         Boek een eerste gesprek
       </a>
     </div>
@@ -213,7 +221,7 @@
         profielen en bij complexe of gevoelige begeleidingssituaties.
       </p>
 
-      <a class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
+      <a id="cta-professionals" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
         Boek een kennismakingsgesprek
       </a>
     </div>
@@ -228,16 +236,28 @@
         <span class="aanbod-quote-context">Training professionals</span>
       </div>
 
-      <div class="aanbod-quote-card">
-        <p class="aanbod-quote-text">
-          "Merci voor de helderheid en professionaliteit en je warme aanwezigheid.
-          Ik heb het gevoel dat je leeft wat je ons leert."
-        </p>
-        <span class="aanbod-quote-context">Training professionals</span>
-      </div>
+      <button class="aanbod-illustration" (click)="scrollToBooking('cta-professionals')" aria-label="Boek een kennismakingsgesprek voor professionals">
+        <img src="pint-people-set.png" alt="" aria-hidden="true" />
+      </button>
     </div>
 
   </div>
+
+  @if (professionalOfferings().length) {
+  <div class="aanbod-offerings">
+    @for (o of professionalOfferings(); track o.id) {
+    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+      <h4 class="aanbod-offering-title">{{ o.title }}</h4>
+      <p class="aanbod-offering-intro">{{ o.intro }}</p>
+      <div class="aanbod-offering-meta">
+        @if (o.eventDate) { <span>{{ o.eventDate }}</span> }
+        @if (o.location) { <span>{{ o.location }}</span> }
+        @if (o.price) { <span>{{ o.price }}</span> }
+      </div>
+    </a>
+    }
+  </div>
+  }
 </section>
 
 <!-- ── ORGANISATIES & GROEPEN ── -->
@@ -245,7 +265,7 @@
   <div class="aanbod-section-inner aanbod-section-inner--reversed">
 
     <div appScrollAnimate animateFrom="left" class="aanbod-section-quotes">
-      <div class="aanbod-quote-card aanbod-quote-card--light">
+      <div class="aanbod-quote-card aanbod-quote-card--dark">
         <p class="aanbod-quote-text">
           "De dag voelde veilig, ook al kenden we elkaar niet.
           De afwisseling tussen theorie en praktijk was precies goed.
@@ -254,68 +274,75 @@
         <span class="aanbod-quote-context">Organisatiebegeleiding</span>
       </div>
 
-      <div class="aanbod-quote-card aanbod-quote-card--light">
-        <p class="aanbod-quote-text">
-          "Wat me bijbleef, was hoe snel er verbinding ontstond. Mensen
-          bleven na de training praten, afspraken maken, elkaar helpen.
-          Het voelde niet als 'een groep die iets kwam halen', maar als
-          mensen die elkaar vonden."
-        </p>
-        <span class="aanbod-quote-context">Teamtraining</span>
-      </div>
+      <button class="aanbod-illustration" (click)="scrollToBooking('cta-organisaties')" aria-label="Neem contact op voor organisaties en groepen">
+        <img src="paint-people-GROUPS.png" alt="" aria-hidden="true" />
+      </button>
     </div>
 
     <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="aanbod-section-text">
-      <p class="aanbod-num aanbod-num--light">04</p>
-      <h2 class="aanbod-section-title aanbod-section-title--light">
+      <p class="aanbod-num">04</p>
+      <h2 class="aanbod-section-title">
         Organisaties en groepen
       </h2>
-      <p class="aanbod-section-sub aanbod-section-sub--light">
+      <p class="aanbod-section-sub">
         Training, begeleiding en bezinningsmomenten op maat
       </p>
 
-      <blockquote class="aanbod-tagline aanbod-tagline--light">
+      <blockquote class="aanbod-tagline">
         "Hoe gaan we om met emoties en spanning op de werkvloer?"
       </blockquote>
 
-      <p class="aanbod-section-intro aanbod-intro--light">
+      <p class="aanbod-section-intro">
         Voor teams of groepen waar:
       </p>
 
-      <ul class="aanbod-list aanbod-list--light">
+      <ul class="aanbod-list">
         <li>spanning oploopt</li>
         <li>communicatie onder druk staat</li>
         <li>emoties moeilijk hanteerbaar worden</li>
         <li>er nood is aan vertraging en herverbinding</li>
       </ul>
 
-      <p class="aanbod-section-intro aanbod-intro--light" style="margin-top: 20px;">
+      <p class="aanbod-section-intro" style="margin-top: 20px;">
         We werken rond:
       </p>
 
-      <ul class="aanbod-list aanbod-list--light">
+      <ul class="aanbod-list">
         <li>omgaan met spanning en emoties in teams</li>
         <li>lastige gesprekken voeren vanuit veiligheid en afstemming</li>
         <li>kalm blijven en helder handelen bij escalatie</li>
         <li>vertragen, verstillen en opnieuw verbinden</li>
       </ul>
 
-      <p class="aanbod-note aanbod-note--light">
+      <p class="aanbod-note">
         Ik werk vaak met hybride trajecten, binnen en buiten gecombineerd.
         Soms kunnen daaruit ook meerdaagse trajecten in de natuur ontstaan,
         zoals wandel- of pelgrimstochten.
       </p>
 
-      <a class="aanbod-cta-link aanbod-cta-link--light" [href]="bookingUrl" target="_blank" rel="noopener">
+      <a id="cta-organisaties" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
         Neem contact op
       </a>
     </div>
 
   </div>
-</section>
 
-<!-- ── COMMON GROUND ── -->
-<app-common-ground />
+  @if (organisatieOfferings().length) {
+  <div class="aanbod-offerings">
+    @for (o of organisatieOfferings(); track o.id) {
+    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+      <h4 class="aanbod-offering-title">{{ o.title }}</h4>
+      <p class="aanbod-offering-intro">{{ o.intro }}</p>
+      <div class="aanbod-offering-meta">
+        @if (o.eventDate) { <span>{{ o.eventDate }}</span> }
+        @if (o.location) { <span>{{ o.location }}</span> }
+        @if (o.price) { <span>{{ o.price }}</span> }
+      </div>
+    </a>
+    }
+  </div>
+  }
+</section>
 
 <!-- ── CTA ── -->
 <app-cta-bottom />

@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
 import { HeroComponent } from '../../components/hero/hero';
 import { AboutTalk2Component } from '../../components/about-talk2/about-talk2';
-import { MovementComponent } from '../../components/movement/movement';
-import { BosZeeWeiComponent } from '../../components/bos-zee-wei/bos-zee-wei';
-import { VoorWieHomeComponent } from '../../components/voor-wie-home/voor-wie-home';
-import { AboutShortComponent } from '../../components/about-short/about-short';
-import { OpleidingComponent } from '../../components/opleiding/opleiding';
-import { DegeluksbewegingComponent } from '../../components/degeluksbeweging/degeluksbeweging';
-import { TestimonialsComponent } from '../../components/testimonials/testimonials';
-import { CommonGroundComponent } from '../../components/common-ground/common-ground';
 import { CtaBottomComponent } from '../../components/cta-bottom/cta-bottom';
 import { FooterComponent } from '../../components/footer/footer';
 
@@ -18,14 +10,6 @@ import { FooterComponent } from '../../components/footer/footer';
   imports: [
     HeroComponent,
     AboutTalk2Component,
-    MovementComponent,
-    BosZeeWeiComponent,
-    VoorWieHomeComponent,
-    CommonGroundComponent,
-    TestimonialsComponent,
-    AboutShortComponent,
-    OpleidingComponent,
-    DegeluksbewegingComponent,
     CtaBottomComponent,
     FooterComponent,
   ],

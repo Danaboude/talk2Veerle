@@ -14,7 +14,7 @@
   max-width: 1160px;
   width: 100%;
   margin: 0 auto;
-  padding: 76px 48px 36px; /* 76px clears the fixed header */
+  padding: 128px 48px 36px; /* clears the fixed header (now two lines tall) with room to breathe */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -32,9 +32,9 @@
 
 .hero-tag {
   font-family: var(--font-sans);
-  font-size: 9.5px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.36em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--color-sage);
   opacity: 0;
@@ -110,11 +110,11 @@
 
 .hero-body {
   font-family: var(--font-sans);
-  font-size: 14.5px;
+  font-size: clamp(15px, 1.1vw, 17px);
   font-weight: 300;
   color: var(--color-text-muted);
-  line-height: 1.88;
-  max-width: 540px;
+  line-height: 1.8;
+  max-width: 560px;
   flex: 1 1 260px;
 }
 
@@ -195,7 +195,7 @@
 
 /* Short laptop screens  tighten further */
 @media (max-height: 780px) and (min-width: 769px) {
-  .hero-inner { padding-top: 72px; padding-bottom: 24px; gap: 16px; }
+  .hero-inner { padding-top: 112px; padding-bottom: 24px; gap: 16px; }
   .hero-heading { font-size: clamp(2.6rem, 4.5vw, 4.8rem); }
 }
 

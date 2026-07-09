@@ -3,30 +3,26 @@
 
         <!-- Mockup / bonus column -->
         <div class="survey-mockup-col">
-            <div class="mockup-bonus-wrapper">
-                <div class="mockup-bonus-content">
-                    <div class="mockup-header-row">
-                        <h3 class="mockup-bonus-title" *ngIf="survey?.bonusTitle">{{ survey?.bonusTitle }}</h3>
-                    </div>
-                    <div class="mockup-body-row">
-                        <ul class="mockup-bonus-list">
-                            <li class="mockup-bonus-item" *ngIf="survey?.bonus1Label">
-                                <strong>{{ survey?.bonus1Label }}</strong>
-                                <span>{{ survey?.bonus1Text }}</span>
-                            </li>
-                            <li class="mockup-bonus-item" *ngIf="survey?.bonus2Label">
-                                <strong>{{ survey?.bonus2Label }}</strong>
-                                <span>{{ survey?.bonus2Text }}</span>
-                            </li>
-                            <li class="mockup-bonus-item" *ngIf="survey?.bonus3Label">
-                                <strong>{{ survey?.bonus3Label }}</strong>
-                                <span>{{ survey?.bonus3Text }}</span>
-                            </li>
-                        </ul>
-                        <div class="mockup-img-col">
-                            <img src="/paint-people-GROUPS.png" class="mockup-main-side" alt="Brochure Mockup" />
-                        </div>
-                    </div>
+            <div class="mockup-card">
+                <div class="mockup-image-frame">
+                    <img [src]="survey?.heroImage || '/paint-people-GROUPS.png'" class="mockup-image" alt="Brochure Mockup" />
+                </div>
+                <div class="mockup-bonus-content" *ngIf="survey?.bonusTitle">
+                    <h3 class="mockup-bonus-title">{{ survey?.bonusTitle }}</h3>
+                    <ul class="mockup-bonus-list">
+                        <li class="mockup-bonus-item" *ngIf="survey?.bonus1Label">
+                            <strong>{{ survey?.bonus1Label }}</strong>
+                            <span>{{ survey?.bonus1Text }}</span>
+                        </li>
+                        <li class="mockup-bonus-item" *ngIf="survey?.bonus2Label">
+                            <strong>{{ survey?.bonus2Label }}</strong>
+                            <span>{{ survey?.bonus2Text }}</span>
+                        </li>
+                        <li class="mockup-bonus-item" *ngIf="survey?.bonus3Label">
+                            <strong>{{ survey?.bonus3Label }}</strong>
+                            <span>{{ survey?.bonus3Text }}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

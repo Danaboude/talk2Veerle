@@ -23,17 +23,12 @@ export class AuthService {
     }
 
     login(email: string, password: string): Observable<{ success: boolean; token: string }> {
-        return new Observable(observer => {
-            if (email === 'veerlefollens@hotmail.com' && password === 'ives-veerle') {
-                const token = 'talk2-hardcoded-token';
-                localStorage.setItem('talk2_admin_token', token);
+        return this.http.post<{ success: boolean; token: string }>('/api/auth', { email, password }).pipe(
+            tap(res => {
+                localStorage.setItem('talk2_admin_token', res.token);
                 this.isAuthenticatedSubject.next(true);
-                observer.next({ success: true, token });
-                observer.complete();
-            } else {
-                observer.error({ error: { error: 'Ongeldige inloggegevens.' } });
-            }
-        });
+            })
+        );
     }
 
     logout() {

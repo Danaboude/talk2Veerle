@@ -1,0 +1,74 @@
+[
+  {
+    "id": "individueel-intake",
+    "title": "Intake – individuele coaching of therapie",
+    "intro": "Eerste gesprek: we verkennen samen je vragen, verlangens en patronen, in een zachte en veilige start.",
+    "description": "Een eerste kennismakingsgesprek waarin we rustig verkennen wat er speelt: je vragen, verlangens en de patronen die je tegenkomt. Een zachte, veilige start van waaruit we samen bepalen hoe het traject eruit kan zien.",
+    "eventDate": "",
+    "location": "Binnen",
+    "price": "€90",
+    "contactLink": "",
+    "audience": "individuen",
+    "published": true
+  },
+  {
+    "id": "individueel-vervolg-1u",
+    "title": "Individuele coaching of therapie – 1 uur",
+    "intro": "Vervolggesprek waarin we verder verkennen wat er speelt en wat jou helpt.",
+    "description": "Een vervolgsessie van een uur, binnen of buiten (een wandeling is mogelijk). We bouwen verder op wat er in de intake naar boven kwam en verkennen jouw vragen, verlangens en patronen.",
+    "eventDate": "",
+    "location": "Binnen of buiten (wandeling mogelijk)",
+    "price": "€80",
+    "contactLink": "",
+    "audience": "individuen",
+    "published": true
+  },
+  {
+    "id": "individueel-vervolg-1_5u",
+    "title": "Individuele coaching of therapie – 1,5 uur",
+    "intro": "Een verdiepend vervolggesprek met meer ruimte en tijd.",
+    "description": "Een verdiepende sessie van anderhalf uur, binnen of buiten (een wandeling is mogelijk), voor wie meer ruimte en tijd nodig heeft om stil te staan bij wat er speelt.",
+    "eventDate": "",
+    "location": "Binnen of buiten (wandeling mogelijk)",
+    "price": "€120",
+    "contactLink": "",
+    "audience": "individuen",
+    "published": true
+  },
+  {
+    "id": "wandelsessie-verbinding-ruimte",
+    "title": "Wandelsessie – Verbinding & Ruimte",
+    "intro": "Een rustige, gedragen wandelsessie waarin we samen bewegen van bescherming naar verbinding.",
+    "description": "Een rustige, gedragen wandelsessie waarin we samen bewegen van bescherming naar verbinding. Tijd om te landen, te ademen en te voelen wat er mag ontstaan.",
+    "eventDate": "Beschikbaar dinsdag & donderdag",
+    "location": "Buiten, in de natuur",
+    "price": "",
+    "contactLink": "",
+    "audience": "individuen",
+    "published": true
+  },
+  {
+    "id": "online-opvolging-individueel",
+    "title": "Online opvolging individueel",
+    "intro": "Korte online opvolgsessie voor een kleine vraag tussendoor.",
+    "description": "Een korte opvolgsessie van 30 minuten, online of telefonisch, voor een kleine vraag tussen je coaching- of therapiesessies door.",
+    "eventDate": "Beschikbaar dinsdag & donderdag 16:30–17:00",
+    "location": "Online of telefonisch",
+    "price": "€40",
+    "contactLink": "",
+    "audience": "individuen",
+    "published": true
+  },
+  {
+    "id": "intake-kennismaking-groep",
+    "title": "Intake kennismaking – groepsaanbod",
+    "intro": "Vrijblijvend kennismakingsgesprek voor wie meer wil weten over het groepsaanbod.",
+    "description": "Een kort, kosteloos kennismakingsgesprek van 30 minuten, online of telefonisch, om te verkennen of het groepsaanbod bij jouw organisatie of team past.",
+    "eventDate": "Beschikbaar dinsdag & donderdag 16:30–17:00",
+    "location": "Online of telefonisch",
+    "price": "€0",
+    "contactLink": "",
+    "audience": "organisaties",
+    "published": true
+  }
+]

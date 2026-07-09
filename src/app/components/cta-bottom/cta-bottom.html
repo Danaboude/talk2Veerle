@@ -21,5 +21,30 @@
       Boek een afspraak
     </a>
 
+    <div class="ctab-newsletter">
+      <p class="ctab-newsletter-label">Blijf op de hoogte van nieuwe groepsmomenten en aanbod</p>
+
+      @if (newsletterState === 'done') {
+        <p class="ctab-newsletter-done">Bedankt, je bent ingeschreven!</p>
+      } @else {
+        <form class="ctab-newsletter-form" (ngSubmit)="subscribeNewsletter()">
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="jouw@email.be"
+            class="ctab-newsletter-input"
+            [(ngModel)]="newsletterEmail"
+          />
+          <button type="submit" class="ctab-newsletter-btn" [disabled]="newsletterState === 'submitting'">
+            Inschrijven
+          </button>
+        </form>
+        @if (newsletterState === 'error') {
+          <p class="ctab-newsletter-error">Er ging iets mis, probeer het later opnieuw.</p>
+        }
+      }
+    </div>
+
   </div>
 </section>

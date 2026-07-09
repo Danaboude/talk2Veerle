@@ -21,14 +21,41 @@
       </p>
     </div>
 
-    <!-- Foto rechts: nature.jpg (1216x913) -->
+    <!-- Foto rechts -->
     <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="abs-photo-wrap">
       <img
-        src="nature.jpg"
-        alt="Natuur als omgeving voor begeleiding en coaching"
+        src="veerle.jpg"
+        alt="Veerle Follens"
         class="abs-photo"
+        (error)="usePlaceholderPhoto($event)"
       />
     </div>
 
   </div>
+
+  <!-- Vertrouwen in verandering -->
+  <div appScrollAnimate [animateDelay]="160" class="abs-trust">
+    <h3 class="abs-trust-title">Vertrouwen in verandering</h3>
+    <p class="abs-body">
+      Ook wanneer je al lang vastloopt, hoeft het niet zo te blijven.
+      Onze hersenen zijn neuroplastisch: ze kunnen zich aanpassen en
+      veranderen. Dat betekent dat ook bij stress, overbelasting of
+      vastgelopen patronen nieuwe manieren van voelen, reageren en
+      communiceren mogelijk blijven.
+    </p>
+    <p class="abs-body">
+      In mijn begeleiding vertrek ik vanuit dat vertrouwen in verandering.
+      Niet alleen via inzicht, maar ook via ervaring, regulatie en oefening.
+    </p>
+    <p class="abs-body">
+      Soms is het genoeg dat iemand een stukje meeloopt en mee draagt,
+      tot er weer beweging mogelijk wordt.
+    </p>
+  </div>
+
+  <!-- Afsluitende quote -->
+  <p appScrollAnimate [animateDelay]="200" class="abs-quote">
+    Zoals iemand het eens verwoordde: “Ik heb het idee dat je leeft wat je ons leert.”
+  </p>
+
 </section>

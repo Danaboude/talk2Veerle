@@ -1,14 +1,18 @@
 const { neon } = require('@neondatabase/serverless');
+const { requireAdmin } = require('./_lib/auth');
 
 export default async function handler(request, response) {
     // CORS headers
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     if (request.method === 'OPTIONS') {
         return response.status(200).end();
     }
+
+    // Reads stay public (survey pages render for anonymous visitors); writes are admin-only.
+    if (request.method !== 'GET' && !requireAdmin(request, response)) return;
 
     try {
         const sql = neon(process.env.DATABASE_URL);
