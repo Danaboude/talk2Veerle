@@ -26,6 +26,11 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -34,7 +39,6 @@ body {
   font-family: var(--font-sans);
   color: var(--color-text);
   background-color: var(--color-warm-white);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Impeccable: proper kerning on all text */
