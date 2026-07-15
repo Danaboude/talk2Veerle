@@ -32,7 +32,8 @@
       "Bash(\"./node_modules/ffmpeg-static/ffmpeg.exe\" -y -ss 00:00:01 -i \"public/about_talk.mp4\" -frames:v 1 -q:v 3 \"public/about-talk-poster.jpg\")",
       "Bash(npm uninstall *)",
       "Bash(git check-ignore *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(tasklist)"
     ]
   }
 }

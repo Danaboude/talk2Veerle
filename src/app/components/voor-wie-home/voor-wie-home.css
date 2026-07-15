@@ -349,7 +349,7 @@
   }
 
   .vwh-prelude-text {
-    padding: 64px 32px 56px;
+    padding: 96px 32px 56px;
     gap: 20px;
   }
 
@@ -382,7 +382,7 @@
 
 @media (max-width: 540px) {
   .vwh-prelude-text {
-    padding: 56px 20px 48px;
+    padding: 88px 20px 48px;
     gap: 16px;
   }
 

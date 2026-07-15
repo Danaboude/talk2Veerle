@@ -2,7 +2,7 @@
 .movement {
   background-color: var(--color-cream);
   overflow: hidden;
-  padding-top: 100px;
+  padding: 100px 48px 0;
 }
 
 @media (max-width: 900px) {
@@ -10,6 +10,8 @@
 }
 
 .movement-inner {
+  max-width: 1160px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 360px 1fr;
   min-height: 600px;
@@ -76,6 +78,11 @@
 
 /* ── Responsive ── */
 @media (max-width: 960px) {
+  .movement {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .movement-inner {
     grid-template-columns: 1fr;
     min-height: auto;
