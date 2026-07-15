@@ -14,7 +14,13 @@ export default async function handler(request, response) {
         const body = typeof request.body === 'string' ? JSON.parse(request.body) : request.body;
         const { email, password } = body || {};
 
-        if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
+        const validAccounts = [
+            { email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD },
+            { email: process.env.ADMIN2_EMAIL, password: process.env.ADMIN2_PASSWORD }
+        ];
+
+        const isValid = validAccounts.some(acc => acc.email && acc.password && email === acc.email && password === acc.password);
+        if (!isValid) {
             return response.status(401).json({ error: 'Ongeldige inloggegevens.' });
         }
 
