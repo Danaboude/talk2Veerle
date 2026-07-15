@@ -26,6 +26,8 @@ export class VideoPlayerComponent implements OnDestroy {
   @Input() src!: string;
   @Input() loop = true;
   @Input() label = 'Video';
+  /** Thumbnail shown before playback starts and whenever the video is paused/ended, so we never flash a black frame */
+  @Input() poster?: string;
 
   @ViewChild('vid') videoRef!: ElementRef<HTMLVideoElement>;
 

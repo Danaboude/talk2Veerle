@@ -1,5 +1,6 @@
-import { Component, HostListener, signal, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, HostListener, OnDestroy, signal, inject } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { BOOKING_LINKS } from '../../config/booking-links';
 
 interface NavChild {
@@ -22,7 +23,7 @@ interface NavItem {
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   mobileMenuOpen = signal(false);
   scrolled = signal(false);
   openDropdown = signal<string | null>(null);
@@ -30,6 +31,17 @@ export class HeaderComponent {
 
   private router = inject(Router);
   readonly bookingUrl = BOOKING_LINKS.general;
+
+  private routerSub: Subscription = this.router.events.subscribe((event) => {
+    if (event instanceof NavigationStart) {
+      this.closeMenu();
+    }
+  });
+
+  ngOnDestroy(): void {
+    this.routerSub.unsubscribe();
+    this.setBodyScrollLock(false);
+  }
 
   navItems: NavItem[] = [
     { id: 'over-talk2', label: 'Over Talk2', route: '/', dropdown: null },
@@ -55,7 +67,7 @@ export class HeaderComponent {
       ],
     },
     { id: 'over-mij', label: 'Over mij', route: '/over-mij', dropdown: null },
-    { id: 'contact', label: 'Contact', route: '/contact', dropdown: null },
+    { id: 'contact', label: 'Contact Nfaq', route: '/contact', dropdown: null },
   ];
 
   @HostListener('window:scroll')
@@ -63,15 +75,19 @@ export class HeaderComponent {
     this.scrolled.set(window.scrollY > 60);
   }
 
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeMenu();
+  }
+
   goHome(): void {
-    this.mobileMenuOpen.set(false);
+    this.closeMenu();
     this.router.navigateByUrl('/');
   }
 
   navigate(item: NavItem, child?: NavChild): void {
-    this.mobileMenuOpen.set(false);
+    this.closeMenu();
     this.openDropdown.set(null);
-    this.mobileOpenDropdown.set(null);
     if (child) {
       this.router.navigate([item.route], { fragment: child.fragment });
     } else {
@@ -81,6 +97,17 @@ export class HeaderComponent {
 
   toggleMenu(): void {
     this.mobileMenuOpen.update((v) => !v);
+    this.setBodyScrollLock(this.mobileMenuOpen());
+  }
+
+  closeMenu(): void {
+    this.mobileMenuOpen.set(false);
+    this.mobileOpenDropdown.set(null);
+    this.setBodyScrollLock(false);
+  }
+
+  private setBodyScrollLock(locked: boolean): void {
+    document.body.style.overflow = locked ? 'hidden' : '';
   }
 
   toggleMobileDropdown(id: string): void {

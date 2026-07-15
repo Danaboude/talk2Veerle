@@ -16,4 +16,10 @@ export class BosZeeWeiComponent {
     'https://res.cloudinary.com/dcoclrn93/video/upload/v1780532527/ZEE_20260410155539145_1_cixgnp.mp4';
   readonly weiVideoUrl =
     'https://res.cloudinary.com/dcoclrn93/video/upload/v1780516795/WEI_20260409125941198_1_ullytr.mp4';
+
+  // Cloudinary derives a JPG thumbnail from a video on the fly when the
+  // extension is swapped  no separate asset upload needed.
+  readonly bosPoster = this.bosVideoUrl.replace(/\.mp4$/, '.jpg');
+  readonly zeePoster = this.zeeVideoUrl.replace(/\.mp4$/, '.jpg');
+  readonly weiPoster = this.weiVideoUrl.replace(/\.mp4$/, '.jpg');
 }

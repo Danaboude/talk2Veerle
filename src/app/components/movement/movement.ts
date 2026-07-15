@@ -12,4 +12,5 @@ import { VideoPlayerComponent } from '../video-player/video-player';
 export class MovementComponent {
   readonly videoUrl =
     'https://res.cloudinary.com/dcoclrn93/video/upload/v1780516883/Hoe_beweging_vorm_krijgt_20260409131551905_n1r2rz.mp4';
+  readonly videoPoster = this.videoUrl.replace(/\.mp4$/, '.jpg');
 }

@@ -22,6 +22,24 @@
 }
 
 /* ══════════════════════════════════════════════
+   POSTER  covers the video whenever it isn't actively playing
+   ══════════════════════════════════════════════ */
+.vp-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.vp-poster--hidden {
+  opacity: 0;
+}
+
+/* ══════════════════════════════════════════════
    CIRCULAR BUFFERING SPINNER
    ══════════════════════════════════════════════ */
 .vp-loader {
@@ -173,6 +191,7 @@
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
+  .vp-poster { transition: none; }
   .vp-spinner { animation: none; }
   .vp-loader  { animation: none; opacity: 1; }
   .vp-controls { transition: none; }

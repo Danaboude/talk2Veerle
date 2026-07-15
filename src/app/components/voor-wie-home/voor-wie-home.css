@@ -10,7 +10,10 @@
 .vwh-prelude {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  /* Fill the viewport below the fixed header on first load, so the next
+     row of cards never peeks in half-cut-off  it only appears on scroll. */
   min-height: 560px;
+  min-height: max(560px, calc(100vh - 76px));
 }
 
 /* Text side */

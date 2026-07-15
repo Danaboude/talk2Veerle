@@ -24,7 +24,15 @@
       "Bash(xargs -I{} echo {})",
       "Bash(tee /tmp/ng-serve.log)",
       "Bash(npx tsc *)",
-      "Bash(node --env-file=.env.local seed/seed-offerings.js)"
+      "Bash(node --env-file=.env.local seed/seed-offerings.js)",
+      "Bash(npm ls *)",
+      "Bash(npm view *)",
+      "Bash(npm install *)",
+      "Bash(node -e \"console.log\\(require\\('ffmpeg-static'\\)\\)\")",
+      "Bash(\"./node_modules/ffmpeg-static/ffmpeg.exe\" -y -ss 00:00:01 -i \"public/about_talk.mp4\" -frames:v 1 -q:v 3 \"public/about-talk-poster.jpg\")",
+      "Bash(npm uninstall *)",
+      "Bash(git check-ignore *)",
+      "Bash(git push *)"
     ]
   }
 }

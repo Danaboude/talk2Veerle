@@ -11,4 +11,5 @@ import { VideoPlayerComponent } from '../video-player/video-player';
 })
 export class AboutTalk2Component {
   readonly videoUrl = 'about_talk.mp4';
+  readonly videoPoster = 'about-talk-poster.jpg';
 }

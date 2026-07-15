@@ -2,11 +2,11 @@
 .movement {
   background-color: var(--color-cream);
   overflow: hidden;
-  padding-top: 128px; /* first section on /aanpak  clears the fixed header */
+  padding-top: 100px;
 }
 
 @media (max-width: 900px) {
-  .movement { padding-top: 104px; }
+  .movement { padding-top: 80px; }
 }
 
 .movement-inner {

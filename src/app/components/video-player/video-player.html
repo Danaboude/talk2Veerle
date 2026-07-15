@@ -10,6 +10,7 @@
          class="vp-video"
          [src]="src"
          [loop]="loop"
+         [attr.poster]="poster || null"
          playsinline
          preload="metadata"
          [attr.aria-label]="label"
@@ -20,6 +21,15 @@
          (pause)="onPause()"
          (ended)="onEnded()">
   </video>
+
+  <!-- ── Poster  hides the black frame while loading and whenever playback is stopped ── -->
+  @if (poster) {
+    <img class="vp-poster"
+         [class.vp-poster--hidden]="isPlaying"
+         [src]="poster"
+         alt=""
+         aria-hidden="true" />
+  }
 
   <!-- ── Circular buffering spinner ── -->
   @if (isLoading) {

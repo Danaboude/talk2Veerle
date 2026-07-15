@@ -247,7 +247,22 @@
 }
 
 /* ── Mobile menu ── */
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 43, 32, 0.35);
+  z-index: -1;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 .mobile-menu {
+  position: relative;
+  z-index: 1;
   background: rgba(254, 253, 251, 0.97);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
