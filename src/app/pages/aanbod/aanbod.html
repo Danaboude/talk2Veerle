@@ -12,16 +12,15 @@
     <div appScrollAnimate animateFrom="left" class="aanbod-section-text">
       <p class="aanbod-num">01</p>
       <h2 class="aanbod-section-title">Individuen</h2>
-      <p class="aanbod-section-sub">Individuele sessies in de natuur, binnen of online</p>
+      <p class="aanbod-section-sub">Individuele sessies in de natuur, binnen of online, en open groepsaanbod.</p>
 
       <blockquote class="aanbod-tagline">
-        "Ik ben aan het overleven in plaats van te leven
-        en weet niet hoe het anders kan"
+        "Thuiskomen bij jezelf."
       </blockquote>
 
       <p class="aanbod-section-intro">
         We werken vanuit het hier en nu, in een tempo dat past bij jouw gevoeligheid.
-        De begeleiding helpt wanneer je:
+        Individuele begeleiding helpt wanneer je:
       </p>
 
       <ul class="aanbod-list">
@@ -62,8 +61,17 @@
         <span class="aanbod-quote-context">Individuele begeleiding</span>
       </div>
 
+      <div class="aanbod-quote-card aanbod-quote-card--dark">
+        <p class="aanbod-quote-text">
+          "Ik heb veel geleerd over verbinding, mijn huisgenoten, en
+          vooral over mezelf. De helderheid en warmte in de begeleiding
+          maakten dat ik dingen durfde zien die ik anders zou vermijden."
+        </p>
+        <span class="aanbod-quote-context">Individuele begeleiding</span>
+      </div>
+
       <button class="aanbod-illustration" (click)="scrollToBooking('cta-individuen')" aria-label="Boek een eerste gesprek voor individuen">
-        <img src="paint-people-walk-cricle-in-the-right.png" alt="" aria-hidden="true" />
+        <img src="paint-people-walk-cricle-in-the-rights.png" alt="" aria-hidden="true" />
       </button>
     </div>
 
@@ -93,9 +101,9 @@
     <div appScrollAnimate animateFrom="left" class="aanbod-section-quotes">
       <div class="aanbod-quote-card aanbod-quote-card--dark">
         <p class="aanbod-quote-text">
-          "Ik heb veel geleerd over verbinding, mijn huisgenoten, en
-          vooral over mezelf. De helderheid en warmte in de begeleiding
-          maakten dat ik dingen durfde zien die ik anders zou vermijden."
+          "Onder het conflict bleek iets anders te zitten: het verlangen
+          om gehoord te worden zonder oordeel. Dat moment van helderheid
+          bracht rust die we al lang misten."
         </p>
         <span class="aanbod-quote-context">Verbindende communicatie</span>
       </div>
@@ -111,7 +119,7 @@
       <p class="aanbod-section-sub">Sessies en trajecten van bescherming naar verbinding</p>
 
       <blockquote class="aanbod-tagline">
-        "We raken elkaar kwijt in de drukte"
+        "Tijd voor jullie samen."
       </blockquote>
 
       <p class="aanbod-section-intro">Duo begeleiding helpt wanneer:</p>
@@ -145,6 +153,22 @@
     </div>
 
   </div>
+
+  @if (duosOfferings().length) {
+  <div class="aanbod-offerings">
+    @for (o of duosOfferings(); track o.id) {
+    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+      <h4 class="aanbod-offering-title">{{ o.title }}</h4>
+      <p class="aanbod-offering-intro">{{ o.intro }}</p>
+      <div class="aanbod-offering-meta">
+        @if (o.eventDate) { <span>{{ o.eventDate }}</span> }
+        @if (o.location) { <span>{{ o.location }}</span> }
+        @if (o.price) { <span>{{ o.price }}</span> }
+      </div>
+    </a>
+    }
+  </div>
+  }
 </section>
 
 <!-- ── PROFESSIONALS ── -->
@@ -159,7 +183,7 @@
       </p>
 
       <blockquote class="aanbod-tagline">
-        "Hoe begeleid ik de ander naar meer afstemming en verbinding?"
+        "Tijd voor wie met mensen werkt."
       </blockquote>
 
       <p class="aanbod-section-intro">We werken rond:</p>
@@ -175,6 +199,7 @@
       <p class="aanbod-note">
         Deze manier van werken sluit goed aan bij neurodivergente
         profielen en bij complexe of gevoelige begeleidingssituaties.
+        Je kunt individueel bij me terecht of aansluiten bij het open aanbod.
       </p>
 
       <a id="cta-professionals" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
@@ -185,9 +210,9 @@
     <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="aanbod-section-quotes">
       <div class="aanbod-quote-card aanbod-quote-card--dark">
         <p class="aanbod-quote-text">
-          "Onder het conflict bleek iets anders te zitten: het verlangen
-          om gehoord te worden zonder oordeel. Dat moment van helderheid
-          bracht rust die ik al lang miste."
+          "De dag voelde veilig, ook al kenden we elkaar niet.
+          De afwisseling tussen theorie en praktijk was precies goed.
+          Je schakelt snel en past de inhoud toe op wat er in de groep ontstaat."
         </p>
         <span class="aanbod-quote-context">Training professionals</span>
       </div>
@@ -223,11 +248,12 @@
     <div appScrollAnimate animateFrom="left" class="aanbod-section-quotes">
       <div class="aanbod-quote-card aanbod-quote-card--dark">
         <p class="aanbod-quote-text">
-          "De dag voelde veilig, ook al kenden we elkaar niet.
-          De afwisseling tussen theorie en praktijk was precies goed.
-          Je schakelt snel en past de inhoud toe op wat er in de groep ontstaat."
+          "Wat ons bijbleef, waren de diepgaande gesprekken tussen de leerlingen.
+          De begeleiding en de opbouw maakten daar ruimte voor. Dat sloot aan bij
+          wat wij van een bezinning hopen: dat leerlingen kunnen stilstaan bij wat
+          er leeft en elkaar op een andere manier ontmoeten."
         </p>
-        <span class="aanbod-quote-context">Organisatiebegeleiding</span>
+        <span class="aanbod-quote-context">Klasbezinning</span>
       </div>
 
       <button class="aanbod-illustration" (click)="scrollToBooking('cta-organisaties')" aria-label="Neem contact op voor organisaties en groepen">
@@ -238,25 +264,25 @@
     <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="aanbod-section-text">
       <p class="aanbod-num">04</p>
       <h2 class="aanbod-section-title">
-        Organisaties en groepen
+        Groepen en organisaties
       </h2>
       <p class="aanbod-section-sub">
-        Training, begeleiding en bezinningsmomenten op maat
+        Training, begeleiding en bezinningsmomenten op maat, ook voor klassen.
       </p>
 
       <blockquote class="aanbod-tagline">
-        "Hoe gaan we om met emoties en spanning op de werkvloer?"
+        "Tijd voor mekaar"
       </blockquote>
 
       <p class="aanbod-section-intro">
-        Voor teams of groepen waar:
+        Voor klassen, teams en andere groepen waar:
       </p>
 
       <ul class="aanbod-list">
         <li>spanning oploopt</li>
         <li>communicatie onder druk staat</li>
         <li>emoties moeilijk hanteerbaar worden</li>
-        <li>er nood is aan vertraging en herverbinding</li>
+        <li>er nood is aan vertraging, bezinning en herverbinding</li>
       </ul>
 
       <p class="aanbod-section-intro" style="margin-top: 20px;">
@@ -264,7 +290,7 @@
       </p>
 
       <ul class="aanbod-list">
-        <li>omgaan met spanning en emoties in teams</li>
+        <li>omgaan met spanning en emoties in de groep</li>
         <li>lastige gesprekken voeren vanuit veiligheid en afstemming</li>
         <li>kalm blijven en helder handelen bij escalatie</li>
         <li>vertragen, verstillen en opnieuw verbinden</li>

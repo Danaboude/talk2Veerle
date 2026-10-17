@@ -51,8 +51,8 @@ export class HeaderComponent implements OnDestroy {
       route: '/aanpak',
       dropdown: [
         { label: 'Bos', fragment: 'bos', description: 'Grond onder de voeten' },
-        { label: 'Zee', fragment: 'zee', description: 'Ruimte voor emotie en beweging' },
-        { label: 'Wei', fragment: 'wei', description: 'Openheid en verbinding' },
+        { label: 'Zee', fragment: 'zee', description: 'Tot verbinding komen' },
+        { label: 'Wei', fragment: 'wei', description: 'Verandering verankeren' },
       ],
     },
     {
@@ -67,7 +67,7 @@ export class HeaderComponent implements OnDestroy {
       ],
     },
     { id: 'over-mij', label: 'Over mij', route: '/over-mij', dropdown: null },
-    { id: 'contact', label: 'Contact Nfaq', route: '/contact', dropdown: null },
+    { id: 'contact', label: 'Contact & faq', route: '/contact', dropdown: null },
   ];
 
   @HostListener('window:scroll')

@@ -20,6 +20,7 @@ export class OfferingsTabComponent {
 
     readonly audiences: { value: Offering['audience']; label: string }[] = [
         { value: 'individuen', label: 'Individuen' },
+        { value: 'duos', label: "Duo's en koppels" },
         { value: 'organisaties', label: 'Organisaties & Groepen' },
         { value: 'professionals', label: 'Professionals' },
     ];

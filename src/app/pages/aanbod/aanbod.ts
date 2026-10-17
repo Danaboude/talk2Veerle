@@ -25,13 +25,17 @@ export class AanbodComponent implements OnInit {
   readonly bookingUrl = BOOKING_LINKS.general;
 
   individueleOfferings = signal<Offering[]>([]);
+  duosOfferings = signal<Offering[]>([]);
   organisatieOfferings = signal<Offering[]>([]);
   professionalOfferings = signal<Offering[]>([]);
-  // Duo's is intentionally static  no dynamic offerings are fetched for it.
 
   ngOnInit(): void {
     this.offeringsService.getPublishedForAudience('individuen').subscribe({
       next: (data) => this.individueleOfferings.set(data),
+      error: () => {},
+    });
+    this.offeringsService.getPublishedForAudience('duos').subscribe({
+      next: (data) => this.duosOfferings.set(data),
       error: () => {},
     });
     this.offeringsService.getPublishedForAudience('organisaties').subscribe({

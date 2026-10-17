@@ -50,6 +50,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(8, 20, 10, 0.42);
+  pointer-events: none;
   /* Fade in only after a short delay so it doesn't flash on fast connections */
   animation: vp-loader-appear 0.25s ease 0.15s both;
 }

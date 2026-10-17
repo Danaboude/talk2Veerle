@@ -36,7 +36,10 @@
       "Bash(tasklist)",
       "Bash(python3 -c \"from PIL import Image; im = Image.open\\('WhatsApp Image 2026-07-15 at 4.13.31 PM.jpeg'\\); print\\(im.size\\)\")",
       "Bash(magick identify *)",
-      "PowerShell(Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\(\"D:\\\\example\\\\porjects\\\\aeriez\\\\newwebsite\\\\ives-wife\\\\WhatsApp Image 2026-07-15 at 4.13.31 PM.jpeg\"\\); \"$\\($img.Width\\) x $\\($img.Height\\)\"; $img.Dispose\\(\\))"
+      "PowerShell(Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\(\"D:\\\\example\\\\porjects\\\\aeriez\\\\newwebsite\\\\ives-wife\\\\WhatsApp Image 2026-07-15 at 4.13.31 PM.jpeg\"\\); \"$\\($img.Width\\) x $\\($img.Height\\)\"; $img.Dispose\\(\\))",
+      "Bash(grep *)",
+      "Bash(npx ng *)",
+      "Bash(python3)"
     ]
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BOOKING_LINKS } from '../../config/booking-links';
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './footer.css',
 })
 export class FooterComponent {
-  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
+  readonly bookingUrl = BOOKING_LINKS.general;
   year = new Date().getFullYear();
 
   scrollToTop(): void {

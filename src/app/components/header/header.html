@@ -2,7 +2,7 @@
   <div class="header-inner">
     <!-- Brand first: mark + wordmark, descriptor underneath -->
     <button class="brand" (click)="goHome()" aria-label="Naar beginpagina">
-      <img src="logo.png" alt="" class="brand-mark" />
+      <img src="logo1.png" alt="" class="brand-mark" />
       <span class="brand-text">
         <span class="brand-word">TALK2</span>
         <span class="brand-descriptor">Therapie · Coaching · Training</span>
@@ -58,14 +58,19 @@
       @for (item of navItems; track item.id) {
         <div class="mobile-nav-group">
           @if (item.dropdown) {
-            <button
-              class="mobile-nav-link mobile-nav-link--parent"
-              (click)="toggleMobileDropdown(item.id)"
-              [attr.aria-expanded]="mobileOpenDropdown() === item.id"
-            >
-              <span>{{ item.label }}</span>
-              <span class="chevron" [class.open]="mobileOpenDropdown() === item.id">⌄</span>
-            </button>
+            <div class="mobile-nav-link mobile-nav-link--parent">
+              <button class="mobile-nav-link-label" (click)="navigate(item)">
+                {{ item.label }}
+              </button>
+              <button
+                class="chevron-toggle"
+                (click)="toggleMobileDropdown(item.id)"
+                [attr.aria-expanded]="mobileOpenDropdown() === item.id"
+                aria-label="Submenu tonen"
+              >
+                <span class="chevron" [class.open]="mobileOpenDropdown() === item.id">⌄</span>
+              </button>
+            </div>
             @if (mobileOpenDropdown() === item.id) {
               <div class="mobile-dropdown">
                 @for (child of item.dropdown; track child.label) {

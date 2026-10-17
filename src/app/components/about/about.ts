@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
+import { BOOKING_LINKS } from '../../config/booking-links';
 
 @Component({
   selector: 'app-about',
@@ -9,7 +10,7 @@ import { ScrollAnimateDirective } from '../../directives/scroll-animate.directiv
   styleUrl: './about.css',
 })
 export class AboutComponent {
-  readonly bookingUrl = 'https://cal.com/abdulkareem-dandal-rdextz/';
+  readonly bookingUrl = BOOKING_LINKS.general;
   opleidingen = [
     'Universitaire opleiding Klinische Psychologie',
     'Opleiding Systemische Therapie (IOST)',
