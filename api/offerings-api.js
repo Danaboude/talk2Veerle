@@ -38,14 +38,14 @@ export default async function handler(request, response) {
 
             if (audience && published === 'true') {
                 const rows = await sql`
-                    SELECT * FROM offerings
+                    SELECT *, event_date AS "eventDate", contact_link AS "contactLink" FROM offerings
                     WHERE audience = ${audience} AND published = true
                     ORDER BY created_at DESC
                 `;
                 return response.status(200).json(rows);
             }
 
-            const rows = await sql`SELECT * FROM offerings ORDER BY created_at DESC`;
+            const rows = await sql`SELECT *, event_date AS "eventDate", contact_link AS "contactLink" FROM offerings ORDER BY created_at DESC`;
             return response.status(200).json(rows);
         }
 

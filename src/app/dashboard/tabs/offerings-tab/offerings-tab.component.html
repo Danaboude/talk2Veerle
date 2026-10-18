@@ -10,9 +10,9 @@
                     Aanbod
                 </h2>
                 <p class="et-subtitle">
-                    Beheer je concrete aanbod voor Individuen, Organisaties &amp; Groepen en Professionals.
+                    Beheer je concrete aanbod voor Individuen, Duo's en koppels, Organisaties &amp; Groepen en Professionals.
                     Zet "Gepubliceerd" aan zodat een aanbod zichtbaar wordt op de bijhorende aanbod-pagina.
-                    Duo's blijft een statische pagina en heeft geen dynamisch aanbod.
+                    Koppel boekbare sessies rechtstreeks aan het juiste afspraaktype. Laat de Cal.com-link voor open groepsaanbod zonder datum leeg.
                 </p>
             </div>
             <button class="btn-primary" (click)="offeringAdd.emit()">+ Nieuw aanbod</button>
@@ -67,7 +67,7 @@
 
                 <div class="form-group mt-2">
                     <label class="form-label-sm">Contact / inschrijflink</label>
-                    <input class="form-input" type="text" [(ngModel)]="o.contactLink" placeholder="https://..." />
+                    <input class="form-input" type="text" [(ngModel)]="o.contactLink" placeholder="https://cal.com/talk2/afspraaktype of mailto:veerle@talk2.be" />
                 </div>
 
                 <div class="form-group mt-2">

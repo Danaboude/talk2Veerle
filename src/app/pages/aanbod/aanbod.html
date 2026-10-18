@@ -46,7 +46,7 @@
         ook wanneer er trauma meespeelt.
       </p>
 
-      <a id="cta-individuen" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
+      <a id="cta-individuen" class="aanbod-cta-link" [href]="bookingLinks.firstSession" target="_blank" rel="noopener">
         Boek een eerste gesprek
       </a>
     </div>
@@ -70,9 +70,9 @@
         <span class="aanbod-quote-context">Individuele begeleiding</span>
       </div>
 
-      <button class="aanbod-illustration" (click)="scrollToBooking('cta-individuen')" aria-label="Boek een eerste gesprek voor individuen">
+      <div class="aanbod-illustration">
         <img src="paint-people-walk-cricle-in-the-rights.png" alt="" aria-hidden="true" />
-      </button>
+      </div>
     </div>
 
   </div>
@@ -80,7 +80,7 @@
   @if (individueleOfferings().length) {
   <div class="aanbod-offerings">
     @for (o of individueleOfferings(); track o.id) {
-    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+    <article class="aanbod-offering-card">
       <h4 class="aanbod-offering-title">{{ o.title }}</h4>
       <p class="aanbod-offering-intro">{{ o.intro }}</p>
       <div class="aanbod-offering-meta">
@@ -88,7 +88,12 @@
         @if (o.location) { <span>{{ o.location }}</span> }
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
-    </a>
+      @if (o.contactLink) {
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+      } @else {
+        <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
+      }
+    </article>
     }
   </div>
   }
@@ -108,9 +113,9 @@
         <span class="aanbod-quote-context">Verbindende communicatie</span>
       </div>
 
-      <button class="aanbod-illustration" (click)="scrollToBooking('cta-duos')" aria-label="Boek een eerste gesprek voor duo's en koppels">
+      <div class="aanbod-illustration">
         <img src="pint-people-zoom.png" alt="" aria-hidden="true" />
-      </button>
+      </div>
     </div>
 
     <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="aanbod-section-text">
@@ -147,7 +152,7 @@
         neurodivergentie binnen relaties.
       </p>
 
-      <a id="cta-duos" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
+      <a id="cta-duos" class="aanbod-cta-link" [href]="bookingLinks.coupleIntake" target="_blank" rel="noopener">
         Boek een eerste gesprek
       </a>
     </div>
@@ -157,7 +162,7 @@
   @if (duosOfferings().length) {
   <div class="aanbod-offerings">
     @for (o of duosOfferings(); track o.id) {
-    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+    <article class="aanbod-offering-card">
       <h4 class="aanbod-offering-title">{{ o.title }}</h4>
       <p class="aanbod-offering-intro">{{ o.intro }}</p>
       <div class="aanbod-offering-meta">
@@ -165,7 +170,12 @@
         @if (o.location) { <span>{{ o.location }}</span> }
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
-    </a>
+      @if (o.contactLink) {
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+      } @else {
+        <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
+      }
+    </article>
     }
   </div>
   }
@@ -202,7 +212,7 @@
         Je kunt individueel bij me terecht of aansluiten bij het open aanbod.
       </p>
 
-      <a id="cta-professionals" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
+      <a id="cta-professionals" class="aanbod-cta-link" [href]="bookingLinks.freeDiscoveryCall" target="_blank" rel="noopener">
         Boek een kennismakingsgesprek
       </a>
     </div>
@@ -217,9 +227,9 @@
         <span class="aanbod-quote-context">Training professionals</span>
       </div>
 
-      <button class="aanbod-illustration" (click)="scrollToBooking('cta-professionals')" aria-label="Boek een kennismakingsgesprek voor professionals">
+      <div class="aanbod-illustration">
         <img src="pint-people-set.png" alt="" aria-hidden="true" />
-      </button>
+      </div>
     </div>
 
   </div>
@@ -227,7 +237,7 @@
   @if (professionalOfferings().length) {
   <div class="aanbod-offerings">
     @for (o of professionalOfferings(); track o.id) {
-    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+    <article class="aanbod-offering-card">
       <h4 class="aanbod-offering-title">{{ o.title }}</h4>
       <p class="aanbod-offering-intro">{{ o.intro }}</p>
       <div class="aanbod-offering-meta">
@@ -235,7 +245,12 @@
         @if (o.location) { <span>{{ o.location }}</span> }
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
-    </a>
+      @if (o.contactLink) {
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+      } @else {
+        <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
+      }
+    </article>
     }
   </div>
   }
@@ -256,9 +271,9 @@
         <span class="aanbod-quote-context">Klasbezinning</span>
       </div>
 
-      <button class="aanbod-illustration" (click)="scrollToBooking('cta-organisaties')" aria-label="Neem contact op voor organisaties en groepen">
+      <div class="aanbod-illustration">
         <img src="paint-people-GROUPS.png" alt="" aria-hidden="true" />
-      </button>
+      </div>
     </div>
 
     <div appScrollAnimate animateFrom="right" [animateDelay]="120" class="aanbod-section-text">
@@ -302,8 +317,8 @@
         zoals wandel- of pelgrimstochten.
       </p>
 
-      <a id="cta-organisaties" class="aanbod-cta-link" [href]="bookingUrl" target="_blank" rel="noopener">
-        Neem contact op
+      <a id="cta-organisaties" class="aanbod-cta-link" [href]="bookingLinks.freeDiscoveryCall" target="_blank" rel="noopener">
+        Boek een kennismakingsgesprek
       </a>
     </div>
 
@@ -312,7 +327,7 @@
   @if (organisatieOfferings().length) {
   <div class="aanbod-offerings">
     @for (o of organisatieOfferings(); track o.id) {
-    <a class="aanbod-offering-card" [href]="o.contactLink || bookingUrl" target="_blank" rel="noopener">
+    <article class="aanbod-offering-card">
       <h4 class="aanbod-offering-title">{{ o.title }}</h4>
       <p class="aanbod-offering-intro">{{ o.intro }}</p>
       <div class="aanbod-offering-meta">
@@ -320,14 +335,19 @@
         @if (o.location) { <span>{{ o.location }}</span> }
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
-    </a>
+      @if (o.contactLink) {
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+      } @else {
+        <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
+      }
+    </article>
     }
   </div>
   }
 </section>
 
-<!-- ── CTA ── -->
-<app-cta-bottom />
+<!-- Contact blijft een rustige tweede optie naast de gerichte boekingslinks. -->
+<p class="aanbod-contact"><a href="/contact">Neem contact op</a> als je nog vragen hebt.</p>
 
 <!-- ── FOOTER ── -->
 <app-footer />

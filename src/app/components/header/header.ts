@@ -30,7 +30,7 @@ export class HeaderComponent implements OnDestroy {
   mobileOpenDropdown = signal<string | null>(null);
 
   private router = inject(Router);
-  readonly bookingUrl = BOOKING_LINKS.general;
+  readonly bookingUrl = BOOKING_LINKS.firstSession;
 
   private routerSub: Subscription = this.router.events.subscribe((event) => {
     if (event instanceof NavigationStart) {

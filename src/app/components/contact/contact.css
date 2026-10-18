@@ -451,3 +451,19 @@
     animation: none;
   }
 }
+
+.booking-option--primary { background: var(--color-sage-dark); border-color: var(--color-sage-dark); }
+.booking-option--primary .booking-option-title,
+.booking-option--primary .booking-option-desc { color: var(--color-warm-white); }
+.booking-other { font-family: var(--font-sans); font-size: 14px; color: var(--color-sage-dark); }
+.booking-other summary { cursor: pointer; padding: 8px 0; }
+.booking-other-links { display: flex; flex-direction: column; gap: 14px; padding: 12px 0; }
+.booking-other-links a { color: inherit; text-underline-offset: 4px; }
+.booking-other summary:focus-visible,
+.booking-other-links a:focus-visible { outline: 2px solid var(--color-sage-mid); outline-offset: 4px; }
+
+.btn-submit { background: transparent; color: var(--color-sage-dark); border: 1px solid var(--color-sage); }
+.btn-submit:hover { background: var(--color-sage-mist); }
+@media (max-width: 960px) {
+  .contact-form-wrap { order: -1; }
+}

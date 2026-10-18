@@ -2,7 +2,6 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
 import { VoorWieHomeComponent } from '../../components/voor-wie-home/voor-wie-home';
-import { CtaBottomComponent } from '../../components/cta-bottom/cta-bottom';
 import { FooterComponent } from '../../components/footer/footer';
 import { BOOKING_LINKS } from '../../config/booking-links';
 import { OfferingsService, Offering } from '../../services/offerings.service';
@@ -14,7 +13,6 @@ import { OfferingsService, Offering } from '../../services/offerings.service';
     CommonModule,
     ScrollAnimateDirective,
     VoorWieHomeComponent,
-    CtaBottomComponent,
     FooterComponent,
   ],
   templateUrl: './aanbod.html',
@@ -22,7 +20,7 @@ import { OfferingsService, Offering } from '../../services/offerings.service';
 })
 export class AanbodComponent implements OnInit {
   private offeringsService = inject(OfferingsService);
-  readonly bookingUrl = BOOKING_LINKS.general;
+  readonly bookingLinks = BOOKING_LINKS;
 
   individueleOfferings = signal<Offering[]>([]);
   duosOfferings = signal<Offering[]>([]);
@@ -39,7 +37,8 @@ export class AanbodComponent implements OnInit {
       error: () => {},
     });
     this.offeringsService.getPublishedForAudience('organisaties').subscribe({
-      next: (data) => this.organisatieOfferings.set(data),
+      // De kennismaking heeft hierboven al één duidelijke hoofdactie.
+      next: (data) => this.organisatieOfferings.set(data.filter(o => o.contactLink !== BOOKING_LINKS.freeDiscoveryCall)),
       error: () => {},
     });
     this.offeringsService.getPublishedForAudience('professionals').subscribe({
@@ -48,9 +47,4 @@ export class AanbodComponent implements OnInit {
     });
   }
 
-  scrollToBooking(ctaId: string): void {
-    const el = document.getElementById(ctaId);
-    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    (el as HTMLElement | null)?.focus({ preventScroll: true });
-  }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BOOKING_LINKS } from '../../config/booking-links';
 
 @Component({
   selector: 'app-footer',
@@ -9,7 +8,6 @@ import { BOOKING_LINKS } from '../../config/booking-links';
   styleUrl: './footer.css',
 })
 export class FooterComponent {
-  readonly bookingUrl = BOOKING_LINKS.general;
   year = new Date().getFullYear();
 
   scrollToTop(): void {

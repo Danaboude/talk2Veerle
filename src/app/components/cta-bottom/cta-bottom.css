@@ -166,3 +166,6 @@
   .ctab-btn { transition: background-color 0.2s ease, color 0.2s ease; }
   .ctab-btn:hover { transform: none; }
 }
+
+.ctab-contact { color: var(--color-sage-dark); font-size: 14px; text-underline-offset: 4px; }
+.ctab-contact:focus-visible { outline: 2px solid var(--color-sage-mid); outline-offset: 4px; }

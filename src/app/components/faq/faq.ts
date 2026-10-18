@@ -33,6 +33,10 @@ export class FaqComponent implements OnInit {
       answer: 'Dat is heel normaal. We vertrekken vanuit wat er nu voelbaar is: spanning, overprikkeling, vastlopen of vermoeidheid. Van daaruit ontstaat gaandeweg richting.',
     },
     {
+      question: 'Kan ik ook individueel aansluiten bij een groep?',
+      answer: 'Ja, bij het open groepsaanbod schrijf je je afzonderlijk in. Je hoeft dus niet zelf een groep samen te stellen. Bekijk onder ‘Aanbod’ welke groepsactiviteiten er zijn en hoe je kunt deelnemen.',
+    },
+    {
       question: 'Is therapie in de natuur vergelijkbaar met klassieke praattherapie?',
       answer: 'Ja en nee: we werken niet alleen via woorden. Buiten zijn helpt vaak om te vertragen, te ademen en opnieuw contact te maken met jezelf. De natuur helpt om samen te onderzoeken wat er speelt: ze brengt ruimte, beweging en vaak ook meer helderheid, in een tempo dat bij jou past.',
     },
@@ -60,7 +64,8 @@ export class FaqComponent implements OnInit {
     },
     {
       question: 'Wat als ik moet annuleren?',
-      answer: 'Graag 24 uur op voorhand. Bij laattijdige annulatie kan de sessie aangerekend worden.',
+      // Concept: laat de annuleringsvoorwaarden vóór publicatie juridisch nakijken.
+      answer: 'Individuele sessies\nGraag 24 uur op voorhand. Bij laattijdige annulatie kan de sessie aangerekend worden.\n\nOpen groepsaanbod\nKun je na je inschrijving voor een open groepsaanbod er toch niet bij zijn? Het inschrijvingsgeld voor je plek in een open aanbod wordt niet terugbetaald, maar je mag iemand voorstellen die je plaats inneemt. Neem hiervoor vooraf even contact met me op.',
     },
     {
       question: 'Hoe ga je om met privacy?',

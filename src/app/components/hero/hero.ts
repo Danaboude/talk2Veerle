@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { BOOKING_LINKS } from '../../config/booking-links';
 
 @Component({
   selector: 'app-hero',
@@ -11,7 +10,6 @@ import { BOOKING_LINKS } from '../../config/booking-links';
 })
 export class HeroComponent {
   private router = inject(Router);
-  readonly bookingUrl = BOOKING_LINKS.general;
 
   goToAanbod(): void {
     this.router.navigateByUrl('/aanbod');

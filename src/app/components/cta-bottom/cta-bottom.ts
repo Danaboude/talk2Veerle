@@ -13,7 +13,7 @@ import { BOOKING_LINKS } from '../../config/booking-links';
 })
 export class CtaBottomComponent {
   private surveyService = inject(SurveyService);
-  readonly bookingUrl = BOOKING_LINKS.general;
+  readonly bookingUrl = BOOKING_LINKS.firstSession;
 
   newsletterEmail = '';
   newsletterState: 'idle' | 'submitting' | 'done' | 'error' = 'idle';
