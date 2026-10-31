@@ -18,13 +18,15 @@ export class OfferingsTabComponent {
     @Output() offeringDelete = new EventEmitter<Offering>();
     @Output() offeringAdd = new EventEmitter<void>();
 
-    bookingMode(o: Offering): 'email' | 'cal' {
-        return /^https:\/\//i.test((o.contactLink ?? '').trim()) ? 'cal' : 'email';
+    bookingMode(o: Offering): 'email' | 'cal' | 'link' {
+        const link = (o.contactLink ?? '').trim();
+        if (!/^https:\/\//i.test(link)) return 'email';
+        return /^https:\/\/(www\.|app\.)?cal\.com\//i.test(link) ? 'cal' : 'link';
     }
 
-    setBookingMode(o: Offering, mode: 'email' | 'cal'): void {
+    setBookingMode(o: Offering, mode: 'email' | 'cal' | 'link'): void {
         // E-mail = lege link (de website maakt zelf de mailto met onderwerp).
-        o.contactLink = mode === 'email' ? '' : 'https://cal.com/talk2';
+        o.contactLink = mode === 'email' ? '' : mode === 'cal' ? 'https://cal.com/talk2' : 'https://';
     }
 
     readonly audiences: { value: Offering['audience']; label: string }[] = [

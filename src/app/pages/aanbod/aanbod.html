@@ -89,7 +89,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : (o.contactLink.startsWith('https') ? 'Meer info en inschrijven' : 'Stuur een e-mail') }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }
@@ -171,7 +171,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : (o.contactLink.startsWith('https') ? 'Meer info en inschrijven' : 'Stuur een e-mail') }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }
@@ -246,7 +246,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : (o.contactLink.startsWith('https') ? 'Meer info en inschrijven' : 'Stuur een e-mail') }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }
@@ -336,7 +336,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : (o.contactLink.startsWith('https') ? 'Meer info en inschrijven' : 'Stuur een e-mail') }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }
