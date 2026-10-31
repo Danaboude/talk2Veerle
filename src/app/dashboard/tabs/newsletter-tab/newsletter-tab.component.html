@@ -10,38 +10,237 @@
                     Nieuwsbrief
                 </h2>
                 <p class="et-subtitle">
-                    Bezoekers die zich inschrijven via "Blijf op de hoogte" staan rechts.
-                    Schrijf een bericht, stuur eerst een test naar jezelf en verstuur het daarna naar iedereen.
+                    Kies een stijl, pas de kleuren aan, bouw je mail met blokken en bekijk rechts meteen hoe hij bij de ontvanger eruitziet.
                 </p>
             </div>
         </div>
 
-        <div class="et-grid">
-            <div class="et-card">
-                <div class="form-group">
-                    <label class="form-label-sm">Onderwerp</label>
-                    <input class="form-input" type="text" [(ngModel)]="subject" placeholder="bv. Nieuwe wandelsessies in november" />
-                </div>
+        <!-- Daily limit -->
+        @if (quota(); as q) {
+        <div class="nl-quota" [class.nl-quota--full]="!q.remaining">
+            <div class="nl-quota-text">
+                <strong>Vandaag verstuurd: {{ q.used }} van {{ q.cap }}</strong>
+                <span>
+                    {{ q.remaining }} over. Limiet van Resend is {{ q.limit }} per dag
+                    @if (q.reserve) { ({{ q.reserve }} gereserveerd voor contactformulier en boekingen) }.
+                    Nieuwe ruimte vanaf {{ resetLabel() }} 's nachts.
+                </span>
+            </div>
+            <div class="nl-quota-bar"><div class="nl-quota-fill" [style.width.%]="quotaPct()"></div></div>
+        </div>
+        }
+
+        @if (resumeId()) {
+        <div class="nl-banner">
+            <span>Je verstuurt de rest van <strong>"{{ resumeSubject() }}"</strong>. De inhoud staat vast zodat iedereen dezelfde mail krijgt.</span>
+            <button class="nl-link" (click)="editAsNew()">Liever aanpassen als nieuwe mail</button>
+        </div>
+        }
+
+        <div class="nl-editor">
+            <!-- ================= EDITOR ================= -->
+            <div class="et-card nl-editor-col" (input)="changed()" (change)="changed()">
+                <fieldset class="nl-fieldset" [disabled]="resumeId() !== null">
+                    <div class="form-group">
+                        <label class="form-label-sm">Onderwerp</label>
+                        <input class="form-input" type="text" [(ngModel)]="doc.subject" placeholder="bv. Nieuwe wandelsessies in november" />
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="form-label-sm">Voorbeeldtekst in de inbox (optioneel)</label>
+                        <input class="form-input" type="text" [(ngModel)]="doc.preheader" placeholder="Korte zin die naast het onderwerp staat" />
+                    </div>
+
+                    <!-- Styles -->
+                    <label class="form-label-sm nl-section">Stijl</label>
+                    <div class="nl-themes">
+                        @for (t of themes; track t.id) {
+                        <button type="button" class="nl-theme" [class.active]="doc.theme.id === t.id" (click)="pickTheme(t)">
+                            <span class="nl-theme-art" [style.background]="t.colors.outer">
+                                <span class="nl-theme-card" [style.background]="t.colors.card" [style.border-radius.px]="t.radius ? 4 : 0">
+                                    @if (t.header === 'band') { <i class="nl-theme-band" [style.background]="t.colors.header"></i> }
+                                    <i class="nl-theme-line" [style.background]="t.colors.text"></i>
+                                    <i class="nl-theme-line short" [style.background]="t.colors.text"></i>
+                                    <i class="nl-theme-btn" [style.background]="t.colors.accent"></i>
+                                </span>
+                            </span>
+                            <span class="nl-theme-name">{{ t.label }}</span>
+                        </button>
+                        }
+                    </div>
+
+                    <label class="form-label-sm nl-section">Kleuren</label>
+                    <div class="nl-colors">
+                        <label><input type="color" [(ngModel)]="doc.theme.colors.outer" /> Achtergrond</label>
+                        <label><input type="color" [(ngModel)]="doc.theme.colors.card" /> Mail</label>
+                        <label><input type="color" [(ngModel)]="doc.theme.colors.header" /> Kopband</label>
+                        <label><input type="color" [(ngModel)]="doc.theme.colors.accent" /> Knoppen en accent</label>
+                        <label><input type="color" [(ngModel)]="doc.theme.colors.text" /> Tekst</label>
+                        <button type="button" class="nl-link" (click)="resetColors()">Kleuren terugzetten</button>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="form-label-sm">Naam bovenaan de mail</label>
+                        <input class="form-input" type="text" [(ngModel)]="doc.brand" />
+                    </div>
+
+                    <!-- Blocks -->
+                    <label class="form-label-sm nl-section">Inhoud</label>
+                    <div class="nl-blocks">
+                        @for (b of doc.blocks; track b.id; let i = $index; let last = $last) {
+                        <div class="nl-block">
+                            <div class="nl-block-head">
+                                <span class="nl-block-type">{{ blockLabels[b.type] }}</span>
+                                <span class="nl-block-tools">
+                                    <button type="button" title="Omhoog" [disabled]="i === 0" (click)="moveBlock(i, -1)">↑</button>
+                                    <button type="button" title="Omlaag" [disabled]="last" (click)="moveBlock(i, 1)">↓</button>
+                                    <button type="button" title="Dupliceren" (click)="duplicateBlock(i)">⧉</button>
+                                    <button type="button" title="Verwijderen" class="danger" (click)="removeBlock(i)">✕</button>
+                                </span>
+                            </div>
+
+                            @if (b.type === 'heading') {
+                            <input class="form-input" type="text" [(ngModel)]="b.text" />
+                            <div class="nl-row">
+                                <label>Grootte <select class="form-input" [(ngModel)]="b.size"><option value="m">Middel</option><option value="l">Groot</option></select></label>
+                                <label>Uitlijning <select class="form-input" [(ngModel)]="b.align"><option value="left">Links</option><option value="center">Midden</option><option value="right">Rechts</option></select></label>
+                            </div>
+                            }
+
+                            @if (b.type === 'text') {
+                            <textarea class="form-input" rows="5" [(ngModel)]="b.text"></textarea>
+                            <div class="nl-row">
+                                <label>Uitlijning <select class="form-input" [(ngModel)]="b.align"><option value="left">Links</option><option value="center">Midden</option><option value="right">Rechts</option></select></label>
+                            </div>
+                            }
+
+                            @if (b.type === 'image') {
+                            <div class="nl-upload">
+                                <label class="nl-file">
+                                    {{ uploading() === b.id ? 'Bezig met uploaden...' : (b.src ? 'Andere afbeelding kiezen' : 'Afbeelding kiezen') }}
+                                    <input type="file" accept="image/*" hidden (change)="pickImage(b, $event)" />
+                                </label>
+                                @if (b.src) { <img class="nl-thumb" [src]="b.src" alt="" /> }
+                            </div>
+                            <input class="form-input" type="text" [(ngModel)]="b.alt" placeholder="Beschrijving (voor als de afbeelding niet laadt)" />
+                            <input class="form-input" type="text" [(ngModel)]="b.caption" placeholder="Onderschrift (optioneel)" />
+                            <input class="form-input" type="text" [(ngModel)]="b.link" placeholder="Link bij klikken (optioneel, https://...)" />
+                            <div class="nl-row">
+                                <label>Vorm <select class="form-input" [(ngModel)]="b.shape"><option value="square">Recht</option><option value="rounded">Afgerond</option><option value="circle">Cirkel</option></select></label>
+                                <label>Breedte <select class="form-input" [(ngModel)]="b.width"><option value="full">Volledig</option><option value="large">Groot</option><option value="medium">Middel</option><option value="small">Klein</option></select></label>
+                                <label>Positie <select class="form-input" [(ngModel)]="b.align"><option value="left">Links</option><option value="center">Midden</option><option value="right">Rechts</option></select></label>
+                            </div>
+                            <div class="nl-row nl-checks">
+                                <label><input type="checkbox" [(ngModel)]="b.shadow" /> Schaduw</label>
+                                <label><input type="checkbox" [(ngModel)]="b.border" /> Rand in accentkleur</label>
+                            </div>
+                            }
+
+                            @if (b.type === 'imagetext') {
+                            <div class="nl-upload">
+                                <label class="nl-file">
+                                    {{ uploading() === b.id ? 'Bezig met uploaden...' : (b.src ? 'Andere foto kiezen' : 'Foto kiezen') }}
+                                    <input type="file" accept="image/*" hidden (change)="pickImage(b, $event)" />
+                                </label>
+                                @if (b.src) { <img class="nl-thumb" [src]="b.src" alt="" /> }
+                            </div>
+                            <input class="form-input" type="text" [(ngModel)]="b.heading" placeholder="Titel" />
+                            <textarea class="form-input" rows="3" [(ngModel)]="b.text"></textarea>
+                            <div class="nl-row">
+                                <label>Vorm <select class="form-input" [(ngModel)]="b.shape"><option value="square">Recht</option><option value="rounded">Afgerond</option><option value="circle">Cirkel</option></select></label>
+                                <label>Foto staat <select class="form-input" [(ngModel)]="b.side"><option value="left">Links</option><option value="right">Rechts</option></select></label>
+                            </div>
+                            <div class="nl-row nl-checks">
+                                <label><input type="checkbox" [(ngModel)]="b.shadow" /> Schaduw</label>
+                                <label><input type="checkbox" [(ngModel)]="b.border" /> Rand in accentkleur</label>
+                            </div>
+                            }
+
+                            @if (b.type === 'button') {
+                            <input class="form-input" type="text" [(ngModel)]="b.label" placeholder="Tekst op de knop" />
+                            <input class="form-input" type="text" [(ngModel)]="b.url" placeholder="https://talk2.be/..." />
+                            <div class="nl-row">
+                                <label>Vorm <select class="form-input" [(ngModel)]="b.shape"><option value="square">Recht</option><option value="rounded">Afgerond</option><option value="circle">Rond (pil)</option></select></label>
+                                <label>Positie <select class="form-input" [(ngModel)]="b.align"><option value="left">Links</option><option value="center">Midden</option><option value="right">Rechts</option></select></label>
+                            </div>
+                            }
+
+                            @if (b.type === 'quote') {
+                            <textarea class="form-input" rows="3" [(ngModel)]="b.text"></textarea>
+                            <input class="form-input" type="text" [(ngModel)]="b.author" placeholder="Wie zei dit? (optioneel)" />
+                            }
+
+                            @if (b.type === 'spacer') {
+                            <label class="nl-range">Hoogte: {{ b.height }}px <input type="range" min="8" max="96" step="4" [(ngModel)]="b.height" /></label>
+                            }
+
+                            @if (b.type === 'divider') {
+                            <p class="nl-hint">Een dunne lijn in de accentkleur.</p>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="nl-add">
+                        <span class="nl-add-label">Blok toevoegen:</span>
+                        @for (bt of blockTypes; track bt.type) {
+                        <button type="button" class="nl-chip" (click)="addBlock(bt.type)">+ {{ bt.label }}</button>
+                        }
+                    </div>
+                </fieldset>
+
                 <div class="form-group mt-2">
-                    <label class="form-label-sm">Bericht</label>
-                    <textarea class="form-input" rows="10" [(ngModel)]="message"
-                        placeholder="Schrijf hier je bericht. Een lege regel maakt een nieuwe alinea."></textarea>
-                </div>
-                <div class="form-group mt-2">
-                    <label class="form-label-sm">Test naar (eigen e-mailadres)</label>
+                    <label class="form-label-sm">Test naar (eigen e-mailadres, telt mee voor de daglimiet)</label>
                     <input class="form-input" type="text" inputmode="email" [(ngModel)]="testEmail" placeholder="jouw&#64;email.be" />
                 </div>
                 <div class="et-card-actions">
-                    <button class="btn-save-template" [disabled]="sending()" (click)="send(true)">Verstuur test</button>
-                    <button class="btn-save-template" [class.nl-confirm]="confirmingSend()"
-                        [disabled]="sending() || !selectedCount()" (click)="send(false)">
-                        @if (sending()) { Bezig... }
-                        @else if (confirmingSend()) { Zeker? Klik nogmaals om te versturen }
-                        @else { Verstuur naar selectie ({{ selectedCount() }}) }
-                    </button>
+                    <button type="button" class="nl-btn-ghost" (click)="newMail()">Nieuwe mail</button>
+                    @if (!resumeId()) {
+                    <button type="button" class="nl-btn-ghost" [disabled]="savingDraft()" (click)="saveDraft()">{{ savingDraft() ? 'Opslaan...' : 'Concept opslaan' }}</button>
+                    }
+                    <button type="button" class="btn-save-template" [disabled]="sending()" (click)="send(true)">Verstuur test</button>
                 </div>
             </div>
 
+            <!-- ================= PREVIEW ================= -->
+            <div class="et-card nl-preview-col">
+                <div class="nl-preview-head">
+                    <span class="form-label-sm">Zo ziet de ontvanger het</span>
+                    <span class="nl-seg">
+                        <button type="button" [class.active]="previewMode() === 'desktop'" (click)="previewMode.set('desktop')">Computer</button>
+                        <button type="button" [class.active]="previewMode() === 'mobile'" (click)="previewMode.set('mobile')">Telefoon</button>
+                    </span>
+                </div>
+                <div class="nl-inbox">
+                    <strong>{{ doc.subject || '(geen onderwerp)' }}</strong>
+                    <span>Talk2 · {{ doc.preheader || 'Voorbeeldtekst' }}</span>
+                </div>
+                <div class="nl-frame-wrap" [class.mobile]="previewMode() === 'mobile'">
+                    <iframe #frame class="nl-frame" title="Voorbeeld van de nieuwsbrief" sandbox="allow-same-origin"></iframe>
+                </div>
+                <p class="nl-hint">Schaduwen en afgeronde hoeken zie je in Gmail en Apple Mail; oudere programma's zoals Outlook tonen ze recht. Verstuur altijd eerst een test.</p>
+            </div>
+        </div>
+
+        <!-- ================= SEND ================= -->
+        <div class="et-card nl-sendbar">
+            <div>
+                <strong>{{ selectedCount() }} ontvangers geselecteerd</strong>
+                @if (selectedCount()) {
+                <span class="nl-sub">
+                    {{ sendNow() }} vandaag
+                    @if (sendLater()) { · <b>{{ sendLater() }} wachten tot morgen</b> (staan dan klaar onder "Verstuur rest") }
+                </span>
+                }
+            </div>
+            <button type="button" class="btn-save-template" [class.nl-confirm]="confirmingSend()"
+                [disabled]="sending() || !selectedCount()" (click)="send(false)">
+                @if (sending()) { Bezig... }
+                @else if (confirmingSend()) { Zeker? Klik nogmaals om te versturen }
+                @else { Verstuur naar selectie }
+            </button>
+        </div>
+
+        <div class="et-grid">
+            <!-- ================= RECIPIENTS ================= -->
             <div class="et-card">
                 <div class="nl-list-head">
                     <span class="form-label-sm">Inschrijvingen</span>
@@ -49,12 +248,12 @@
                 </div>
                 <input class="form-input mt-2" type="text" placeholder="Zoek e-mailadres..."
                     [ngModel]="search()" (ngModelChange)="search.set($event)" />
-                @if (filtered().length) {
-                <label class="nl-select-all">
-                    <input type="checkbox" [checked]="allFilteredSelected()" (change)="toggleAll()" />
-                    {{ allFilteredSelected() ? 'Alles deselecteren' : 'Alles selecteren' }}
-                    <span class="nl-select-count">{{ selectedCount() }} van {{ subscribers().length }} geselecteerd</span>
-                </label>
+                @if (subscribers().length) {
+                <div class="nl-quick">
+                    <button type="button" class="nl-chip" (click)="toggleAll()">{{ allFilteredSelected() ? 'Niemand' : 'Iedereen' }}</button>
+                    <button type="button" class="nl-chip" (click)="selectNeverMailed()">Nog nooit een mail gehad</button>
+                    <span class="nl-select-count">{{ selectedCount() }} van {{ subscribers().length }}</span>
+                </div>
                 }
                 @if (loading()) {
                 <div class="dash-loading"><div class="dash-spinner"></div></div>
@@ -65,13 +264,74 @@
                     @for (s of filtered(); track s.id) {
                     <li class="nl-item">
                         <input type="checkbox" class="nl-check" [checked]="isSelected(s.id)" (change)="toggle(s.id)" [attr.aria-label]="s.email + ' selecteren'" />
-                        <span class="nl-email">{{ s.email }}<small>{{ s.created_at | date:'d MMM y' }}</small></span>
+                        <span class="nl-email">{{ s.email }}
+                            <small>
+                                @if (s.sent_count) { {{ s.sent_count }} {{ s.sent_count === 1 ? 'mail' : 'mails' }} ontvangen · laatst {{ s.last_sent_at | date:'d MMM' }} }
+                                @else { Nog nooit een mail gehad }
+                            </small>
+                        </span>
                         <button class="btn-delete-template" (click)="remove(s)" title="Verwijderen">
                             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                         </button>
+                    </li>
+                    }
+                </ul>
+                }
+            </div>
+
+            <!-- ================= HISTORY ================= -->
+            <div class="et-card">
+                <div class="nl-list-head">
+                    <span class="form-label-sm">Geschiedenis en concepten</span>
+                    <span class="et-badge">{{ campaigns().length }}</span>
+                </div>
+                @if (!campaigns().length) {
+                <p class="et-subtitle nl-empty">Nog niets verstuurd of opgeslagen.</p>
+                } @else {
+                <ul class="nl-list nl-history">
+                    @for (c of campaigns(); track c.id) {
+                    <li class="nl-camp">
+                        <button type="button" class="nl-camp-main" (click)="c.status === 'draft' ? reuse(c) : toggleDetails(c)">
+                            <span class="nl-camp-subject">{{ c.subject || '(geen onderwerp)' }}</span>
+                            <small>
+                                @if (c.status === 'draft') { Concept · bewerkt {{ c.updated_at | date:'d MMM, HH:mm' }} }
+                                @else {
+                                    {{ c.sent_at ? (c.sent_at | date:'d MMM y, HH:mm') : (c.created_at | date:'d MMM y') }}
+                                    · {{ c.sent }} verstuurd
+                                    @if (c.pending) { · <b class="warn">{{ c.pending }} wachten</b> }
+                                    @if (c.failed) { · <b class="bad">{{ c.failed }} mislukt</b> }
+                                }
+                            </small>
+                        </button>
+                        <div class="nl-camp-actions">
+                            @if (c.status === 'draft') {
+                            <button type="button" class="nl-chip" (click)="reuse(c)">Verder bewerken</button>
+                            <button type="button" class="nl-chip danger" (click)="deleteDraft(c)">Verwijder</button>
+                            } @else {
+                            <button type="button" class="nl-chip" (click)="reuse(c)">Bewerken en opnieuw gebruiken</button>
+                            @if (c.pending || c.failed) {
+                            <button type="button" class="nl-chip primary" [disabled]="sending() || !quota()?.remaining" (click)="sendRest(c)">Verstuur rest ({{ c.pending + c.failed }})</button>
+                            }
+                            <button type="button" class="nl-chip" (click)="selectMissing(c)">Selecteer wie dit nog niet kreeg</button>
+                            }
+                        </div>
+                        @if (expanded() === c.id) {
+                        <ul class="nl-deliveries">
+                            @for (d of deliveries(); track d.email) {
+                            <li>
+                                <span>{{ d.email }}</span>
+                                <span class="nl-status" [class]="'nl-status--' + d.status">
+                                    @if (d.status === 'sent') { verstuurd {{ d.sent_at | date:'d MMM HH:mm' }} }
+                                    @else if (d.status === 'pending') { wacht }
+                                    @else { mislukt }
+                                </span>
+                            </li>
+                            } @empty { <li>Laden...</li> }
+                        </ul>
+                        }
                     </li>
                     }
                 </ul>
