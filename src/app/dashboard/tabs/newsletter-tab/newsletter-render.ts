@@ -158,7 +158,7 @@ export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?
                 if (link) img = `<a href="${esc(link)}" style="text-decoration:none;">${img}</a>`;
                 const cap = b.caption ? `<p style="margin:10px 0 0;font-family:${body};font-size:13px;color:${muted};text-align:${b.align};">${esc(b.caption)}</p>` : '';
                 const margin = b.align === 'center' ? '0 auto' : b.align === 'right' ? '0 0 0 auto' : '0';
-                return `<tr><td style="padding:0 36px 18px;"><div style="width:${px}px;max-width:100%;margin:${margin};">${img}${cap}</div></td></tr>`;
+                return `<tr><td style="padding:0 36px 18px;overflow:hidden;"><div style="width:100%;max-width:${px}px;margin:${margin};">${img}${cap}</div></td></tr>`;
             }
             case 'imagetext': {
                 const src = safeUrl(b.src, origin);
@@ -195,10 +195,10 @@ export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?
     const pre = doc.preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${esc(doc.preheader)}</div>` : '';
 
     return `<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(doc.subject)}</title>
-<style>@media (max-width:620px){.nl-stack{display:block!important;width:100%!important;padding:0 0 14px!important;}.nl-stack img{margin:0 auto;}}${opts.preview ? 'a{pointer-events:none}' : ''}</style></head>
+<style>img{max-width:100%;}@media (max-width:620px){.nl-stack{display:block!important;width:100%!important;padding:0 0 14px!important;}.nl-stack img{margin:0 auto;}}${opts.preview ? 'a{pointer-events:none}' : ''}</style></head>
 <body style="margin:0;padding:0;background:${c.outer};">${pre}
 <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="background:${c.outer};"><tr><td align="center" style="padding:28px 12px;">
-<table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;background:${c.card};border-radius:${t.radius}px;">
+<table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;table-layout:fixed;background:${c.card};border-radius:${t.radius}px;">
 ${header}
 <tr><td style="height:${t.header === 'none' ? 36 : 28}px;line-height:1px;font-size:1px;">&nbsp;</td></tr>
 ${blocks}

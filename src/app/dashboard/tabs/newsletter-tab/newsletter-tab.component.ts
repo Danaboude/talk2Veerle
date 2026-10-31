@@ -161,6 +161,10 @@ export class NewsletterTabComponent implements OnInit {
         this.confirmingSend.set(false);
     }
 
+    // Always applies to the whole list, not just what the search box currently shows.
+    selectAll(): void { this.selected.set(new Set(this.subscribers().map(s => s.id))); this.confirmingSend.set(false); }
+    selectNone(): void { this.selected.set(new Set()); this.confirmingSend.set(false); }
+
     selectNeverMailed(): void {
         this.selected.set(new Set(this.subscribers().filter(s => !s.sent_count).map(s => s.id)));
         this.confirmingSend.set(false);

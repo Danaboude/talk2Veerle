@@ -189,7 +189,7 @@
 
                 <div class="form-group mt-2">
                     <label class="form-label-sm">Test naar (eigen e-mailadres, telt mee voor de daglimiet)</label>
-                    <input class="form-input" type="text" inputmode="email" [(ngModel)]="testEmail" placeholder="jouw&#64;email.be" />
+                    <input class="form-input" type="text" inputmode="email" name="nl-test" autocomplete="off" [(ngModel)]="testEmail" placeholder="jouw&#64;email.be" />
                 </div>
                 <div class="et-card-actions">
                     <button type="button" class="nl-btn-ghost" (click)="newMail()">Nieuwe mail</button>
@@ -246,11 +246,12 @@
                     <span class="form-label-sm">Inschrijvingen</span>
                     <span class="et-badge">{{ subscribers().length }}</span>
                 </div>
-                <input class="form-input mt-2" type="text" placeholder="Zoek e-mailadres..."
+                <input class="form-input mt-2" type="search" name="nl-search" autocomplete="off" placeholder="Zoek e-mailadres..."
                     [ngModel]="search()" (ngModelChange)="search.set($event)" />
                 @if (subscribers().length) {
                 <div class="nl-quick">
-                    <button type="button" class="nl-chip" (click)="toggleAll()">{{ allFilteredSelected() ? 'Niemand' : 'Iedereen' }}</button>
+                    <button type="button" class="nl-chip" (click)="selectAll()">Iedereen</button>
+                    <button type="button" class="nl-chip" (click)="selectNone()">Niemand</button>
                     <button type="button" class="nl-chip" (click)="selectNeverMailed()">Nog nooit een mail gehad</button>
                     <span class="nl-select-count">{{ selectedCount() }} van {{ subscribers().length }}</span>
                 </div>
