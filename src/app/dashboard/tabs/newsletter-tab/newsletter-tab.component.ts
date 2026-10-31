@@ -26,6 +26,11 @@ export class NewsletterTabComponent implements OnInit {
         return q ? this.subscribers().filter(s => s.email.includes(q)) : this.subscribers();
     });
 
+    // Ids of the people who will receive the newsletter. New sign-ups are ticked by default.
+    selected = signal<Set<number>>(new Set());
+    selectedCount = computed(() => this.selected().size);
+    allFilteredSelected = computed(() => this.filtered().length > 0 && this.filtered().every(s => this.selected().has(s.id)));
+
     subject = '';
     message = '';
     testEmail = '';
@@ -46,11 +51,36 @@ export class NewsletterTabComponent implements OnInit {
     load(): void {
         this.loading.set(true);
         this.http.get<Subscriber[]>(this.url).subscribe({
-            next: rows => { this.subscribers.set(rows); this.loading.set(false); },
+            next: rows => {
+                this.subscribers.set(rows);
+                this.selected.set(new Set(rows.map(r => r.id)));
+                this.loading.set(false);
+            },
             error: () => {
                 this.loading.set(false);
                 this.notify(false, 'Inschrijvingen laden mislukt. Log opnieuw in als dit blijft gebeuren.');
             },
+        });
+    }
+
+    isSelected(id: number): boolean { return this.selected().has(id); }
+
+    toggle(id: number): void {
+        this.selected.update(set => {
+            const next = new Set(set);
+            if (next.has(id)) next.delete(id); else next.add(id);
+            return next;
+        });
+    }
+
+    // Selects or deselects everyone currently shown (so it also works on a search result).
+    toggleAll(): void {
+        const ids = this.filtered().map(s => s.id);
+        const selectAll = !this.allFilteredSelected();
+        this.selected.update(set => {
+            const next = new Set(set);
+            ids.forEach(id => (selectAll ? next.add(id) : next.delete(id)));
+            return next;
         });
     }
 
@@ -59,6 +89,7 @@ export class NewsletterTabComponent implements OnInit {
         this.http.delete(this.url, { params: { id: s.id } }).subscribe({
             next: () => {
                 this.subscribers.update(list => list.filter(x => x.id !== s.id));
+                this.selected.update(set => { const next = new Set(set); next.delete(s.id); return next; });
                 this.notify(true, `${s.email} is verwijderd.`);
             },
             error: () => this.notify(false, 'Verwijderen mislukt.'),
@@ -75,6 +106,10 @@ export class NewsletterTabComponent implements OnInit {
             this.notify(false, 'Vul een geldig e-mailadres in voor de test.');
             return;
         }
+        if (!test && this.selectedCount() === 0) {
+            this.notify(false, 'Selecteer eerst minstens één persoon.');
+            return;
+        }
         // Sending to everyone needs a second click so it can't happen by accident.
         if (!test && !this.confirmingSend()) {
             this.confirmingSend.set(true);
@@ -85,8 +120,9 @@ export class NewsletterTabComponent implements OnInit {
         this.confirmingSend.set(false);
 
         this.sending.set(true);
-        const body: Record<string, string> = { action: 'send', subject: this.subject, message: this.message };
+        const body: Record<string, unknown> = { action: 'send', subject: this.subject, message: this.message };
         if (test) body['testTo'] = testTo;
+        else body['ids'] = [...this.selected()];
         this.http.post<{ sent: number }>(this.url, body).subscribe({
             next: res => {
                 this.sending.set(false);

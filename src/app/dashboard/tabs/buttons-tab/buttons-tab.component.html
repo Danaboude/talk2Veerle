@@ -1,0 +1,51 @@
+<div class="dash-full-main">
+    <div class="email-templates-panel">
+        <div class="et-header">
+            <div>
+                <h2 class="et-title">
+                    <svg class="et-title-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                    Knoppen
+                </h2>
+                <p class="et-subtitle">
+                    De grote groene knop onderaan elk onderdeel van de pagina Aanbod. Pas de tekst en de link aan en klik op Opslaan:
+                    de website past zich meteen aan. De link mag een Cal.com-link zijn (https://cal.com/talk2/…)
+                    of gewoon een e-mailadres (veerle&#64;talk2.be). Zie GUIDE.md voor uitleg.
+                </p>
+            </div>
+            <button class="btn-primary" [disabled]="saving() || loading()" (click)="save()">
+                {{ saving() ? 'Bezig...' : 'Alles opslaan' }}
+            </button>
+        </div>
+
+        <div class="et-grid">
+            @if (loading()) {
+            <div class="dash-loading" style="grid-column: 1 / -1;"><div class="dash-spinner"></div></div>
+            } @else {
+            @for (s of sections; track s.key) {
+            <div class="et-card">
+                <div class="nl-list-head">
+                    <span class="form-label-sm">{{ s.title }}</span>
+                    <button class="btn-link-reset" type="button" (click)="reset(s.key)">Standaard herstellen</button>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Tekst op de knop</label>
+                    <input class="form-input" type="text" [(ngModel)]="buttons[s.key].label" />
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Link (Cal.com of e-mailadres)</label>
+                    <input class="form-input" type="text" [(ngModel)]="buttons[s.key].url" placeholder="https://cal.com/talk2/..." />
+                </div>
+                <a class="btn-link-test" [href]="buttons[s.key].url" target="_blank" rel="noopener">Link testen ↗</a>
+            </div>
+            }
+            }
+        </div>
+    </div>
+</div>
+
+@if (toast(); as t) {
+<div class="nl-toast" [class.nl-toast--error]="!t.ok" role="status">{{ t.text }}</div>
+}

@@ -20,6 +20,7 @@
             <button class="dash-tab" [class.active]="activeTab() === 'email-templates'" (click)="setTab('email-templates')">E-mail Templates</button>
             <button class="dash-tab" [class.active]="activeTab() === 'offerings'"       (click)="setTab('offerings')">Aanbod</button>
             <button class="dash-tab" [class.active]="activeTab() === 'newsletter'"      (click)="setTab('newsletter')">Nieuwsbrief</button>
+            <button class="dash-tab" [class.active]="activeTab() === 'buttons'"         (click)="setTab('buttons')">Knoppen</button>
             <button class="dash-tab" (click)="logout()" style="color: #dc2626;">Uitloggen</button>
         </div>
     </nav>
@@ -80,6 +81,11 @@
         <!-- NIEUWSBRIEF TAB -->
         @if (activeTab() === 'newsletter') {
         <app-newsletter-tab />
+        }
+
+        <!-- KNOPPEN TAB -->
+        @if (activeTab() === 'buttons') {
+        <app-buttons-tab />
         }
 
     </div>

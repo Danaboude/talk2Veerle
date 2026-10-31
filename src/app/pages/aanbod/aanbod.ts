@@ -5,6 +5,7 @@ import { VoorWieHomeComponent } from '../../components/voor-wie-home/voor-wie-ho
 import { FooterComponent } from '../../components/footer/footer';
 import { BOOKING_LINKS } from '../../config/booking-links';
 import { OfferingsService, Offering } from '../../services/offerings.service';
+import { PageButtonsService, PageButtons, DEFAULT_PAGE_BUTTONS } from '../../services/page-buttons.service';
 
 @Component({
   selector: 'app-aanbod',
@@ -20,7 +21,11 @@ import { OfferingsService, Offering } from '../../services/offerings.service';
 })
 export class AanbodComponent implements OnInit {
   private offeringsService = inject(OfferingsService);
+  private pageButtonsService = inject(PageButtonsService);
   readonly bookingLinks = BOOKING_LINKS;
+
+  // Main button of each section; editable by Veerle in the dashboard (tab "Knoppen").
+  buttons = signal<PageButtons>(DEFAULT_PAGE_BUTTONS);
 
   individueleOfferings = signal<Offering[]>([]);
   duosOfferings = signal<Offering[]>([]);
@@ -28,6 +33,7 @@ export class AanbodComponent implements OnInit {
   professionalOfferings = signal<Offering[]>([]);
 
   ngOnInit(): void {
+    this.pageButtonsService.get().subscribe(b => this.buttons.set(b));
     this.offeringsService.getPublishedForAudience('individuen').subscribe({
       next: (data) => this.individueleOfferings.set(data),
       error: () => {},

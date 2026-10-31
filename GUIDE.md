@@ -11,6 +11,10 @@ Alles hieronder doe je zelf, zonder hulp van een ontwikkelaar.
   - **Koppelbegeleiding** – 's avonds
 - **Knop bij een concreet aanbod** (bv. een wandelsessie of workshop): die stel je in via het dashboard (zie punt 2).
 
+## De grote groene knoppen op de pagina Aanbod aanpassen
+
+Dashboard → tabblad **Knoppen**. Per onderdeel (Individuen, Duo's en koppels, Professionals, Organisaties) pas je de **tekst** en de **link** aan. De link mag een Cal.com-link zijn of gewoon een e-mailadres. Klik op **Alles opslaan**: de website past zich meteen aan. Met "Link testen" controleer je of de link werkt, en "Standaard herstellen" zet de oorspronkelijke knop terug.
+
 ## 2. Een nieuw aanbod toevoegen (dashboard → Aanbod)
 
 1. Klik op **+ Nieuw aanbod**.

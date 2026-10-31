@@ -63,7 +63,12 @@ export default async function handler(request, response) {
                     if (!EMAIL_RE.test(String(body.testTo).trim())) return response.status(400).json({ error: 'Ongeldig test-e-mailadres.' });
                     recipients = [String(body.testTo).trim()];
                 } else {
-                    recipients = (await sql`SELECT email FROM newsletter_signups`).map(r => r.email);
+                    // Only the people ticked in the dashboard (or everyone when no selection is sent).
+                    const ids = Array.isArray(body.ids) ? body.ids.map(Number).filter(Number.isInteger) : null;
+                    const rows = ids
+                        ? await sql`SELECT email FROM newsletter_signups WHERE id = ANY(${ids})`
+                        : await sql`SELECT email FROM newsletter_signups`;
+                    recipients = rows.map(r => r.email);
                 }
                 if (!recipients.length) return response.status(400).json({ error: 'Er zijn nog geen inschrijvingen.' });
 
