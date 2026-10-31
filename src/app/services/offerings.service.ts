@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { BOOKING_LINKS } from '../config/booking-links';
+import { CONTACT_EMAIL } from '../config/booking-links';
 
 export type OfferingAudience = 'individuen' | 'organisaties' | 'professionals' | 'duos';
 
@@ -20,17 +20,22 @@ export interface Offering {
 
 type OfferingResponse = Offering & { event_date?: string; contact_link?: string };
 
+function mailtoFor(title?: string, address: string = CONTACT_EMAIL): string {
+    return title ? `mailto:${address}?subject=${encodeURIComponent('Interesse in ' + title)}` : `mailto:${address}`;
+}
+
 function normalizeOffering(row: OfferingResponse): Offering {
     const link = (row.contactLink ?? row.contact_link ?? '').trim();
-    let contactLink = '';
-    if (Object.values(BOOKING_LINKS).some(url => url === link)) contactLink = link;
-    else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(link)) contactLink = `mailto:${link}`;
-    else if (/^(mailto:|tel:)/i.test(link)) contactLink = link;
+    // Standaard (geen of ongeldige link): een e-mail naar Veerle met de titel van het aanbod als onderwerp.
+    let contactLink = mailtoFor(row.title);
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(link)) contactLink = mailtoFor(row.title, link);
+    else if (/^mailto:/i.test(link)) contactLink = link.includes('?') ? link : mailtoFor(row.title, link.slice(7));
+    else if (/^tel:/i.test(link)) contactLink = link;
     else {
         try {
             const url = new URL(link);
-            if (url.protocol === 'https:' && !/(^|\.)cal\.com$/i.test(url.hostname)) contactLink = link;
-        } catch { /* Geen of ongeldige inschrijflink: toon de contactoptie. */ }
+            if (url.protocol === 'https:') contactLink = link;
+        } catch { /* Geen of ongeldige link: val terug op e-mail. */ }
     }
     return { ...row, eventDate: row.eventDate ?? row.event_date ?? '', contactLink };
 }

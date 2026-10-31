@@ -12,11 +12,12 @@ import { SurveysTabComponent }       from './tabs/surveys-tab/surveys-tab.compon
 import { BookingsTabComponent }       from './tabs/bookings-tab/bookings-tab.component';
 import { EmailTemplatesTabComponent } from './tabs/email-templates-tab/email-templates-tab.component';
 import { OfferingsTabComponent }      from './tabs/offerings-tab/offerings-tab.component';
+import { NewsletterTabComponent }     from './tabs/newsletter-tab/newsletter-tab.component';
 
 @Component({
     selector: 'app-dashboard',
     standalone: true,
-    imports: [CommonModule, RouterLink, FormsModule, SurveysTabComponent, BookingsTabComponent, EmailTemplatesTabComponent, OfferingsTabComponent],
+    imports: [CommonModule, RouterLink, FormsModule, SurveysTabComponent, BookingsTabComponent, EmailTemplatesTabComponent, OfferingsTabComponent, NewsletterTabComponent],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -106,7 +107,7 @@ export class DashboardComponent implements OnInit {
     offeringsLoading = signal(false);
 
     // Dashboard Tabs
-    activeTab = signal<'surveys' | 'bookings' | 'email-templates' | 'offerings'>('surveys');
+    activeTab = signal<'surveys' | 'bookings' | 'email-templates' | 'offerings' | 'newsletter'>('surveys');
 
     // UI State
     snackbarMessage = signal<string | null>(null);
@@ -168,13 +169,14 @@ export class DashboardComponent implements OnInit {
     };
 
     ngOnInit(): void {
+        this.authService.renew(); // keep the session alive while the dashboard is in use
         this.loadSurveys();
         // this.loadCalendarSettings();
         // this.loadBookings();
         this.loadEmailTemplates();
     }
 
-    setTab(tab: 'surveys' | 'bookings' | 'email-templates' | 'offerings'): void {
+    setTab(tab: 'surveys' | 'bookings' | 'email-templates' | 'offerings' | 'newsletter'): void {
         this.activeTab.set(tab);
         // tab bookings handled externally
         if (tab === 'email-templates' && this.emailTemplates().length === 0) {

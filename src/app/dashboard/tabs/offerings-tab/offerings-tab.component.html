@@ -12,7 +12,7 @@
                 <p class="et-subtitle">
                     Beheer je concrete aanbod voor Individuen, Duo's en koppels, Organisaties &amp; Groepen en Professionals.
                     Zet "Gepubliceerd" aan zodat een aanbod zichtbaar wordt op de bijhorende aanbod-pagina.
-                    Koppel boekbare sessies rechtstreeks aan het juiste afspraaktype. Laat de Cal.com-link voor open groepsaanbod zonder datum leeg.
+                    Kies per aanbod: inschrijven via e-mail (standaard) of online boeken via Cal.com. Zie GUIDE.md voor uitleg.
                 </p>
             </div>
             <button class="btn-primary" (click)="offeringAdd.emit()">+ Nieuw aanbod</button>
@@ -66,8 +66,18 @@
                 </div>
 
                 <div class="form-group mt-2">
-                    <label class="form-label-sm">Contact / inschrijflink</label>
-                    <input class="form-input" type="text" [(ngModel)]="o.contactLink" placeholder="https://cal.com/talk2/afspraaktype of mailto:veerle@talk2.be" />
+                    <label class="form-label-sm">Hoe schrijft men zich in?</label>
+                    <select class="form-input" [ngModel]="bookingMode(o)" (ngModelChange)="setBookingMode(o, $event)">
+                        <option value="email">Via e-mail naar Veerle (standaard)</option>
+                        <option value="cal">Online boeken via Cal.com</option>
+                    </select>
+                    @if (bookingMode(o) === 'cal') {
+                    <input class="form-input mt-2" type="text" [(ngModel)]="o.contactLink"
+                        placeholder="Plak hier de Cal.com-link, bv. https://cal.com/talk2/naam-van-sessie" />
+                    <p class="et-subtitle">Plak de link van het afspraaktype uit Cal.com (zie GUIDE.md). Geen link? Kies dan "Via e-mail".</p>
+                    } @else {
+                    <p class="et-subtitle">De knop opent een e-mail aan veerle&#64;talk2.be met de titel van dit aanbod al ingevuld.</p>
+                    }
                 </div>
 
                 <div class="form-group mt-2">

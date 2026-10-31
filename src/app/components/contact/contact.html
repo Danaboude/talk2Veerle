@@ -43,21 +43,18 @@
 
           <div class="booking-options">
             <a class="booking-option booking-option--primary" [href]="bookingLinks.firstSession" target="_blank" rel="noopener">
-              <span class="booking-option-title">Boek een eerste gesprek</span>
-              <span class="booking-option-desc">Individuele therapie of coaching · intake van 60 minuten</span>
+              <span class="booking-option-title">Eerste intake 60 minuten</span>
+              <span class="booking-option-desc">Individuele therapie of coaching</span>
+            </a>
+            <a class="booking-option" [href]="bookingLinks.allSessions" target="_blank" rel="noopener">
+              <span class="booking-option-title">Alle andere sessies</span>
+              <span class="booking-option-desc">Duo's, koppels, natuur en vervolgsessies: kies op de agenda</span>
             </a>
           </div>
-          <details class="booking-other">
-            <summary>Een andere sessie boeken</summary>
-            <div class="booking-other-links">
-              <a [href]="bookingLinks.coupleIntake" target="_blank" rel="noopener">Duo's en koppels · intake van 90 minuten</a>
-              <a [href]="bookingLinks.followUp" target="_blank" rel="noopener">Individuele vervolgsessie · 60 minuten</a>
-              <a [href]="bookingLinks.couple90" target="_blank" rel="noopener">Duo's en koppels · vervolgsessie van 90 minuten</a>
-              <a [href]="bookingLinks.nature60" target="_blank" rel="noopener">Therapie of coaching in de natuur · 60 minuten</a>
-              <a [href]="bookingLinks.nature90" target="_blank" rel="noopener">Therapie of coaching in de natuur · 90 minuten</a>
-              <a [href]="bookingLinks.freeDiscoveryCall" target="_blank" rel="noopener">Gratis online kennismaking voor trainingen en groepsbegeleidingen · 30 minuten</a>
-            </div>
-          </details>
+          <p class="booking-direct-note">
+            <strong>Duo-begeleiding</strong> (ouder + kind): overdag, ook in de natuur.<br />
+            <strong>Koppelbegeleiding</strong>: 's avonds.
+          </p>
 
           <p class="booking-direct-note">Online agenda, kies zelf uw moment</p>
         </div>
@@ -71,8 +68,8 @@
         @if (submitted) {
           <div class="form-success">
             <div class="success-icon">✓</div>
-            <h3>Bericht verstuurd</h3>
-            <p>Bedankt voor uw bericht. Ik neem zo snel mogelijk contact met u op.</p>
+            <h3>Uw mailprogramma is geopend</h3>
+            <p>Uw bericht staat klaar. Klik in uw mail-app op verzenden om het naar mij te sturen. Gebeurt er niets? Mail dan rechtstreeks naar veerle&#64;talk2.be.</p>
             <button class="btn-reset" (click)="submitted = false">Nieuw bericht</button>
           </div>
         } @else {
@@ -89,6 +86,7 @@
                   class="form-input"
                   placeholder="Uw naam"
                 />
+                @if (errors.naam) { <p class="form-error">{{ errors.naam }}</p> }
               </div>
               <div class="form-group">
                 <label class="form-label" for="email">E-mail *</label>
@@ -96,11 +94,13 @@
                   id="email"
                   [(ngModel)]="form.email"
                   name="email"
-                  type="email"
-                  required
+                  type="text"
+                  inputmode="email"
+                  autocomplete="email"
                   class="form-input"
                   placeholder="uw&#64;email.be"
                 />
+                @if (errors.email) { <p class="form-error">{{ errors.email }}</p> }
               </div>
             </div>
 
@@ -127,14 +127,11 @@
                 class="form-input form-textarea"
                 placeholder="Schrijf hier uw bericht..."
               ></textarea>
+                @if (errors.bericht) { <p class="form-error">{{ errors.bericht }}</p> }
             </div>
 
-            @if (submitError) {
-              <p class="form-error">Er ging iets mis bij het versturen. Probeer het opnieuw of mail rechtstreeks.</p>
-            }
-
-            <button type="submit" class="btn-submit" [disabled]="submitting">
-              {{ submitting ? 'Bezig met versturen...' : 'Verstuur bericht' }}
+            <button type="submit" class="btn-submit" >
+              Verstuur bericht
             </button>
           </form>
         }

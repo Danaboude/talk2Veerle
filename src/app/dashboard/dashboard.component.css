@@ -1382,3 +1382,17 @@
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ── NIEUWSBRIEF TAB ──────────────────────────────────────── */
+.nl-list-head { display: flex; align-items: center; justify-content: space-between; }
+.nl-list { list-style: none; margin: 12px 0 0; padding: 0; max-height: 460px; overflow-y: auto; }
+.nl-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--color-sage-pale); }
+.nl-item:last-child { border-bottom: none; }
+.nl-item .btn-delete-template { padding: 6px 10px; }
+.nl-email { display: flex; flex-direction: column; font-size: 14px; color: var(--color-sage-darkest); word-break: break-all; }
+.nl-email small { color: var(--color-text-muted); font-size: 11px; margin-top: 2px; }
+.nl-empty { margin-top: 16px; }
+.btn-save-template:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-save-template.nl-confirm { background: #b42318; }
+.nl-toast { position: fixed; top: 20px; right: 20px; z-index: 1000; max-width: 360px; background: var(--color-sage-darkest); color: white; padding: 12px 18px; border-radius: 2px; font-size: 13px; box-shadow: 0 8px 28px rgba(30, 44, 32, 0.25); }
+.nl-toast--error { background: #b42318; }

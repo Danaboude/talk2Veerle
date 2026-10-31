@@ -46,8 +46,8 @@
         ook wanneer er trauma meespeelt.
       </p>
 
-      <a id="cta-individuen" class="aanbod-cta-link" [href]="bookingLinks.firstSession" target="_blank" rel="noopener">
-        Boek een eerste gesprek
+      <a id="cta-individuen" class="aanbod-cta-link" [href]="bookingLinks.allSessions" target="_blank" rel="noopener">
+        Bekijk alle sessies en boek
       </a>
     </div>
 
@@ -89,7 +89,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }
@@ -152,8 +152,8 @@
         neurodivergentie binnen relaties.
       </p>
 
-      <a id="cta-duos" class="aanbod-cta-link" [href]="bookingLinks.coupleIntake" target="_blank" rel="noopener">
-        Boek een eerste gesprek
+      <a id="cta-duos" class="aanbod-cta-link" [href]="bookingLinks.allSessions" target="_blank" rel="noopener">
+        Bekijk alle sessies en boek
       </a>
     </div>
 
@@ -171,7 +171,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }
@@ -246,7 +246,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }
@@ -336,7 +336,7 @@
         @if (o.price) { <span>{{ o.price }}</span> }
       </div>
       @if (o.contactLink) {
-        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Neem contact op' }}</a>
+        <a class="aanbod-offering-action" [href]="o.contactLink" target="_blank" rel="noopener">{{ o.contactLink.includes('cal.com/') ? 'Boek deze sessie' : 'Stuur een e-mail' }}</a>
       } @else {
         <p class="aanbod-offering-intro">Meer informatie? <a href="/contact">Neem contact op</a>.</p>
       }

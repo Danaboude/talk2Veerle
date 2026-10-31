@@ -55,6 +55,14 @@ export class FaqComponent implements OnInit {
    
  
     {
+      question: 'Wat versta je onder verbindende communicatie?',
+      answer: 'Verbindende communicatie is de intentie om noch je eigen gevoelens en behoeften, noch die van de ander geweld aan te doen. Ze nodigt uit om gevoelens en behoeften te erkennen en te aanvaarden, zonder druk op jezelf of de ander te leggen om aanwezige behoeften te vervullen.',
+    },
+    {
+      question: 'In welke taal gaan de sessies door?',
+      answer: 'Ik spreek Nederlands, Frans en Engels.',
+    },
+    {
       question: 'Is er terugbetaling mogelijk?',
       answer: 'Dat hangt af van je mutualiteit. We bekijken dit samen tijdens het eerste gesprek.',
     },

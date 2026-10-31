@@ -2,9 +2,9 @@ const { neon } = require('@neondatabase/serverless');
 const { Resend } = require('resend');
 const { requireAdmin } = require('./_lib/auth');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || 'noreply@talk2.be';
 const NOTIFY_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || 'veerlefollens@hotmail.com';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default async function handler(request, response) {
     response.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,6 +33,9 @@ export default async function handler(request, response) {
             if (!naam || !email || !bericht) {
                 return response.status(400).json({ error: 'Missing required fields' });
             }
+            if (!EMAIL_RE.test(String(email).trim())) {
+                return response.status(400).json({ error: 'Invalid email address' });
+            }
 
             await sql`
                 INSERT INTO contact_submissions (naam, email, telefoon, bericht)
@@ -41,6 +44,8 @@ export default async function handler(request, response) {
 
             // Best-effort notification email to Ive  a failure here shouldn't fail the submission.
             try {
+                // Created here (not at module load) so a missing RESEND_API_KEY can't crash the whole endpoint.
+                const resend = new Resend(process.env.RESEND_API_KEY);
                 await resend.emails.send({
                     from: `Talk2 Contactformulier <${FROM_EMAIL}>`,
                     to: [NOTIFY_EMAIL],

@@ -1,8 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
-import { SurveyService } from '../../services/survey.service';
-import { BOOKING_LINKS } from '../../config/booking-links';
+import { BOOKING_LINKS, CONTACT_EMAIL } from '../../config/booking-links';
 
 interface ContactForm {
   naam: string;
@@ -19,30 +18,30 @@ interface ContactForm {
   styleUrl: './contact.css',
 })
 export class ContactComponent {
-  private surveyService = inject(SurveyService);
-
   readonly bookingLinks = BOOKING_LINKS;
 
   form: ContactForm = { naam: '', email: '', telefoon: '', bericht: '' };
   submitted = false;
-  submitting = false;
-  submitError = false;
+  errors: { naam?: string; email?: string; bericht?: string } = {};
 
   submitForm(): void {
-    if (!this.form.naam || !this.form.email || !this.form.bericht) return;
+    this.form.naam = this.form.naam.trim();
+    this.form.email = this.form.email.trim();
+    this.form.bericht = this.form.bericht.trim();
+    this.errors = {};
+    if (!this.form.naam) this.errors.naam = 'Vul uw naam in.';
+    if (!this.form.email) this.errors.email = 'Vul uw e-mailadres in.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(this.form.email)) this.errors.email = 'Dit e-mailadres lijkt niet te kloppen (bv. naam@voorbeeld.be).';
+    if (!this.form.bericht) this.errors.bericht = 'Schrijf een bericht.';
+    if (this.errors.naam || this.errors.email || this.errors.bericht) return;
 
-    this.submitting = true;
-    this.submitError = false;
-    this.surveyService.submitContact(this.form).subscribe({
-      next: () => {
-        this.submitting = false;
-        this.submitted = true;
-        this.form = { naam: '', email: '', telefoon: '', bericht: '' };
-      },
-      error: () => {
-        this.submitting = false;
-        this.submitError = true;
-      },
-    });
+    // Open the visitor's own mail app (Gmail, Outlook, Mail...) with the message ready to send to Veerle.
+    const body = `Naam: ${this.form.naam}
+E-mail: ${this.form.email}
+Telefoon: ${this.form.telefoon || '-'}
+
+${this.form.bericht}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Bericht van ' + this.form.naam)}&body=${encodeURIComponent(body)}`;
+    this.submitted = true;
   }
 }

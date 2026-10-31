@@ -18,7 +18,7 @@
       target="_blank"
       rel="noopener"
     >
-      Boek een eerste gesprek
+      Eerste intake 60 minuten
     </a>
 
     <a class="ctab-contact" href="/contact">Neem contact op</a>
@@ -27,13 +27,13 @@
       <p class="ctab-newsletter-label">Blijf op de hoogte van nieuwe groepsmomenten en aanbod</p>
 
       @if (newsletterState === 'done') {
-        <p class="ctab-newsletter-done">Bedankt, je bent ingeschreven!</p>
+        <p class="ctab-newsletter-done">{{ alreadySubscribed ? 'Dit e-mailadres staat al op de lijst. Bedankt!' : 'Bedankt, je bent ingeschreven!' }}</p>
       } @else {
         <form class="ctab-newsletter-form" (ngSubmit)="subscribeNewsletter()">
           <input
-            type="email"
+            type="text"
+            inputmode="email"
             name="email"
-            required
             placeholder="jouw@email.be"
             class="ctab-newsletter-input"
             [(ngModel)]="newsletterEmail"
@@ -42,8 +42,11 @@
             Inschrijven
           </button>
         </form>
+        @if (newsletterState === 'invalid') {
+          <p class="ctab-newsletter-error">Vul een geldig e-mailadres in (bv. naam&#64;voorbeeld.be).</p>
+        }
         @if (newsletterState === 'error') {
-          <p class="ctab-newsletter-error">Er ging iets mis, probeer het later opnieuw.</p>
+          <p class="ctab-newsletter-error">Inschrijven lukte niet. Probeer het later opnieuw of mail naar veerle&#64;talk2.be.</p>
         }
       }
     </div>

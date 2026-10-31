@@ -1,0 +1,78 @@
+<div class="dash-full-main">
+    <div class="email-templates-panel">
+        <div class="et-header">
+            <div>
+                <h2 class="et-title">
+                    <svg class="et-title-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Nieuwsbrief
+                </h2>
+                <p class="et-subtitle">
+                    Bezoekers die zich inschrijven via "Blijf op de hoogte" staan rechts.
+                    Schrijf een bericht, stuur eerst een test naar jezelf en verstuur het daarna naar iedereen.
+                </p>
+            </div>
+        </div>
+
+        <div class="et-grid">
+            <div class="et-card">
+                <div class="form-group">
+                    <label class="form-label-sm">Onderwerp</label>
+                    <input class="form-input" type="text" [(ngModel)]="subject" placeholder="bv. Nieuwe wandelsessies in november" />
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Bericht</label>
+                    <textarea class="form-input" rows="10" [(ngModel)]="message"
+                        placeholder="Schrijf hier je bericht. Een lege regel maakt een nieuwe alinea."></textarea>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Test naar (eigen e-mailadres)</label>
+                    <input class="form-input" type="text" inputmode="email" [(ngModel)]="testEmail" placeholder="jouw&#64;email.be" />
+                </div>
+                <div class="et-card-actions">
+                    <button class="btn-save-template" [disabled]="sending()" (click)="send(true)">Verstuur test</button>
+                    <button class="btn-save-template" [class.nl-confirm]="confirmingSend()"
+                        [disabled]="sending() || !subscribers().length" (click)="send(false)">
+                        @if (sending()) { Bezig... }
+                        @else if (confirmingSend()) { Zeker? Klik nogmaals om te versturen }
+                        @else { Verstuur naar iedereen ({{ subscribers().length }}) }
+                    </button>
+                </div>
+            </div>
+
+            <div class="et-card">
+                <div class="nl-list-head">
+                    <span class="form-label-sm">Inschrijvingen</span>
+                    <span class="et-badge">{{ subscribers().length }}</span>
+                </div>
+                <input class="form-input mt-2" type="text" placeholder="Zoek e-mailadres..."
+                    [ngModel]="search()" (ngModelChange)="search.set($event)" />
+                @if (loading()) {
+                <div class="dash-loading"><div class="dash-spinner"></div></div>
+                } @else if (!filtered().length) {
+                <p class="et-subtitle nl-empty">{{ subscribers().length ? 'Geen resultaten.' : 'Nog geen inschrijvingen.' }}</p>
+                } @else {
+                <ul class="nl-list">
+                    @for (s of filtered(); track s.id) {
+                    <li class="nl-item">
+                        <span class="nl-email">{{ s.email }}<small>{{ s.created_at | date:'d MMM y' }}</small></span>
+                        <button class="btn-delete-template" (click)="remove(s)" title="Verwijderen">
+                            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </li>
+                    }
+                </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (toast(); as t) {
+<div class="nl-toast" [class.nl-toast--error]="!t.ok" role="status">{{ t.text }}</div>
+}

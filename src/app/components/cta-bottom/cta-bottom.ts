@@ -16,13 +16,19 @@ export class CtaBottomComponent {
   readonly bookingUrl = BOOKING_LINKS.firstSession;
 
   newsletterEmail = '';
-  newsletterState: 'idle' | 'submitting' | 'done' | 'error' = 'idle';
+  alreadySubscribed = false;
+  newsletterState: 'idle' | 'submitting' | 'done' | 'error' | 'invalid' = 'idle';
 
   subscribeNewsletter(): void {
-    if (!this.newsletterEmail) return;
+    const email = this.newsletterEmail.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      this.newsletterState = 'invalid';
+      return;
+    }
     this.newsletterState = 'submitting';
-    this.surveyService.subscribeNewsletter(this.newsletterEmail).subscribe({
-      next: () => {
+    this.surveyService.subscribeNewsletter(email).subscribe({
+      next: (res: { alreadySubscribed?: boolean }) => {
+        this.alreadySubscribed = !!res?.alreadySubscribed;
         this.newsletterState = 'done';
         this.newsletterEmail = '';
       },
