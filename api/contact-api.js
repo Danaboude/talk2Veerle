@@ -2,7 +2,7 @@ const { neon } = require('@neondatabase/serverless');
 const { Resend } = require('resend');
 const { requireAdmin } = require('./_lib/auth');
 
-const FROM_EMAIL = process.env.FROM_EMAIL || 'noreply@talk2.be';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'noreply@mail.talk2.be';
 const NOTIFY_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || 'veerlefollens@hotmail.com';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
