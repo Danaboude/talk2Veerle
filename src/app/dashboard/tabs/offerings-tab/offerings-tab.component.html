@@ -12,7 +12,7 @@
                 <p class="et-subtitle">
                     Beheer je concrete aanbod voor Individuen, Duo's en koppels, Organisaties &amp; Groepen en Professionals.
                     Zet "Gepubliceerd" aan zodat een aanbod zichtbaar wordt op de bijhorende aanbod-pagina.
-                    Kies per aanbod: inschrijven via e-mail (standaard) of online boeken via Cal.com. Zie GUIDE.md voor uitleg.
+                    Kies per aanbod: inschrijven via e-mail (standaard) of online boeken via Cal.com. Zie  voor uitleg.
                 </p>
             </div>
             <button class="btn-primary" (click)="offeringAdd.emit()">+ Nieuw aanbod</button>
@@ -74,7 +74,7 @@
                     @if (bookingMode(o) === 'cal') {
                     <input class="form-input mt-2" type="text" [(ngModel)]="o.contactLink"
                         placeholder="Plak hier de Cal.com-link, bv. https://cal.com/talk2/naam-van-sessie" />
-                    <p class="et-subtitle">Plak de link van het afspraaktype uit Cal.com (zie GUIDE.md). Geen link? Kies dan "Via e-mail".</p>
+                    <p class="et-subtitle">Plak de link van het afspraaktype uit Cal.com (zie ). Geen link? Kies dan "Via e-mail".</p>
                     } @else {
                     <p class="et-subtitle">De knop opent een e-mail aan veerle&#64;talk2.be met de titel van dit aanbod al ingevuld.</p>
                     }

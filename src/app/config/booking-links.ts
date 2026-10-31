@@ -1,5 +1,5 @@
 // Enkel de individuele intake heeft een eigen link; alle andere sessies lopen via de centrale
-// Cal.com-pagina https://cal.com/talk2, waar cliënten zelf hun sessietype kiezen. Zie GUIDE.md voor een nieuw aanbod toevoegen.
+// Cal.com-pagina https://cal.com/talk2, waar cliënten zelf hun sessietype kiezen. Zie  voor een nieuw aanbod toevoegen.
 const CAL_BASE = 'https://cal.com/talk2';
 
 // Het e-mailadres voor alle "Neem contact op"-knoppen.
