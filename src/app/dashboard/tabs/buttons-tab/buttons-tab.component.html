@@ -10,7 +10,7 @@
                     Knoppen
                 </h2>
                 <p class="et-subtitle">
-                    De grote groene knop onderaan elk onderdeel van de pagina Aanbod. Pas de tekst en de link aan en klik op Opslaan:
+                    De boekingsknoppen op de pagina's Aanbod (onderaan elk onderdeel) en Contact (de twee knoppen bij Direct inplannen). Pas de tekst en de link aan en klik op Opslaan:
                     de website past zich meteen aan. De link mag een Cal.com-link zijn (https://cal.com/talk2/…)
                     of gewoon een e-mailadres (veerle&#64;talk2.be). Zie GUIDE.md voor uitleg.
                 </p>
@@ -27,13 +27,19 @@
             @for (s of sections; track s.key) {
             <div class="et-card">
                 <div class="nl-list-head">
-                    <span class="form-label-sm">{{ s.title }}</span>
+                    <span class="form-label-sm">{{ s.page }}: {{ s.title }}</span>
                     <button class="btn-link-reset" type="button" (click)="reset(s.key)">Standaard herstellen</button>
                 </div>
                 <div class="form-group mt-2">
                     <label class="form-label-sm">Tekst op de knop</label>
                     <input class="form-input" type="text" [(ngModel)]="buttons[s.key].label" />
                 </div>
+                @if (s.hasDesc) {
+                <div class="form-group mt-2">
+                    <label class="form-label-sm">Kleine tekst onder de knop</label>
+                    <input class="form-input" type="text" [(ngModel)]="buttons[s.key].desc" />
+                </div>
+                }
                 <div class="form-group mt-2">
                     <label class="form-label-sm">Link (Cal.com of e-mailadres)</label>
                     <input class="form-input" type="text" [(ngModel)]="buttons[s.key].url" placeholder="https://cal.com/talk2/..." />

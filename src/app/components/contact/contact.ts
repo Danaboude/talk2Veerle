@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ScrollAnimateDirective } from '../../directives/scroll-animate.directive';
-import { BOOKING_LINKS, CONTACT_EMAIL } from '../../config/booking-links';
+import { CONTACT_EMAIL } from '../../config/booking-links';
+import { PageButtonsService, PageButtons, DEFAULT_PAGE_BUTTONS } from '../../services/page-buttons.service';
 
 interface ContactForm {
   naam: string;
@@ -17,8 +18,15 @@ interface ContactForm {
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
-export class ContactComponent {
-  readonly bookingLinks = BOOKING_LINKS;
+export class ContactComponent implements OnInit {
+  private pageButtonsService = inject(PageButtonsService);
+
+  // The two booking buttons; editable by Veerle in the dashboard (tab "Knoppen").
+  buttons = signal<PageButtons>(DEFAULT_PAGE_BUTTONS);
+
+  ngOnInit(): void {
+    this.pageButtonsService.get().subscribe(b => this.buttons.set(b));
+  }
 
   form: ContactForm = { naam: '', email: '', telefoon: '', bericht: '' };
   submitted = false;

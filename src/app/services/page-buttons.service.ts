@@ -3,12 +3,13 @@ import { Observable, catchError, map, of } from 'rxjs';
 import { BOOKING_LINKS } from '../config/booking-links';
 import { SiteContentService } from './site-content.service';
 
-// The main green button of each section on the Aanbod page. Veerle edits these in the dashboard (tab "Knoppen").
-export type PageButtonKey = 'individuen' | 'duos' | 'professionals' | 'organisaties';
+// The booking buttons on the Aanbod page (one per section) and the Contact page (two). Veerle edits these in the dashboard (tab "Knoppen").
+export type PageButtonKey = 'individuen' | 'duos' | 'professionals' | 'organisaties' | 'contactIntake' | 'contactOther';
 
 export interface PageButton {
     label: string;
     url: string;
+    desc?: string; // small line under the label (only used on the Contact page)
 }
 
 export type PageButtons = Record<PageButtonKey, PageButton>;
@@ -21,13 +22,17 @@ export const DEFAULT_PAGE_BUTTONS: PageButtons = {
     duos: { label: 'Plan een eerste gesprek', url: BOOKING_LINKS.allSessions },
     professionals: { label: 'Boek een kennismakingsgesprek', url: BOOKING_LINKS.freeDiscoveryCall },
     organisaties: { label: 'Boek een kennismakingsgesprek', url: BOOKING_LINKS.freeDiscoveryCall },
+    contactIntake: { label: 'Eerste intake 60 minuten', url: BOOKING_LINKS.firstSession, desc: 'Individuele therapie of coaching' },
+    contactOther: { label: 'Alle andere sessies', url: BOOKING_LINKS.allSessions, desc: "Duo's, koppels, natuur en vervolgsessies: kies op de agenda" },
 };
 
-export const PAGE_BUTTON_SECTIONS: { key: PageButtonKey; title: string }[] = [
-    { key: 'individuen', title: 'Individuen' },
-    { key: 'duos', title: "Duo's en koppels" },
-    { key: 'professionals', title: 'Professionals' },
-    { key: 'organisaties', title: 'Organisaties & Groepen' },
+export const PAGE_BUTTON_SECTIONS: { key: PageButtonKey; title: string; page: string; hasDesc?: boolean }[] = [
+    { key: 'individuen', title: 'Individuen', page: 'Pagina Aanbod' },
+    { key: 'duos', title: "Duo's en koppels", page: 'Pagina Aanbod' },
+    { key: 'professionals', title: 'Professionals', page: 'Pagina Aanbod' },
+    { key: 'organisaties', title: 'Organisaties & Groepen', page: 'Pagina Aanbod' },
+    { key: 'contactIntake', title: 'Eerste knop', page: 'Pagina Contact', hasDesc: true },
+    { key: 'contactOther', title: 'Tweede knop', page: 'Pagina Contact', hasDesc: true },
 ];
 
 /**
@@ -65,7 +70,12 @@ export class PageButtonsService {
         for (const { key } of PAGE_BUTTON_SECTIONS) {
             const label = saved[key]?.label?.trim();
             const url = normalizeButtonUrl(saved[key]?.url ?? '');
-            result[key] = { label: label || DEFAULT_PAGE_BUTTONS[key].label, url: url || DEFAULT_PAGE_BUTTONS[key].url };
+            const desc = saved[key]?.desc;
+            result[key] = {
+                label: label || DEFAULT_PAGE_BUTTONS[key].label,
+                url: url || DEFAULT_PAGE_BUTTONS[key].url,
+                desc: typeof desc === 'string' ? desc.trim() : DEFAULT_PAGE_BUTTONS[key].desc,
+            };
         }
         return result;
     }

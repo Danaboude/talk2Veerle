@@ -42,13 +42,13 @@
           <p class="booking-direct-label">Direct inplannen</p>
 
           <div class="booking-options">
-            <a class="booking-option booking-option--primary" [href]="bookingLinks.firstSession" target="_blank" rel="noopener">
-              <span class="booking-option-title">Eerste intake 60 minuten</span>
-              <span class="booking-option-desc">Individuele therapie of coaching</span>
+            <a class="booking-option booking-option--primary" [href]="buttons().contactIntake.url" target="_blank" rel="noopener">
+              <span class="booking-option-title">{{ buttons().contactIntake.label }}</span>
+              <span class="booking-option-desc">{{ buttons().contactIntake.desc }}</span>
             </a>
-            <a class="booking-option" [href]="bookingLinks.allSessions" target="_blank" rel="noopener">
-              <span class="booking-option-title">Alle andere sessies</span>
-              <span class="booking-option-desc">Duo's, koppels, natuur en vervolgsessies: kies op de agenda</span>
+            <a class="booking-option" [href]="buttons().contactOther.url" target="_blank" rel="noopener">
+              <span class="booking-option-title">{{ buttons().contactOther.label }}</span>
+              <span class="booking-option-desc">{{ buttons().contactOther.desc }}</span>
             </a>
           </div>
           <p class="booking-direct-note">
