@@ -1498,3 +1498,9 @@
 .nl-status--sent { color: var(--color-sage); }
 .nl-status--pending { color: #b54708; }
 .nl-status--failed { color: #b42318; }
+
+.nl-mymails { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--color-sage-pale); }
+.nl-mymails select { flex: 1; min-width: 180px; max-width: 100%; }
+.nl-mymails .nl-chip { padding: 9px 12px; }
+.nl-savestate { font-size: 11px; color: var(--color-text-muted); flex-basis: 100%; }
+.nl-range input[type=range] { width: 100%; accent-color: var(--color-sage-darkest); }

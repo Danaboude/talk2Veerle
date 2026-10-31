@@ -24,8 +24,8 @@ export interface Theme {
 export type Block =
     | { id: string; type: 'heading'; text: string; align: Align; size: 'm' | 'l' }
     | { id: string; type: 'text'; text: string; align: Align }
-    | { id: string; type: 'image'; src: string; alt: string; caption: string; link: string; width: 'full' | 'large' | 'medium' | 'small'; shape: Shape; shadow: boolean; border: boolean; align: Align }
-    | { id: string; type: 'imagetext'; src: string; alt: string; heading: string; text: string; side: 'left' | 'right'; shape: Shape; shadow: boolean; border: boolean }
+    | { id: string; type: 'image'; src: string; alt: string; caption: string; link: string; widthPct: number; heightPx: number; width?: string; shape: Shape; shadow: boolean; border: boolean; align: Align }
+    | { id: string; type: 'imagetext'; src: string; alt: string; heading: string; text: string; side: 'left' | 'right'; size: number; shape: Shape; shadow: boolean; border: boolean }
     | { id: string; type: 'button'; label: string; url: string; align: Align; shape: Shape }
     | { id: string; type: 'quote'; text: string; author: string }
     | { id: string; type: 'divider' }
@@ -59,8 +59,8 @@ export function newBlock(type: Block['type']): Block {
     switch (type) {
         case 'heading': return { id, type, text: 'Nieuwe titel', align: 'left', size: 'm' };
         case 'text': return { id, type, text: 'Schrijf hier je tekst. Een lege regel maakt een nieuwe alinea.', align: 'left' };
-        case 'image': return { id, type, src: '', alt: '', caption: '', link: '', width: 'full', shape: 'rounded', shadow: false, border: false, align: 'center' };
-        case 'imagetext': return { id, type, src: '', alt: '', heading: 'Titel', text: 'Korte tekst naast de foto.', side: 'left', shape: 'circle', shadow: true, border: false };
+        case 'image': return { id, type, src: '', alt: '', caption: '', link: '', widthPct: 100, heightPx: 0, shape: 'rounded', shadow: false, border: false, align: 'center' };
+        case 'imagetext': return { id, type, src: '', alt: '', heading: 'Titel', text: 'Korte tekst naast de foto.', side: 'left', size: 160, shape: 'circle', shadow: true, border: false };
         case 'button': return { id, type, label: 'Lees meer', url: 'https://', align: 'center', shape: 'rounded' };
         case 'quote': return { id, type, text: 'Een mooie quote of ervaring.', author: '' };
         case 'divider': return { id, type };
@@ -149,9 +149,10 @@ export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?
             case 'image': {
                 const src = safeUrl(b.src, origin);
                 if (!src) return opts.preview ? `<tr><td style="padding:0 36px 16px;"><div style="border:2px dashed ${line};padding:28px;text-align:center;color:${muted};font:14px ${body};">Kies een afbeelding</div></td></tr>` : '';
-                const px = Math.round(CONTENT_W * WIDTHS[b.width]);
-                const circle = b.shape === 'circle';
-                const dims = circle ? `width="${px}" height="${px}" style="${imgStyle(b.shape, b.shadow, b.border, c.accent)};width:${px}px;height:${px}px;object-fit:cover;max-width:100%;"`
+                const pct = b.widthPct ?? Math.round((WIDTHS[b.width as keyof typeof WIDTHS] ?? 1) * 100);
+                const px = Math.max(40, Math.round(CONTENT_W * pct / 100));
+                const h = b.heightPx > 0 ? b.heightPx : (b.shape === 'circle' ? px : 0);
+                const dims = h ? `width="${px}" height="${h}" style="${imgStyle(b.shape, b.shadow, b.border, c.accent)};width:100%;max-width:${px}px;height:${h}px;object-fit:cover;"`
                     : `width="${px}" style="${imgStyle(b.shape, b.shadow, b.border, c.accent)};width:100%;max-width:${px}px;height:auto;"`;
                 let img = `<img src="${esc(src)}" alt="${esc(b.alt)}" ${dims}>`;
                 const link = safeUrl(b.link, origin);
@@ -162,7 +163,7 @@ export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?
             }
             case 'imagetext': {
                 const src = safeUrl(b.src, origin);
-                const px = 160;
+                const px = Math.max(60, Math.min(300, b.size || 160));
                 const pic = src
                     ? `<img src="${esc(src)}" alt="${esc(b.alt)}" width="${px}" height="${px}" style="${imgStyle(b.shape, b.shadow, b.border, c.accent)};width:${px}px;height:${px}px;object-fit:cover;">`
                     : `<div style="width:${px}px;height:${px}px;border:2px dashed ${line};border-radius:${radiusOf(b.shape)};color:${muted};font:13px ${body};text-align:center;line-height:${px}px;">Foto</div>`;
@@ -252,4 +253,16 @@ export function prepareImage(file: File, square: boolean): Promise<string> {
         img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Afbeelding kan niet gelezen worden.')); };
         img.src = url;
     });
+}
+
+// Older saved mails miss newer fields; fill them in so the editor sliders work.
+export function fixDoc(doc: NewsletterDoc): NewsletterDoc {
+    for (const b of doc.blocks) {
+        if (b.type === 'image') {
+            if (b.widthPct == null) b.widthPct = Math.round((WIDTHS[b.width as keyof typeof WIDTHS] ?? 1) * 100);
+            if (b.heightPx == null) b.heightPx = 0;
+        }
+        if (b.type === 'imagetext' && !b.size) b.size = 160;
+    }
+    return doc;
 }

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, computed, effect, inject, sig
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { Block, NewsletterDoc, THEMES, Theme, newBlock, newDoc, prepareImage, renderHtml, renderText } from './newsletter-render';
+import { Block, NewsletterDoc, THEMES, Theme, newBlock, fixDoc, newDoc, prepareImage, renderHtml, renderText } from './newsletter-render';
 
 interface Subscriber { id: number; email: string; created_at: string; sent_count: number; last_sent_at: string | null; }
 interface Campaign { id: number; subject: string; status: 'draft' | 'sent'; created_at: string; updated_at: string; sent_at: string | null; sent: number; pending: number; failed: number; }
@@ -101,9 +101,11 @@ export class NewsletterTabComponent implements OnInit {
         if (d.scrollingElement) d.scrollingElement.scrollTop = top;
     }
 
-    changed(): void {
+    // `save` is false for programmatic changes (loading an old mail) so they don't create drafts by themselves.
+    changed(save = true): void {
         this.rev.update(n => n + 1);
         this.confirmingSend.set(false);
+        if (save && this.resumeId() === null) this.scheduleAutosave();
         try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ doc: this.doc, draftId: this.draftId })); } catch { /* storage may be blocked */ }
     }
 
@@ -112,8 +114,42 @@ export class NewsletterTabComponent implements OnInit {
             const raw = localStorage.getItem(DRAFT_KEY);
             if (!raw) return;
             const saved = JSON.parse(raw);
-            if (saved?.doc?.blocks && saved?.doc?.theme) { this.doc = { ...newDoc(), ...saved.doc }; this.draftId = saved.draftId ?? null; }
+            if (saved?.doc?.blocks && saved?.doc?.theme) { this.doc = fixDoc({ ...newDoc(), ...saved.doc }); this.draftId = saved.draftId ?? null; }
         } catch { /* ignore a broken copy */ }
+    }
+
+    // Every mail with a subject is saved as a draft a moment after you stop typing.
+    saveState = signal<'idle' | 'saving' | 'saved'>('idle');
+    private autosaveTimer?: ReturnType<typeof setTimeout>;
+
+    private scheduleAutosave(): void {
+        clearTimeout(this.autosaveTimer);
+        if (!this.doc.subject.trim()) return;
+        this.saveState.set('idle');
+        this.autosaveTimer = setTimeout(() => this.autosave(), 1800);
+    }
+
+    private autosave(): void {
+        if (this.resumeId() !== null || !this.doc.subject.trim()) return;
+        this.saveState.set('saving');
+        this.http.post<{ id: number }>(this.url, { action: 'saveDraft', id: this.draftId, subject: this.doc.subject, doc: this.doc }).subscribe({
+            next: res => { this.draftId = res.id; this.saveState.set('saved'); this.refreshCampaigns(); },
+            error: () => { this.draftId = null; this.saveState.set('idle'); },
+        });
+    }
+
+    private refreshCampaigns(): void {
+        this.http.get<{ campaigns: Campaign[]; quota: Quota }>(this.url).subscribe({
+            next: res => { this.campaigns.set(res.campaigns); this.quota.set(res.quota); },
+        });
+    }
+
+    // Opens an earlier mail from the "Mijn mails" list.
+    openFromList(event: Event): void {
+        const select = event.target as HTMLSelectElement;
+        const c = this.campaigns().find(x => x.id === Number(select.value));
+        select.value = '';
+        if (c) this.reuse(c);
     }
 
     ngAfterViewInit(): void { setTimeout(() => this.paint(this.previewHtml())); }
@@ -237,22 +273,24 @@ export class NewsletterTabComponent implements OnInit {
     saveDraft(): void {
         this.savingDraft.set(true);
         this.http.post<{ id: number }>(this.url, { action: 'saveDraft', id: this.draftId, subject: this.doc.subject, doc: this.doc }).subscribe({
-            next: res => { this.draftId = res.id; this.savingDraft.set(false); this.changed(); this.notify(true, 'Concept opgeslagen.'); this.load(); },
+            next: res => { this.draftId = res.id; this.savingDraft.set(false); this.saveState.set('saved'); this.changed(false); this.notify(true, 'Concept opgeslagen.'); this.load(); },
             error: err => { this.savingDraft.set(false); this.notify(false, this.errText(err, 'Opslaan mislukt.')); },
         });
     }
 
     newMail(): void {
-        if (!confirm('Een nieuwe lege mail beginnen? Wat je nu schrijft gaat verloren als het niet is opgeslagen.')) return;
+        if (!this.draftId && this.doc.subject.trim() && !confirm('Een nieuwe lege mail beginnen? Wat je nu schrijft is nog niet opgeslagen.')) return;
+        clearTimeout(this.autosaveTimer);
         this.doc = newDoc();
         this.draftId = null;
         this.resumeId.set(null);
-        this.changed();
+        this.saveState.set('idle');
+        this.changed(false);
     }
 
     private loadCampaign(c: Campaign, then: (doc: NewsletterDoc, deliveries: Delivery[]) => void): void {
         this.http.get<{ campaign: { doc: NewsletterDoc; subject: string }; deliveries: Delivery[] }>(this.url, { params: { campaign: c.id } }).subscribe({
-            next: res => then({ ...newDoc(), ...res.campaign.doc, subject: res.campaign.subject }, res.deliveries),
+            next: res => then(fixDoc({ ...newDoc(), ...res.campaign.doc, subject: res.campaign.subject }), res.deliveries),
             error: () => this.notify(false, 'Mail laden mislukt.'),
         });
     }
@@ -261,9 +299,11 @@ export class NewsletterTabComponent implements OnInit {
     reuse(c: Campaign): void {
         this.loadCampaign(c, doc => {
             this.doc = doc;
+            clearTimeout(this.autosaveTimer);
             this.draftId = c.status === 'draft' ? c.id : null;
             this.resumeId.set(null);
-            this.changed();
+            this.saveState.set(c.status === 'draft' ? 'saved' : 'idle');
+            this.changed(false);
             this.notify(true, c.status === 'draft' ? 'Concept geladen.' : 'Mail geladen. Pas aan en verstuur opnieuw.');
             document.querySelector('.nl-editor')?.scrollIntoView({ behavior: 'smooth' });
         });
@@ -278,13 +318,14 @@ export class NewsletterTabComponent implements OnInit {
             this.resumeId.set(c.id);
             this.resumeSubject.set(c.subject);
             this.selected.set(new Set(this.subscribers().filter(s => !got.has(s.email)).map(s => s.id)));
-            this.changed();
+            clearTimeout(this.autosaveTimer);
+            this.changed(false);
             this.notify(true, `${this.selected().size} mensen hebben deze mail nog niet gekregen en zijn aangevinkt.`);
             document.querySelector('.nl-editor')?.scrollIntoView({ behavior: 'smooth' });
         });
     }
 
-    editAsNew(): void { this.resumeId.set(null); this.draftId = null; this.changed(); }
+    editAsNew(): void { this.resumeId.set(null); this.draftId = null; this.saveState.set('idle'); this.changed(); }
 
     deleteDraft(c: Campaign): void {
         if (!confirm('Dit concept verwijderen?')) return;
@@ -340,7 +381,7 @@ export class NewsletterTabComponent implements OnInit {
         this.sending.set(false);
         if (res.quota) this.quota.set(res.quota);
         if (test) { this.notify(true, `Testmail verstuurd naar ${testTo}.`); return; }
-        if (res.campaignId) { this.draftId = null; this.resumeId.set(null); this.changed(); }
+        if (res.campaignId) { clearTimeout(this.autosaveTimer); this.draftId = null; this.resumeId.set(null); this.saveState.set('idle'); this.changed(false); }
         const parts = [`${res.sent} verstuurd`];
         if (res.queued) parts.push(`${res.queued} wachten tot morgen`);
         if (res.failed) parts.push(`${res.failed} mislukt${res.error ? ` (${res.error})` : ''}`);

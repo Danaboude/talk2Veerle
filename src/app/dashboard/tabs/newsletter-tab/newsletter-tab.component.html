@@ -40,6 +40,22 @@
         <div class="nl-editor">
             <!-- ================= EDITOR ================= -->
             <div class="et-card nl-editor-col" (input)="changed()" (change)="changed()">
+                <div class="nl-mymails">
+                    <button type="button" class="nl-chip primary" (click)="newMail()">+ Nieuwe mail</button>
+                    <select class="form-input" (change)="openFromList($event)" aria-label="Open een eerdere mail">
+                        <option value="">Open een eerdere mail ({{ campaigns().length }})</option>
+                        @for (c of campaigns(); track c.id) {
+                        <option [value]="c.id">{{ c.status === 'draft' ? 'Concept' : 'Verstuurd' }}: {{ c.subject || '(geen onderwerp)' }}</option>
+                        }
+                    </select>
+                    <span class="nl-savestate">
+                        @switch (saveState()) {
+                            @case ('saving') { Opslaan... }
+                            @case ('saved') { Automatisch opgeslagen }
+                            @default { {{ resumeId() ? '' : 'Wordt opgeslagen zodra je een onderwerp hebt' }} }
+                        }
+                    </span>
+                </div>
                 <fieldset class="nl-fieldset" [disabled]="resumeId() !== null">
                     <div class="form-group">
                         <label class="form-label-sm">Onderwerp</label>
@@ -125,9 +141,15 @@
                             <input class="form-input" type="text" [(ngModel)]="b.link" placeholder="Link bij klikken (optioneel, https://...)" />
                             <div class="nl-row">
                                 <label>Vorm <select class="form-input" [(ngModel)]="b.shape"><option value="square">Recht</option><option value="rounded">Afgerond</option><option value="circle">Cirkel</option></select></label>
-                                <label>Breedte <select class="form-input" [(ngModel)]="b.width"><option value="full">Volledig</option><option value="large">Groot</option><option value="medium">Middel</option><option value="small">Klein</option></select></label>
                                 <label>Positie <select class="form-input" [(ngModel)]="b.align"><option value="left">Links</option><option value="center">Midden</option><option value="right">Rechts</option></select></label>
                             </div>
+                            <div class="nl-row">
+                                <label class="nl-range">Breedte: {{ b.widthPct }}% <input type="range" min="10" max="100" step="5" [(ngModel)]="b.widthPct" /></label>
+                                <label class="nl-range">Hoogte: {{ b.heightPx ? b.heightPx + 'px' : 'automatisch' }}
+                                    <input type="range" min="0" max="600" step="10" [(ngModel)]="b.heightPx" />
+                                </label>
+                            </div>
+                            <p class="nl-hint">Hoogte op "automatisch" (links) houdt de foto in verhouding. Een vaste hoogte snijdt de foto bij zodat hij het vak vult.</p>
                             <div class="nl-row nl-checks">
                                 <label><input type="checkbox" [(ngModel)]="b.shadow" /> Schaduw</label>
                                 <label><input type="checkbox" [(ngModel)]="b.border" /> Rand in accentkleur</label>
@@ -148,6 +170,7 @@
                                 <label>Vorm <select class="form-input" [(ngModel)]="b.shape"><option value="square">Recht</option><option value="rounded">Afgerond</option><option value="circle">Cirkel</option></select></label>
                                 <label>Foto staat <select class="form-input" [(ngModel)]="b.side"><option value="left">Links</option><option value="right">Rechts</option></select></label>
                             </div>
+                            <label class="nl-range">Grootte van de foto: {{ b.size }}px <input type="range" min="80" max="300" step="10" [(ngModel)]="b.size" /></label>
                             <div class="nl-row nl-checks">
                                 <label><input type="checkbox" [(ngModel)]="b.shadow" /> Schaduw</label>
                                 <label><input type="checkbox" [(ngModel)]="b.border" /> Rand in accentkleur</label>
