@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 import { adminGuard } from './guards/admin.guard';
+import { SEO } from './seo/seo-pages';
 
 export const routes: Routes = [
     {
         path: '',
+        data: { seo: SEO.HOME },
         pathMatch: 'full',
         loadComponent: () => import('./pages/home/home').then(m => m.HomeComponent),
     },
@@ -27,18 +29,22 @@ export const routes: Routes = [
     },
     {
         path: 'aanbod',
+        data: { seo: SEO.AANBOD },
         loadComponent: () => import('./pages/aanbod/aanbod').then(m => m.AanbodComponent),
     },
     {
         path: 'aanpak',
+        data: { seo: SEO.AANPAK },
         loadComponent: () => import('./pages/aanpak/aanpak').then(m => m.AanpakComponent),
     },
     {
         path: 'over-mij',
+        data: { seo: SEO.OVER_MIJ },
         loadComponent: () => import('./pages/over-mij/over-mij').then(m => m.OverMijComponent),
     },
     {
         path: 'contact',
+        data: { seo: SEO.CONTACT },
         loadComponent: () => import('./pages/contact/contact-page').then(m => m.ContactPageComponent),
     },
     {

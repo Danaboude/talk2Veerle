@@ -1,8 +1,9 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from './components/header/header';
+import { SeoService } from './seo/seo.service';
 
 /** Routes where the public website header should NOT appear */
 const HEADER_HIDDEN_PREFIXES = ['/login', '/survey', '/dashboard', '/create'];
@@ -16,6 +17,7 @@ const HEADER_HIDDEN_PREFIXES = ['/login', '/survey', '/dashboard', '/create'];
 })
 export class App implements OnInit {
   private router = inject(Router);
+  private seo = inject(SeoService);
   showHeader = signal(true);
 
   ngOnInit(): void {
@@ -25,7 +27,15 @@ export class App implements OnInit {
     // Update on every navigation
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((e: NavigationEnd) => this.updateHeader(e.urlAfterRedirects));
+      .subscribe((e: NavigationEnd) => {
+        this.updateHeader(e.urlAfterRedirects);
+        this.seo.apply(this.deepest(this.router.routerState.snapshot.root).data['seo'], e.urlAfterRedirects);
+      });
+  }
+
+  private deepest(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
+    while (route.firstChild) route = route.firstChild;
+    return route;
   }
 
   private updateHeader(url: string): void {

@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     if (!req.url.startsWith('/api/')) return next(req);
 
+    if (typeof localStorage === 'undefined') return next(req); // server-side prerender has no storage
     const token = localStorage.getItem('talk2_admin_token');
     if (!token) return next(req);
 

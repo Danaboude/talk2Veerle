@@ -22,6 +22,7 @@ export class AuthService {
     // A token only counts if it exists AND has not expired (the old check ignored expiry,
     // so an expired session looked logged-in and every API call silently failed with 401).
     private hasToken(): boolean {
+        if (typeof localStorage === 'undefined') return false; // server-side prerender has no storage
         const token = localStorage.getItem('talk2_admin_token');
         if (!token) return false;
         try {

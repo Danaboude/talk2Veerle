@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, OnDestroy, signal, inject } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnDestroy {
   mobileOpenDropdown = signal<string | null>(null);
 
   private router = inject(Router);
+  private doc = inject(DOCUMENT);
   readonly bookingUrl = BOOKING_LINKS.firstSession;
 
   private routerSub: Subscription = this.router.events.subscribe((event) => {
@@ -107,7 +109,7 @@ export class HeaderComponent implements OnDestroy {
   }
 
   private setBodyScrollLock(locked: boolean): void {
-    document.body.style.overflow = locked ? 'hidden' : '';
+    this.doc.body.style.overflow = locked ? 'hidden' : '';
   }
 
   toggleMobileDropdown(id: string): void {

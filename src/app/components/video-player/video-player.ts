@@ -108,6 +108,7 @@ export class VideoPlayerComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     clearTimeout(this.hideTimer);
-    cancelAnimationFrame(this.rafId!);
+    // No animation frames exist on the server (prerender), so only cancel when one was started.
+    if (this.rafId !== undefined) cancelAnimationFrame(this.rafId);
   }
 }
