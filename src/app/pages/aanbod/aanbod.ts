@@ -24,6 +24,9 @@ export class AanbodComponent implements OnInit {
   private pageButtonsService = inject(PageButtonsService);
   readonly bookingLinks = BOOKING_LINKS;
 
+  // Websites open in a new tab; mail and phone links must not (it leaves a blank tab when no mail app is set up).
+  newTab(url: string): '_blank' | null { return /^https?:/i.test(url) ? '_blank' : null; }
+
   // Main button of each section; editable by Veerle in the dashboard (tab "Knoppen").
   buttons = signal<PageButtons>(DEFAULT_PAGE_BUTTONS);
 

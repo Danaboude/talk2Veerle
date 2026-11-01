@@ -40,7 +40,7 @@ export const PAGE_BUTTON_SECTIONS: { key: PageButtonKey; title: string; page: st
  * a https link stays as is, an e-mail address becomes a mailto: link, anything else is rejected (null).
  */
 export function normalizeButtonUrl(input: string): string | null {
-    const value = (input ?? '').trim();
+    const value = (input ?? '').trim().replace(/^(mailto:\s*)+/i, 'mailto:');
     if (/^https:\/\/\S+$/i.test(value)) return value;
     if (/^mailto:[^\s@]+@[^\s@]+\.[^\s@]{2,}/i.test(value)) return value;
     if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return `mailto:${value}`;

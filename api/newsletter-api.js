@@ -57,6 +57,13 @@ async function ensureTables(sql) {
             sent_at TIMESTAMPTZ
         )
     `;
+    await sql`
+        CREATE TABLE IF NOT EXISTS newsletter_settings (
+            key TEXT PRIMARY KEY,
+            value JSONB NOT NULL DEFAULT '{}'::jsonb,
+            updated_at TIMESTAMPTZ DEFAULT now()
+        )
+    `;
     await sql`CREATE UNIQUE INDEX IF NOT EXISTS newsletter_deliveries_campaign_email ON newsletter_deliveries (campaign_id, email) WHERE campaign_id IS NOT NULL`;
     await sql`CREATE INDEX IF NOT EXISTS newsletter_deliveries_sent_at ON newsletter_deliveries (sent_at) WHERE status = 'sent'`;
     tablesReady = true;
@@ -168,6 +175,25 @@ export default async function handler(request, response) {
             // ---- Admin actions -------------------------------------------------
             if (body?.action) {
                 if (!requireAdmin(request, response)) return;
+
+                // Footer shown under every newsletter (null = go back to the built-in default).
+                if (body.action === 'saveFooter') {
+                    if (body.footer === null) {
+                        await sql`DELETE FROM newsletter_settings WHERE key = 'footer'`;
+                        return response.status(200).json({ footer: null });
+                    }
+                    const clean = (v, max) => String(v ?? '').slice(0, max);
+                    const footer = {
+                        text: clean(body.footer?.text, 500),
+                        email: clean(body.footer?.email, 200),
+                        phone: clean(body.footer?.phone, 60),
+                        address: clean(body.footer?.address, 300),
+                    };
+                    await sql`
+                        INSERT INTO newsletter_settings (key, value) VALUES ('footer', ${JSON.stringify(footer)}::jsonb)
+                        ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()`;
+                    return response.status(200).json({ footer });
+                }
 
                 if (body.action === 'saveDraft') {
                     const subject = String(body.subject || '').trim();
@@ -315,7 +341,8 @@ export default async function handler(request, response) {
                 FROM newsletter_campaigns c
                 LEFT JOIN newsletter_deliveries d ON d.campaign_id = c.id
                 GROUP BY c.id ORDER BY c.updated_at DESC LIMIT 100`;
-            return response.status(200).json({ subscribers, campaigns, quota: await getQuota(sql) });
+            const [footerRow] = await sql`SELECT value FROM newsletter_settings WHERE key = 'footer'`;
+            return response.status(200).json({ subscribers, campaigns, quota: await getQuota(sql), footer: footerRow?.value ?? null });
         }
 
         if (request.method === 'DELETE') {

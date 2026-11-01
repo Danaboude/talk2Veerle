@@ -41,6 +41,17 @@ describe('OfferingsService booking links', () => {
         ]);
     });
 
+    it('never builds a double mailto: link when the saved link already starts with mailto:', () => {
+        service.getPublishedForAudience('individuen').subscribe(rows => {
+            expect(rows[0].contactLink).toBe('mailto:veerle@talk2.be?subject=Interesse%20in%20Groene%20Gesprekken');
+            expect(rows[1].contactLink).toBe('mailto:veerle@talk2.be?subject=Interesse%20in%20Groene%20Gesprekken');
+        });
+        http.expectOne('/api/offerings-api?audience=individuen&published=true').flush([
+            { id: 'a', title: 'Groene Gesprekken', contact_link: 'mailto:veerle@talk2.be' },
+            { id: 'b', title: 'Groene Gesprekken', contact_link: 'mailto:mailto:veerle@talk2.be' },
+        ]);
+    });
+
     it('preserves database fields when an admin loads and saves an offer', () => {
         service.getAll().subscribe(rows => service.save(rows[0]).subscribe());
         http.expectOne('/api/offerings-api').flush([

@@ -42,11 +42,11 @@
           <p class="booking-direct-label">Direct inplannen</p>
 
           <div class="booking-options">
-            <a class="booking-option booking-option--primary" [href]="buttons().contactIntake.url" target="_blank" rel="noopener">
+            <a class="booking-option booking-option--primary" [href]="buttons().contactIntake.url" [attr.target]="newTab(buttons().contactIntake.url)" rel="noopener">
               <span class="booking-option-title">{{ buttons().contactIntake.label }}</span>
               <span class="booking-option-desc">{{ buttons().contactIntake.desc }}</span>
             </a>
-            <a class="booking-option" [href]="buttons().contactOther.url" target="_blank" rel="noopener">
+            <a class="booking-option" [href]="buttons().contactOther.url" [attr.target]="newTab(buttons().contactOther.url)" rel="noopener">
               <span class="booking-option-title">{{ buttons().contactOther.label }}</span>
               <span class="booking-option-desc">{{ buttons().contactOther.desc }}</span>
             </a>

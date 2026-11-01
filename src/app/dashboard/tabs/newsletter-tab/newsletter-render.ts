@@ -39,6 +39,16 @@ export interface NewsletterDoc {
     blocks: Block[];
 }
 
+// Shared footer: one setting used under every mail (saved in the dashboard, not per mail).
+export interface Footer { text: string; email: string; phone: string; address: string; }
+
+export const DEFAULT_FOOTER: Footer = {
+    text: 'Je ontvangt deze mail omdat je je inschreef voor nieuws van Talk2.',
+    email: 'veerle@talk2.be',
+    phone: '+32 473 564 186',
+    address: 'Frans Blocklaan 14, 2620 Hemiksem',
+};
+
 export const THEMES: Theme[] = [
     { id: 'klassiek', label: 'Klassiek', font: 'serif', header: 'band', radius: 0,
       colors: { outer: '#f7f3ec', card: '#fefdfb', header: '#1e3520', accent: '#4a7550', text: '#33473a' } },
@@ -126,7 +136,7 @@ function imgStyle(shape: Shape, shadow: boolean, border: boolean, accent: string
 
 // ---------------------------------------------------------------- HTML
 
-export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?: boolean } = {}): string {
+export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?: boolean; footer?: Footer } = {}): string {
     const origin = opts.origin ?? '';
     const t = doc.theme;
     const c = t.colors;
@@ -164,6 +174,7 @@ export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?
             case 'imagetext': {
                 const src = safeUrl(b.src, origin);
                 const px = Math.max(60, Math.min(300, b.size || 160));
+                if (!src && !opts.preview) return `<tr><td style="padding:0 36px 20px;font-family:${body};font-size:16px;line-height:1.7;color:${c.text};">${b.heading ? `<p style="margin:0 0 8px;font-family:${font};font-size:22px;">${esc(b.heading)}</p>` : ''}<p style="margin:0;">${nl2br(b.text)}</p></td></tr>`;
                 const pic = src
                     ? `<img src="${esc(src)}" alt="${esc(b.alt)}" width="${px}" height="${px}" style="${imgStyle(b.shape, b.shadow, b.border, c.accent)};width:${px}px;height:${px}px;object-fit:cover;">`
                     : `<div style="width:${px}px;height:${px}px;border:2px dashed ${line};border-radius:${radiusOf(b.shape)};color:${muted};font:13px ${body};text-align:center;line-height:${px}px;">Foto</div>`;
@@ -187,6 +198,13 @@ export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?
     }).join('');
 
     const brand = esc(doc.brand);
+    const f = opts.footer ?? DEFAULT_FOOTER;
+    const contact = [
+        f.email.trim() && `<a href="mailto:${esc(f.email.trim())}" style="color:${muted};text-decoration:none;">${esc(f.email.trim())}</a>`,
+        f.phone.trim() && `<a href="tel:${esc(f.phone.replace(/[^+\d]/g, ''))}" style="color:${muted};text-decoration:none;">${esc(f.phone.trim())}</a>`,
+        f.address.trim() && esc(f.address.trim()),
+    ].filter(Boolean);
+    const footerLines = (f.text.trim() ? `${nl2br(f.text.trim())}<br>` : '') + (contact.length ? `${contact.join('<br>')}<br>` : '');
     const header = t.header === 'band'
         ? `<tr><td style="background:${c.header};padding:26px 36px;border-radius:${t.radius}px ${t.radius}px 0 0;"><p style="margin:0;font-family:${font};font-size:24px;color:${headerText};">${brand}</p></td></tr>`
         : t.header === 'center'
@@ -203,13 +221,13 @@ export function renderHtml(doc: NewsletterDoc, opts: { origin?: string; preview?
 ${header}
 <tr><td style="height:${t.header === 'none' ? 36 : 28}px;line-height:1px;font-size:1px;">&nbsp;</td></tr>
 ${blocks}
-<tr><td style="padding:14px 36px 28px;"><div style="border-top:1px solid ${line};padding-top:16px;font-family:${body};font-size:12px;line-height:1.6;color:${muted};text-align:center;">Je ontvangt deze mail omdat je je inschreef voor nieuws van ${brand}.<br><a href="${opts.preview ? '#' : '{{unsubscribe_url}}'}" style="color:${muted};">Uitschrijven</a></div></td></tr>
+<tr><td style="padding:14px 36px 28px;"><div style="border-top:1px solid ${line};padding-top:16px;font-family:${body};font-size:12px;line-height:1.7;color:${muted};text-align:center;">${footerLines}<a href="${opts.preview ? '#' : '{{unsubscribe_url}}'}" style="color:${muted};">Uitschrijven</a></div></td></tr>
 </table></td></tr></table></body></html>`;
 }
 
 // ---------------------------------------------------------------- plain text
 
-export function renderText(doc: NewsletterDoc, origin = ''): string {
+export function renderText(doc: NewsletterDoc, origin = '', footer: Footer = DEFAULT_FOOTER): string {
     const parts = doc.blocks.map(b => {
         switch (b.type) {
             case 'heading': return b.text.toUpperCase();
@@ -221,7 +239,8 @@ export function renderText(doc: NewsletterDoc, origin = ''): string {
             default: return '';
         }
     }).filter(Boolean);
-    return `${parts.join('\n\n')}\n\n--\nUitschrijven: {{unsubscribe_url}}`;
+    const foot = [footer.text.trim(), footer.email.trim(), footer.phone.trim(), footer.address.trim()].filter(Boolean);
+    return `${parts.join('\n\n')}\n\n--\n${foot.length ? foot.join('\n') + '\n' : ''}Uitschrijven: {{unsubscribe_url}}`;
 }
 
 // ---------------------------------------------------------------- images

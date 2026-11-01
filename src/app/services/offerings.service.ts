@@ -25,11 +25,12 @@ function mailtoFor(title?: string, address: string = CONTACT_EMAIL): string {
 }
 
 function normalizeOffering(row: OfferingResponse): Offering {
-    const link = (row.contactLink ?? row.contact_link ?? '').trim();
+    // "mailto:mailto:x" (typo or double prefix) is treated as "mailto:x".
+    const link = (row.contactLink ?? row.contact_link ?? '').trim().replace(/^(mailto:\s*)+/i, 'mailto:');
     // Standaard (geen of ongeldige link): een e-mail naar Veerle met de titel van het aanbod als onderwerp.
     let contactLink = mailtoFor(row.title);
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(link)) contactLink = mailtoFor(row.title, link);
-    else if (/^mailto:/i.test(link)) contactLink = link.includes('?') ? link : mailtoFor(row.title, link.slice(7));
+    if (/^mailto:/i.test(link)) contactLink = link.includes('?') ? link : mailtoFor(row.title, link.slice(7).trim());
+    else if (/^[^\s@:]+@[^\s@]+\.[^\s@]+$/.test(link)) contactLink = mailtoFor(row.title, link);
     else if (/^tel:/i.test(link)) contactLink = link;
     else {
         try {

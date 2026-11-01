@@ -1504,3 +1504,5 @@
 .nl-mymails .nl-chip { padding: 9px 12px; }
 .nl-savestate { font-size: 11px; color: var(--color-text-muted); flex-basis: 100%; }
 .nl-range input[type=range] { width: 100%; accent-color: var(--color-sage-darkest); }
+
+.nl-footer { margin-top: 8px; padding-top: 4px; border-top: 1px solid var(--color-sage-pale); }

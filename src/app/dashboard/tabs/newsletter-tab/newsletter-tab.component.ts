@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, computed, effect, inject, sig
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { Block, NewsletterDoc, THEMES, Theme, newBlock, fixDoc, newDoc, prepareImage, renderHtml, renderText } from './newsletter-render';
+import { Block, DEFAULT_FOOTER, Footer, NewsletterDoc, THEMES, Theme, newBlock, fixDoc, newDoc, prepareImage, renderHtml, renderText } from './newsletter-render';
 
 interface Subscriber { id: number; email: string; created_at: string; sent_count: number; last_sent_at: string | null; }
 interface Campaign { id: number; subject: string; status: 'draft' | 'sent'; created_at: string; updated_at: string; sent_at: string | null; sent: number; pending: number; failed: number; }
@@ -54,7 +54,12 @@ export class NewsletterTabComponent implements OnInit {
     resumeSubject = signal('');
     private rev = signal(0);
     previewMode = signal<'desktop' | 'mobile'>('desktop');
-    previewHtml = computed(() => { this.rev(); return renderHtml(this.doc, { preview: true }); });
+    // Footer used under every mail. `footerSaved` is what is stored; the form edits `footer` and shows live in the preview.
+    footer: Footer = { ...DEFAULT_FOOTER };
+    private footerSaved = signal<Footer>({ ...DEFAULT_FOOTER });
+    footerDirty = computed(() => { this.rev(); return JSON.stringify(this.footer) !== JSON.stringify(this.footerSaved()); });
+    savingFooter = signal(false);
+    previewHtml = computed(() => { this.rev(); return renderHtml(this.doc, { preview: true, footer: this.footer }); });
     @ViewChild('frame') frame?: ElementRef<HTMLIFrameElement>;
 
     testEmail = '';
@@ -165,8 +170,9 @@ export class NewsletterTabComponent implements OnInit {
     // ------------------------------------------------------------ loading
     load(first = false): void {
         this.loading.set(true);
-        this.http.get<{ subscribers: Subscriber[]; campaigns: Campaign[]; quota: Quota }>(this.url).subscribe({
+        this.http.get<{ subscribers: Subscriber[]; campaigns: Campaign[]; quota: Quota; footer: Footer | null }>(this.url).subscribe({
             next: res => {
+                if (first || !this.footerDirty()) this.applyFooter(res.footer);
                 this.subscribers.set(res.subscribers);
                 this.campaigns.set(res.campaigns);
                 this.quota.set(res.quota);
@@ -179,6 +185,33 @@ export class NewsletterTabComponent implements OnInit {
                 this.loading.set(false);
                 this.notify(false, 'Gegevens laden mislukt. Log opnieuw in als dit blijft gebeuren.');
             },
+        });
+    }
+
+    // ------------------------------------------------------------ footer
+    private applyFooter(saved: Footer | null): void {
+        const f = { ...DEFAULT_FOOTER, ...(saved ?? {}) };
+        this.footer = { ...f };
+        this.footerSaved.set({ ...f });
+        this.rev.update(n => n + 1);
+    }
+
+    footerChanged(): void { this.rev.update(n => n + 1); }
+
+    saveFooter(): void {
+        this.savingFooter.set(true);
+        this.http.post<{ footer: Footer }>(this.url, { action: 'saveFooter', footer: this.footer }).subscribe({
+            next: res => { this.savingFooter.set(false); this.applyFooter(res.footer); this.notify(true, 'Voettekst opgeslagen. Hij staat nu onder al je nieuwe mails.'); },
+            error: err => { this.savingFooter.set(false); this.notify(false, this.errText(err, 'Opslaan mislukt.')); },
+        });
+    }
+
+    resetFooter(): void {
+        if (!confirm('De voettekst terugzetten naar de standaard (Talk2, e-mail, telefoon en adres)?')) return;
+        this.savingFooter.set(true);
+        this.http.post(this.url, { action: 'saveFooter', footer: null }).subscribe({
+            next: () => { this.savingFooter.set(false); this.applyFooter(null); this.notify(true, 'Standaard voettekst teruggezet.'); },
+            error: err => { this.savingFooter.set(false); this.notify(false, this.errText(err, 'Terugzetten mislukt.')); },
         });
     }
 
@@ -267,7 +300,7 @@ export class NewsletterTabComponent implements OnInit {
 
     // ------------------------------------------------------------ drafts, history
     private payload() {
-        return { subject: this.doc.subject.trim(), doc: this.doc, html: renderHtml(this.doc, { origin: this.origin }), text: renderText(this.doc, this.origin) };
+        return { subject: this.doc.subject.trim(), doc: this.doc, html: renderHtml(this.doc, { origin: this.origin, footer: this.footer }), text: renderText(this.doc, this.origin, this.footer) };
     }
 
     saveDraft(): void {

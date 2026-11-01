@@ -210,6 +210,30 @@
                     </div>
                 </fieldset>
 
+                <!-- Footer: one setting for every mail -->
+                <div class="nl-footer" (input)="$event.stopPropagation(); footerChanged()">
+                    <label class="form-label-sm nl-section">Voettekst onder alle mails</label>
+                    <p class="nl-hint">Staat onder elke nieuwsbrief, in alle stijlen. De uitschrijflink blijft er altijd onder staan. Al verstuurde mails veranderen niet.</p>
+                    <div class="form-group mt-2">
+                        <label class="form-label-sm">Tekst</label>
+                        <textarea class="form-input" rows="2" [(ngModel)]="footer.text" name="nl-footer-text"></textarea>
+                    </div>
+                    <div class="nl-row mt-2">
+                        <label>E-mail <input class="form-input" type="text" name="nl-footer-email" autocomplete="off" [(ngModel)]="footer.email" /></label>
+                        <label>Telefoon <input class="form-input" type="text" name="nl-footer-phone" autocomplete="off" [(ngModel)]="footer.phone" /></label>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="form-label-sm">Adres</label>
+                        <input class="form-input" type="text" name="nl-footer-address" autocomplete="off" [(ngModel)]="footer.address" />
+                    </div>
+                    <div class="et-card-actions">
+                        <button type="button" class="nl-btn-ghost" [disabled]="savingFooter()" (click)="resetFooter()">Standaard herstellen</button>
+                        <button type="button" class="btn-save-template" [disabled]="savingFooter() || !footerDirty()" (click)="saveFooter()">
+                            {{ savingFooter() ? 'Opslaan...' : (footerDirty() ? 'Voettekst opslaan' : 'Voettekst opgeslagen') }}
+                        </button>
+                    </div>
+                </div>
+
                 <div class="form-group mt-2">
                     <label class="form-label-sm">Test naar (eigen e-mailadres, telt mee voor de daglimiet)</label>
                     <input class="form-input" type="text" inputmode="email" name="nl-test" autocomplete="off" [(ngModel)]="testEmail" placeholder="jouw&#64;email.be" />

@@ -24,6 +24,9 @@ export class ContactComponent implements OnInit {
   // The two booking buttons; editable by Veerle in the dashboard (tab "Knoppen").
   buttons = signal<PageButtons>(DEFAULT_PAGE_BUTTONS);
 
+  // Websites open in a new tab; mail and phone links must not (leaves a blank tab when no mail app is set up).
+  newTab(url: string): '_blank' | null { return /^https?:/i.test(url) ? '_blank' : null; }
+
   ngOnInit(): void {
     this.pageButtonsService.get().subscribe(b => this.buttons.set(b));
   }
