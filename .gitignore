@@ -43,3 +43,7 @@ __screenshots__/
 Thumbs.db
 .vercel
 .env*.local
+
+# Skill copies created by the skills installer (the source of truth is .agents/skills)
+/agent/
+/.claude/skills/
