@@ -141,8 +141,9 @@ export class VisitorsComponent {
 
     // Leaflet touches `window`, so it is only loaded in the browser, after the view exists.
     private async initMap(): Promise<void> {
-        this.leaflet = await import('leaflet');
-        const L = this.leaflet;
+        // Leaflet is CommonJS: depending on the build, its API sits on the module or on `.default`.
+        const module = (await import('leaflet')) as unknown as typeof Leaflet & { default?: typeof Leaflet };
+        const L = (this.leaflet = module.default ?? module);
 
         this.map = L.map('visitors-map', { center: [50.85, 4.35], zoom: 4, zoomControl: false });
         L.control.zoom({ position: 'bottomright' }).addTo(this.map);
