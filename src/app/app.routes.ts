@@ -53,6 +53,11 @@ export const routes: Routes = [
         loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
     },
     {
+        path: 'dashboard/bezoekers',
+        canActivate: [adminGuard],
+        loadComponent: () => import('./dashboard/visitors/visitors.component').then(m => m.VisitorsComponent),
+    },
+    {
         path: ':id', // Catch-all for survey IDs (e.g. survey.p41.be/some-id)
         loadComponent: () => import('./survey/survey.component').then(m => m.SurveyComponent),
     },

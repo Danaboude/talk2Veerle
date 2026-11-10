@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from './components/header/header';
 import { SeoService } from './seo/seo.service';
+import { VisitorTrackerService } from './services/visitor-tracker.service';
 
 /** Routes where the public website header should NOT appear */
 const HEADER_HIDDEN_PREFIXES = ['/login', '/survey', '/dashboard', '/create'];
@@ -18,9 +19,12 @@ const HEADER_HIDDEN_PREFIXES = ['/login', '/survey', '/dashboard', '/create'];
 export class App implements OnInit {
   private router = inject(Router);
   private seo = inject(SeoService);
+  private tracker = inject(VisitorTrackerService);
   showHeader = signal(true);
 
   ngOnInit(): void {
+    this.tracker.start();
+
     // Set initial state (handles hard refresh on a non-home route)
     this.updateHeader(this.router.url);
 

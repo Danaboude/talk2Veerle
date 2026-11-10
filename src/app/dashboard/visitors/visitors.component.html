@@ -1,0 +1,136 @@
+<div class="vis-root">
+
+    <!-- NAV -->
+    <nav class="vis-nav">
+        <div class="vis-nav-left">
+            <a routerLink="/dashboard" class="vis-back">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Dashboard
+            </a>
+            <h1 class="vis-title">Bezoekers</h1>
+        </div>
+        <div class="vis-nav-right">
+            <select class="vis-select" aria-label="Filter op dag" [ngModel]="dayFilter()" (ngModelChange)="dayFilter.set($event)">
+                <option value="all">Alle dagen</option>
+                @for (day of days(); track day) {
+                <option [value]="day">{{ day | date: 'd MMM yyyy' }}</option>
+                }
+            </select>
+            <button class="vis-btn" (click)="load()" [disabled]="loading()">Vernieuwen</button>
+            <button class="vis-btn vis-btn--danger" (click)="clearAll()" [disabled]="!rows().length">Alles wissen</button>
+            <button class="vis-btn vis-btn--danger" (click)="logout()">Uitloggen</button>
+        </div>
+    </nav>
+
+    <!-- STATS -->
+    <div class="vis-stats">
+        <div class="vis-stat"><span class="vis-stat-value">{{ stats().visits }}</span><span class="vis-stat-label">Bezoeken</span></div>
+        <div class="vis-stat"><span class="vis-stat-value">{{ stats().returning }}</span><span class="vis-stat-label">Terugkerend</span></div>
+        <div class="vis-stat"><span class="vis-stat-value">{{ stats().averageTime }}</span><span class="vis-stat-label">Gemiddelde tijd</span></div>
+        <div class="vis-stat"><span class="vis-stat-value vis-stat-value--text">{{ stats().topPage }}</span><span class="vis-stat-label">Meest bekeken pagina</span></div>
+    </div>
+
+    <div class="vis-body">
+
+        <!-- LIST -->
+        <aside class="vis-list">
+            @if (loading()) {
+            <p class="vis-empty">Bezoekers laden...</p>
+            } @else if (loadFailed()) {
+            <p class="vis-empty">Laden mislukt. <button class="vis-link" (click)="load()">Probeer opnieuw</button></p>
+            } @else if (!filtered().length) {
+            <p class="vis-empty">Nog geen bezoeken geregistreerd.</p>
+            }
+
+            @for (row of filtered(); track row.id) {
+            <button class="vis-card" [class.vis-card--active]="row.id === selectedId()" (click)="select(row, true)">
+                <span class="vis-card-top">
+                    <span class="vis-dot" [class.vis-dot--long]="row.totalDurationSeconds > 30"></span>
+                    <span class="vis-card-name">{{ row.name }}</span>
+                </span>
+                <span class="vis-card-meta">
+                    {{ row.deviceType }} · {{ row.location?.city || row.location?.country || 'Onbekende plaats' }}
+                    · {{ row.lastVisit | date: 'd MMM, HH:mm' }}
+                </span>
+                <span class="vis-card-meta">
+                    {{ row.pagesViewed.length }} {{ row.pagesViewed.length === 1 ? 'pagina' : "pagina's" }}
+                    · {{ formatDuration(row.totalDurationSeconds) }}
+                    @if (row.isReturning) { <span class="vis-badge">Terugkerend ({{ row.activeDays }} dagen)</span> }
+                </span>
+            </button>
+            }
+        </aside>
+
+        <!-- MAP -->
+        <div class="vis-map-wrap">
+            <div id="visitors-map" class="vis-map"></div>
+        </div>
+
+        <!-- DETAILS -->
+        @if (selected(); as v) {
+        <section class="vis-details" aria-label="Details van het bezoek">
+            <header class="vis-details-head">
+                <div>
+                    <h2>{{ v.name }}</h2>
+                    <p>{{ v.ip }}</p>
+                </div>
+                <div class="vis-details-actions">
+                    <button class="vis-icon-btn vis-icon-btn--danger" (click)="delete(v)" aria-label="Bezoek verwijderen">Verwijderen</button>
+                    <button class="vis-icon-btn" (click)="closeDetails()" aria-label="Sluiten">✕</button>
+                </div>
+            </header>
+
+            <div class="vis-details-body">
+                <dl class="vis-facts">
+                    <dt>Plaats</dt><dd>{{ v.location?.city || '-' }}{{ v.location?.country ? ', ' + v.location?.country : '' }}</dd>
+                    <dt>Apparaat</dt><dd>{{ v.deviceType }}</dd>
+                    <dt>Eerste bezoek</dt><dd>{{ v.firstVisit | date: 'd MMM yyyy, HH:mm' }}</dd>
+                    <dt>Laatste activiteit</dt><dd>{{ v.lastVisit | date: 'd MMM yyyy, HH:mm' }}</dd>
+                    <dt>Totale tijd</dt><dd>{{ formatDuration(v.totalDurationSeconds) }}</dd>
+                    @if (v.location?.company?.domain; as domain) {
+                    <dt>Website</dt><dd>{{ domain }}</dd>
+                    }
+                    <dt>Netwerk</dt><dd>{{ v.location?.asn?.name || '-' }}{{ v.location?.asn?.type ? ' (' + v.location?.asn?.type + ')' : '' }}</dd>
+                    @if (v.isReturning) {
+                    <dt>Terugkerend</dt><dd>{{ v.activeDays }} verschillende dagen</dd>
+                    }
+                </dl>
+
+                @if (v.location?.privacy; as p) {
+                @if (p.is_vpn || p.is_proxy || p.is_tor || p.is_hosting || p.is_abuser) {
+                <div class="vis-flags">
+                    @if (p.is_vpn) { <span class="vis-flag">VPN</span> }
+                    @if (p.is_proxy) { <span class="vis-flag">Proxy</span> }
+                    @if (p.is_tor) { <span class="vis-flag">Tor</span> }
+                    @if (p.is_hosting) { <span class="vis-flag">Datacenter</span> }
+                    @if (p.is_abuser) { <span class="vis-flag vis-flag--bad">Bekende misbruiker</span> }
+                </div>
+                }
+                }
+
+                <h3 class="vis-section">Bekeken pagina's</h3>
+                @if (!v.pagesViewed.length) {
+                <p class="vis-empty">Geen pagina's geregistreerd.</p>
+                }
+                <ol class="vis-journey">
+                    @for (p of v.pagesViewed; track p.url) {
+                    <li class="vis-step">
+                        <span class="vis-step-path" [title]="p.url">{{ pageLabel(p.url) }}</span>
+                        <span class="vis-step-meta">
+                            <span>{{ p.visits }}× bekeken · {{ p.firstVisit | date: 'HH:mm' }}</span>
+                            <strong>{{ formatDuration(p.duration) }}</strong>
+                        </span>
+                    </li>
+                    }
+                </ol>
+            </div>
+        </section>
+        }
+    </div>
+</div>
+
+@if (toast(); as message) {
+<div class="vis-toast" role="status">{{ message }}</div>
+}

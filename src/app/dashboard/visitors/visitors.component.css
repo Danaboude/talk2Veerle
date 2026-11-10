@@ -1,0 +1,311 @@
+@import 'leaflet/dist/leaflet.css';
+
+/* ============================================================
+   BEZOEKERS  (Talk2 brand tokens from styles.css)
+   Every class is prefixed "vis-" because encapsulation is off.
+============================================================ */
+
+app-visitors {
+    display: block;
+    height: 100vh;
+    font-family: var(--font-sans);
+}
+
+.vis-root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--color-cream);
+    color: var(--color-text);
+}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+.vis-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 24px;
+    background: var(--color-warm-white);
+    border-bottom: 1px solid var(--color-sage-pale);
+    flex-shrink: 0;
+}
+
+.vis-nav-left, .vis-nav-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+.vis-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+}
+.vis-back:hover { color: var(--color-sage-darkest); }
+
+.vis-title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--color-sage-darkest);
+}
+
+.vis-select, .vis-btn {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border: 1px solid var(--color-sage-pale);
+    border-radius: 2px;
+    background: white;
+    color: var(--color-sage-darkest);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.vis-select:hover, .vis-btn:hover:not(:disabled) { border-color: var(--color-sage-darkest); }
+.vis-btn:disabled { opacity: 0.5; cursor: default; }
+.vis-btn--danger { color: #dc2626; }
+.vis-btn--danger:hover:not(:disabled) { border-color: #dc2626; }
+
+/* ── STATS ────────────────────────────────────────────────── */
+.vis-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--color-sage-pale);
+    border-bottom: 1px solid var(--color-sage-pale);
+    flex-shrink: 0;
+}
+
+.vis-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 24px;
+    background: var(--color-warm-white);
+    min-width: 0;
+}
+
+.vis-stat-value {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    line-height: 1.1;
+    color: var(--color-sage-darkest);
+}
+.vis-stat-value--text { font-size: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.vis-stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+/* ── BODY ─────────────────────────────────────────────────── */
+.vis-body {
+    position: relative;
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.vis-list {
+    width: 360px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding: 14px;
+    background: var(--color-warm-white);
+    border-right: 1px solid var(--color-sage-pale);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vis-empty { margin: 24px 0; text-align: center; font-size: 13px; color: var(--color-text-muted); }
+
+.vis-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: var(--color-sage);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.vis-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    padding: 12px 14px;
+    text-align: left;
+    font-family: var(--font-sans);
+    background: white;
+    border: 1px solid var(--color-sage-pale);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.vis-card:hover { border-color: var(--color-sage-mid); }
+.vis-card--active { border-color: var(--color-sage); background: var(--color-sage-mist); }
+
+.vis-card-top { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.vis-card-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-sage-darkest);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.vis-card-meta { font-size: 11px; color: var(--color-text-muted); }
+
+.vis-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: #e0b84a; }
+.vis-dot--long { background: var(--color-sage-mid); }
+
+.vis-badge {
+    margin-left: 6px;
+    padding: 1px 7px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--color-sage-pale);
+    color: var(--color-sage-darkest);
+}
+
+/* ── MAP ──────────────────────────────────────────────────── */
+.vis-map-wrap { flex: 1; min-width: 0; position: relative; background: var(--color-cream-dark); }
+.vis-map { position: absolute; inset: 0; }
+
+.vis-pin {
+    display: block;
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: var(--color-sage);
+    border: 3px solid white;
+    box-shadow: 0 0 0 1px var(--color-sage-dark), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.vis-pin--active { background: #e0a526; transform: scale(1.3); }
+
+/* ── DETAILS ──────────────────────────────────────────────── */
+.vis-details {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000; /* above Leaflet's panes */
+    width: 400px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-warm-white);
+    border-left: 1px solid var(--color-sage-pale);
+    box-shadow: -8px 0 24px rgba(30, 53, 32, 0.08);
+}
+
+.vis-details-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--color-sage-darkest);
+    color: white;
+}
+.vis-details-head h2 { margin: 0; font-family: var(--font-heading); font-size: 22px; font-weight: 400; }
+.vis-details-head p { margin: 2px 0 0; font-size: 11px; opacity: 0.7; }
+.vis-details-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.vis-icon-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 2px;
+    padding: 6px 10px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+.vis-icon-btn:hover { background: rgba(255, 255, 255, 0.24); }
+.vis-icon-btn--danger:hover { background: #dc2626; }
+
+.vis-details-body { flex: 1; overflow-y: auto; padding: 20px; }
+
+.vis-facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    margin: 0 0 16px;
+    font-size: 13px;
+}
+.vis-facts dt { color: var(--color-text-muted); }
+.vis-facts dd { margin: 0; text-align: right; font-weight: 600; color: var(--color-sage-darkest); overflow-wrap: anywhere; }
+
+.vis-flags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.vis-flag {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    background: #fef3c7;
+    color: #92400e;
+}
+.vis-flag--bad { background: #fee2e2; color: #991b1b; }
+
+.vis-section {
+    margin: 8px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--color-sage-pale);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.vis-journey { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.vis-step {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+    background: white;
+    border: 1px solid var(--color-sage-pale);
+    border-radius: 2px;
+}
+.vis-step-path { font-size: 13px; font-weight: 600; color: var(--color-sage-darkest); overflow-wrap: anywhere; }
+.vis-step-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--color-text-muted); }
+.vis-step-meta strong { color: var(--color-sage-darkest); }
+
+/* ── TOAST ────────────────────────────────────────────────── */
+.vis-toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 2000;
+    padding: 12px 18px;
+    border-radius: 2px;
+    background: var(--color-sage-darkest);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media (max-width: 860px) {
+    .vis-nav { padding: 10px 16px; }
+    .vis-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .vis-stat { padding: 10px 16px; }
+    .vis-body { flex-direction: column-reverse; }
+    .vis-list { width: auto; height: 45%; border-right: none; border-top: 1px solid var(--color-sage-pale); }
+    .vis-map-wrap { flex: 1; }
+    .vis-details { width: 100%; }
+}
